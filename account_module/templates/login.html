@@ -19,21 +19,16 @@
                             </svg>
 
                             <h2 class="mr-3">ورود</h2>
-
-
                         </div>        
                     <div class="card p-5">
-                    <form class="contact-form">
-
-                               
+                    <form class="contact-form" method="post">
+                        {% csrf_token %}
                         <div class="form-row">
                             <div class="form-group col-12">
-                                <input type="email" class="form-control mb-2" placeholder="پست الکترونیکی">
-
+                                <input type="text" name="username" class="form-control mb-2" placeholder="پست الکترونیکی">
                             </div>
                             <div class="form-group col-12">
-                                <input type="password" class="form-control mb-2" placeholder="رمز عبور">
-
+                                <input type="password" name="password" class="form-control mb-2" placeholder="رمز عبور">
                             </div>
                             <div class="form-group col-md-6 d-flex justify-content-start align-items-center">
                                 <button type="submit" class="btn btn-lightorng login-btn">ورود</button>
@@ -43,10 +38,6 @@
                                  <a href="{% url "account:forget-password" %}" class="register-btn py-3 radius55">بازیابی کلمه عبور</a>
                             </div>
                         </div>
-                               
-
-                               
-
                     </form>
                 </div>
                 </div>        
