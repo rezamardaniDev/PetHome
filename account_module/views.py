@@ -8,10 +8,6 @@ from .forms import RegisterForm
 from .models import User
 
 
-class LoginView(TemplateView):
-    template_name = "login.html"
-
-
 class RegisterView(TemplateView):
     def get(self, request):
         form = RegisterForm()
@@ -59,6 +55,14 @@ class ActivateAccountView(View):
             else:
                 HttpResponse("حساب کاربری شما فعال هست")
         raise Http404
+
+
+class LoginView(View):
+    def get(self, request):
+        ...
+
+    def post(self, request):
+        ...
 
 
 class ForgetPasswordView(TemplateView):
