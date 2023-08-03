@@ -6,6 +6,7 @@ from django.views import View
 from django.views.generic import TemplateView
 from .forms import RegisterForm, LoginForm
 from .models import User
+from django.contrib.auth import login, logout
 
 
 class RegisterView(TemplateView):
@@ -65,7 +66,25 @@ class LoginView(View):
         })
 
     def post(self, request):
-        ...
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            user: User = User.objects.filter(email__iexact=form.cleaned_data.get('email')).first()
+            if user is not None:
+                if not user.is_active:
+                    LoginForm.add_error('email', 'حساب کاربری شما فعال نشده است')
+                else:
+                    is_password_correct = user.check_password(form.cleaned_data.get('password'))
+                    if is_password_correct:
+                        login(request, user)
+                        return redirect(reverse("home:main"))
+                    else:
+                        LoginForm.add_error('email', 'ایمیل یا پسورد اشتباه است')
+            else:
+                LoginForm.add_error('email', 'لطفا ابتدا ثبت نام کنید')
+
+        return render(request, 'login.html', context={
+            'form': form,
+        })
 
 
 class ForgetPasswordView(TemplateView):
