@@ -1,7 +1,7 @@
 from django import forms
 
 
-class SignUpForm(forms.Form):
+class RegisterForm(forms.Form):
     first_name = forms.CharField(
         label="نام",
         widget=forms.TextInput()
