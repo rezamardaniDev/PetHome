@@ -87,6 +87,12 @@ class LoginView(View):
         })
 
 
+class LogOutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect("home:main")
+
+
 class ForgetPasswordView(TemplateView):
     template_name = "forget-password.html"
 
