@@ -71,20 +71,28 @@ class LoginView(View):
             user: User = User.objects.filter(email__iexact=form.cleaned_data.get('email')).first()
             if user is not None:
                 if not user.is_active:
-                    LoginForm.add_error('email', 'حساب کاربری شما فعال نشده است')
+                    form.add_error('email', 'حساب کاربری شما فعال نشده است، لطفا با پشتیبانی در تماس باشید')
                 else:
                     is_password_correct = user.check_password(form.cleaned_data.get('password'))
                     if is_password_correct:
                         login(request, user)
                         return redirect(reverse("home:main"))
                     else:
-                        LoginForm.add_error('email', 'ایمیل یا پسورد اشتباه است')
+                        form.add_error('email', 'ایمیل یا پسورد اشتباه است')
             else:
-                LoginForm.add_error('email', 'لطفا ابتدا ثبت نام کنید')
+                form.add_error('email', 'لطفا ابتدا ثبت نام کنید')
+        else:
+            form.add_error('email', 'خطایی هنگام ورود رخ داد')
 
         return render(request, 'login.html', context={
             'form': form,
         })
+
+
+class LogOutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect("home:main")
 
 
 class ForgetPasswordView(TemplateView):

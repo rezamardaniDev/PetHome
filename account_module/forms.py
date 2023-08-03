@@ -40,10 +40,16 @@ class RegisterForm(forms.Form):
 class LoginForm(forms.Form):
     email = forms.EmailField(
         label="ایمیل",
-        widget=forms.EmailInput()
+        widget=forms.EmailInput(),
+        error_messages={
+            'required': 'ایمیل خود را وارد کنید'
+        }
     )
 
     password = forms.CharField(
         label="پسورد",
-        widget=forms.TextInput()
+        widget=forms.TextInput(),
+        error_messages={
+            'required': 'رمزعبور خود را وارد کنید'
+        }
     )
