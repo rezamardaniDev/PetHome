@@ -50,10 +50,14 @@ class ActivateAccountView(View):
     def get(self, request, email_active_code):
         user = User.objects.filter(email_active_code__iexact=email_active_code).first()
         if user is not None:
-            user.is_active = True
-            user.save()
-            # todo: show success message to user
-            return redirect(reverse('home:main'))
+            if not user.is_active:
+                user.is_active = True
+                user.email_active_code = get_random_string(72)
+                user.save()
+                # todo: show success message to user
+                return redirect(reverse('home:main'))
+            else:
+                HttpResponse("حساب کاربری شما فعال هست")
         raise Http404
 
 
