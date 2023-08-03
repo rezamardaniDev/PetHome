@@ -49,7 +49,7 @@ class RegisterView(TemplateView):
 class ActivateAccountView(View):
     def get(self, request, email_active_code):
         user = User.objects.filter(email_active_code__iexact=email_active_code).first()
-        if user is None:
+        if user is not None:
             user.is_active = True
             user.save()
             # todo: show success message to user
