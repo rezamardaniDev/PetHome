@@ -29,6 +29,7 @@ class RegisterView(TemplateView):
                 new_user.last_name = form.cleaned_data.get('last_name')
                 new_user.email = form.cleaned_data.get('email')
                 new_user.phone_number = form.cleaned_data.get('phone_number')
+                new_user.username = form.cleaned_data.get('phone_number')
                 new_user.set_password(form.cleaned_data.get('password'))
                 new_user.is_active = False
                 new_user.is_staff = False
