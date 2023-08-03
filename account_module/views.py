@@ -4,12 +4,9 @@ from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.views import View
 from django.views.generic import TemplateView
-from .forms import RegisterForm
+from .forms import RegisterForm, LoginForm
 from .models import User
-
-
-class LoginView(TemplateView):
-    template_name = "login.html"
+from django.contrib.auth import login, logout
 
 
 class RegisterView(TemplateView):
@@ -57,8 +54,37 @@ class ActivateAccountView(View):
                 # todo: show success message to user
                 return redirect(reverse('home:main'))
             else:
-                HttpResponse("حساب کاربری شما فعال هست")
+                HttpResponse("your account is activated")
         raise Http404
+
+
+class LoginView(View):
+    def get(self, request):
+        form = LoginForm()
+        return render(request, 'login.html', context={
+            'form': form
+        })
+
+    def post(self, request):
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            user: User = User.objects.filter(email__iexact=form.cleaned_data.get('email')).first()
+            if user is not None:
+                if not user.is_active:
+                    LoginForm.add_error('email', 'حساب کاربری شما فعال نشده است')
+                else:
+                    is_password_correct = user.check_password(form.cleaned_data.get('password'))
+                    if is_password_correct:
+                        login(request, user)
+                        return redirect(reverse("home:main"))
+                    else:
+                        LoginForm.add_error('email', 'ایمیل یا پسورد اشتباه است')
+            else:
+                LoginForm.add_error('email', 'لطفا ابتدا ثبت نام کنید')
+
+        return render(request, 'login.html', context={
+            'form': form,
+        })
 
 
 class ForgetPasswordView(TemplateView):

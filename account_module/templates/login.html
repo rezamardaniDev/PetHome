@@ -21,11 +21,11 @@
                             <h2 class="mr-3">ورود</h2>
                         </div>        
                     <div class="card p-5">
-                    <form class="contact-form" method="post">
+                    <form class="contact-form" method="post" action="{% url "account:login" %}">
                         {% csrf_token %}
                         <div class="form-row">
                             <div class="form-group col-12">
-                                <input type="text" name="username" class="form-control mb-2" placeholder="پست الکترونیکی">
+                                <input type="text" name="email" class="form-control mb-2" placeholder="پست الکترونیکی">
                             </div>
                             <div class="form-group col-12">
                                 <input type="password" name="password" class="form-control mb-2" placeholder="رمز عبور">
