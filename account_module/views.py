@@ -1,13 +1,9 @@
-from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
-from django.utils.crypto import get_random_string
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from .forms import RegisterForm
 from .models import User
 
 
-# Create your views here.
 def login(request):
     return render(request, 'login.html', {})
 
@@ -22,7 +18,7 @@ class RegisterView(TemplateView):
     def post(self, request):
         form = RegisterForm(request.POST)
         if form.is_valid():
-            exist_user: User & bool = User.objects.filter(email__iexact=form.cleaned_data.get('emai')).exists()
+            exist_user: User & bool = User.objects.filter(email__iexact=form.cleaned_data.get('email')).exists()
             if not exist_user:
                 new_user = User()
                 new_user.first_name = form.cleaned_data.get('first_name')
@@ -31,7 +27,7 @@ class RegisterView(TemplateView):
                 new_user.phone_number = form.cleaned_data.get('phone_number')
                 new_user.username = form.cleaned_data.get('phone_number')
                 new_user.set_password(form.cleaned_data.get('password'))
-                new_user.is_active = False
+                new_user.is_active = True
                 new_user.is_staff = False
                 new_user.is_superuser = False
                 new_user.save()

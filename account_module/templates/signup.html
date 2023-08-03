@@ -29,7 +29,7 @@
                         </svg>
 
                         <h2 class="mr-3">ثبت نام</h2>
-                         
+
 
                     </div>
                     <div class="card p-5">
@@ -37,20 +37,29 @@
                             {% csrf_token %}
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <input type="text" name="first_name" class="form-control mb-2" placeholder="نام">
+                                    <input type="text" name="first_name" class="form-control mb-2" placeholder="نام"
+                                           value="{% if form.first_name.value %}{{ form.first_name.value }}{% endif %}">
+                                    <span style="color:red">{{ form.first_name.errors }}</span>
                                 </div>
 
                                 <div class="form-group col-md-6">
                                     <input type="text" name="last_name" class="form-control mb-2"
-                                           placeholder="نام خانوادگی">
+                                           placeholder="نام خانوادگی"
+                                           value="{% if form.last_name.value %}{{ form.last_name.value }}{% endif %}">
+                                    <span style="color:red">{{ form.last_name.errors }}</span>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <input type="tel" name="phone_number" class="form-control mb-2"
-                                           placeholder="شماره موبایل">  
+                                           placeholder="شماره موبایل"
+                                           value="
+                                               {% if form.phone_number.value %}{{ form.phone_number.value }}{% endif %}">
+                                    <span style="color:red">{{ form.phone_number.errors }}</span>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <input type="email" name="email" class="form-control mb-2"
-                                           placeholder="پست الکترونیکی">
+                                           placeholder="پست الکترونیکی"
+                                           value="{% if form.email.value %}{{ form.email.value }}{% endif %}">
+                                    <span style="color:red">{{ form.email.errors }}</span>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <input type="password" name="password" class="form-control mb-2"
@@ -70,7 +79,6 @@
                                 </div>
 
                             </div>
-                             
 
 
                         </form>
@@ -83,7 +91,7 @@
                 </div>
 
             </div>
-             
+
         </div>
     </section>
 
