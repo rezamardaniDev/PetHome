@@ -54,7 +54,7 @@ class ActivateAccountView(View):
                 # todo: show success message to user
                 return redirect(reverse('home:main'))
             else:
-                HttpResponse("حساب کاربری شما فعال هست")
+                HttpResponse("your account is activated")
         raise Http404
 
 
