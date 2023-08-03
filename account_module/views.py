@@ -1,11 +1,15 @@
+from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.utils.crypto import get_random_string
+from django.views import View
 from django.views.generic import TemplateView
 from .forms import RegisterForm
 from .models import User
 
 
-def login(request):
-    return render(request, 'login.html', {})
+class LoginView(TemplateView):
+    template_name = "login.html"
 
 
 class RegisterView(TemplateView):
@@ -27,7 +31,8 @@ class RegisterView(TemplateView):
                 new_user.phone_number = form.cleaned_data.get('phone_number')
                 new_user.username = form.cleaned_data.get('phone_number')
                 new_user.set_password(form.cleaned_data.get('password'))
-                new_user.is_active = True
+                new_user.email_active_code = get_random_string(72)
+                new_user.is_active = False
                 new_user.is_staff = False
                 new_user.is_superuser = False
                 new_user.save()
@@ -39,6 +44,21 @@ class RegisterView(TemplateView):
         return render(request, 'signup.html', context={
             'form': form
         })
+
+
+class ActivateAccountView(View):
+    def get(self, request, email_active_code):
+        user = User.objects.filter(email_active_code__iexact=email_active_code).first()
+        if user is not None:
+            if not user.is_active:
+                user.is_active = True
+                user.email_active_code = get_random_string(72)
+                user.save()
+                # todo: show success message to user
+                return redirect(reverse('home:main'))
+            else:
+                HttpResponse("حساب کاربری شما فعال هست")
+        raise Http404
 
 
 class ForgetPasswordView(TemplateView):

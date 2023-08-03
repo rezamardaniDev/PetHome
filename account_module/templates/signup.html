@@ -51,8 +51,7 @@
                                 <div class="form-group col-md-6">
                                     <input type="tel" name="phone_number" class="form-control mb-2"
                                            placeholder="شماره موبایل"
-                                           value="
-                                               {% if form.phone_number.value %}{{ form.phone_number.value }}{% endif %}">
+                                           value="{% if form.phone_number.value %}{{ form.phone_number.value }}{% endif %}">
                                     <span style="color:red">{{ form.phone_number.errors }}</span>
                                 </div>
                                 <div class="form-group col-md-6">
