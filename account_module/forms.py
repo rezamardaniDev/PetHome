@@ -35,3 +35,15 @@ class RegisterForm(forms.Form):
             return confirm_password
         else:
             raise forms.ValidationError("رمز عبور های وارد شده یکسان نیستند")
+
+
+class LoginForm(forms.Form):
+    email = forms.EmailField(
+        label="ایمیل",
+        widget=forms.EmailInput()
+    )
+
+    password = forms.CharField(
+        label="پسورد",
+        widget=forms.TextInput()
+    )

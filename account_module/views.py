@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.views import View
 from django.views.generic import TemplateView
-from .forms import RegisterForm
+from .forms import RegisterForm, LoginForm
 from .models import User
 
 
@@ -59,7 +59,10 @@ class ActivateAccountView(View):
 
 class LoginView(View):
     def get(self, request):
-        ...
+        form = LoginForm()
+        return render(request, 'login.html', context={
+            'form': form
+        })
 
     def post(self, request):
         ...
