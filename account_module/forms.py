@@ -53,3 +53,38 @@ class LoginForm(forms.Form):
             'required': 'رمزعبور خود را وارد کنید'
         }
     )
+
+
+class ForgetPasswordForm(forms.Form):
+    email = forms.EmailField(
+        label="ایمیل",
+        widget=forms.EmailInput(),
+        error_messages={
+            'required': 'ایمیل خود را وارد کنید'
+        }
+    )
+
+    password = forms.CharField(
+        label="پسورد",
+        widget=forms.TextInput(),
+        error_messages={
+            'required': 'رمزعبور خود را وارد کنید'
+        }
+    )
+
+
+class ResetPasswordForm(forms.Form):
+    password = forms.CharField(
+        label="پسورد",
+        widget=forms.TextInput(),
+        error_messages={
+            'required': 'رمزعبور خود را وارد کنید'
+        }
+    )
+    confirm_password = forms.CharField(
+        label="تایید پسورد",
+        widget=forms.TextInput(),
+        error_messages={
+            'required': 'رمزعبور خود را مجددا وارد کنید'
+        }
+    )

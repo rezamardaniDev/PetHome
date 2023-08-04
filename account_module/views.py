@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.views import View
 from django.views.generic import TemplateView
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm, ForgetPasswordForm, ResetPasswordForm
 from .models import User
 from django.contrib.auth import login, logout
 
@@ -95,9 +95,53 @@ class LogOutView(View):
         return redirect("home:main")
 
 
-class ForgetPasswordView(TemplateView):
-    template_name = "forget-password.html"
+class ForgetPasswordView(View):
+    def get(self, request):
+        form = ForgetPasswordForm()
+        return render(request, "forget-password.html", context={
+            'form': form
+        })
+
+    def post(self, request):
+        form = ForgetPasswordForm(request.POST)
+        if form.is_valid():
+            user = User.objects.filter(email__iexact=form.cleaned_data.get('email'))
+            if user is not None:
+                ...
+
+        return render(request, "forget-password.html", context={
+            'form': form
+        })
 
 
-class ResetPasswordView(TemplateView):
-    template_name = "reset-password.html"
+class ResetPasswordView(View):
+    def get(self, request, active_code):
+        user = User.objects.filter(email_active_code__iexact=active_code).first()
+        if user is None:
+            return redirect(reverse('account:login'))
+        else:
+            form = ResetPasswordForm()
+        return render(request, "reset-password.html", context={
+            'form': form,
+            'user': user
+        })
+
+    def post(self, request, active_code):
+        form = ResetPasswordForm(request.POST)
+        if form.is_valid():
+            user = User.objects.filter(email_active_code__iexact=active_code).first()
+            if user is None:
+                return redirect(reverse('account:login'))
+
+            user.set_password(form.cleaned_data.get('password'))
+            user.email_active_code = get_random_string(72)
+            user.is_active = True
+            user.save()
+            return redirect(reverse('account:login'))
+        else:
+            raise Http404
+
+        return render(request, "reset-password.html", context={
+            'form': form,
+            'user': user
+        })
