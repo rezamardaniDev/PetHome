@@ -17,3 +17,15 @@ class Product(models.Model):
         ordering = ["price"]
         verbose_name = "محصول"
         verbose_name_plural = "محصولات"
+
+class ProductCategory(models.Model):
+    title = models.CharField(max_length=250, verbose_name="عنوان")
+    url_title = models.SlugField(max_length=250 , verbose_name="عنوان در url" , null=True)
+    is_active = models.BooleanField(verbose_name="فعال / غیرفعال")
+
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name = 'دسته بندی'
+        verbose_name_plural = 'دسته بندی ها'
