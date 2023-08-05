@@ -14,11 +14,16 @@ class ProductCategory(models.Model):
         verbose_name_plural = 'دسته بندی ها'
 
 
-        
+
 class Product(models.Model):
     name = models.CharField(max_length=250, verbose_name="نام")
     descrtiption = models.TextField(verbose_name="توضیحات")
-    ProductCategory = models.ForeignKey(ProductCategory, on_delete=models.CASCADE, null=True, blank=True, verbose_name="")
+    productcategory = models.ForeignKey(
+        ProductCategory,
+        on_delete=models.CASCADE,
+        null=True, blank=True,
+        verbose_name="دسته بندی")
+    
     price = models.IntegerField(verbose_name="قیمت", null=True)
     count = models.IntegerField(verbose_name="تعداد")
     description = models.TextField(verbose_name="توضیحات")
