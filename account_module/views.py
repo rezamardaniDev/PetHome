@@ -7,6 +7,7 @@ from django.views.generic import TemplateView
 from .forms import RegisterForm, LoginForm, ForgetPasswordForm, ResetPasswordForm
 from .models import User
 from django.contrib.auth import login, logout
+from utils.email_service import send_email
 
 
 class RegisterView(TemplateView):
@@ -33,6 +34,7 @@ class RegisterView(TemplateView):
                 new_user.is_staff = False
                 new_user.is_superuser = False
                 new_user.save()
+                send_email('فعالسازی حساب', new_user.email, {'user': new_user}, 'emails/active_account.html')
                 return redirect("home:main")
             else:
                 form.add_error('email', 'این ایمیل از قبل ثبت شده است')
