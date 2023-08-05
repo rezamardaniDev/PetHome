@@ -1,23 +1,6 @@
 from django.db import models
 
 
-# Create your models here.
-class Product(models.Model):
-    name = models.CharField(max_length=250, verbose_name="نام")
-    descrtiption = models.TextField(verbose_name="توضیحات")
-    price = models.IntegerField(verbose_name="قیمت", null=True)
-    count = models.IntegerField(verbose_name="تعداد")
-    description = models.TextField(verbose_name="توضیحات")
-    is_active = models.BooleanField(verbose_name="موجود / ناموجود")
-
-    def __str__(self) -> str:
-        return self.title
-    
-    class Meta:
-        ordering = ["price"]
-        verbose_name = "محصول"
-        verbose_name_plural = "محصولات"
-
 class ProductCategory(models.Model):
     title = models.CharField(max_length=250, verbose_name="عنوان")
     url_title = models.SlugField(max_length=250 , verbose_name="عنوان در url" , null=True)
@@ -29,3 +12,24 @@ class ProductCategory(models.Model):
     class Meta:
         verbose_name = 'دسته بندی'
         verbose_name_plural = 'دسته بندی ها'
+
+
+        
+class Product(models.Model):
+    name = models.CharField(max_length=250, verbose_name="نام")
+    descrtiption = models.TextField(verbose_name="توضیحات")
+    ProductCategory = models.ForeignKey(ProductCategory, on_delete=models.CASCADE, null=True, blank=True, verbose_name="")
+    price = models.IntegerField(verbose_name="قیمت", null=True)
+    count = models.IntegerField(verbose_name="تعداد")
+    description = models.TextField(verbose_name="توضیحات")
+    is_active = models.BooleanField(verbose_name="موجود / ناموجود")
+
+
+    def __str__(self) -> str:
+        return self.title
+    
+    class Meta:
+        ordering = ["price"]
+        verbose_name = "محصول"
+        verbose_name_plural = "محصولات"
+
