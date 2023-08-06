@@ -107,9 +107,18 @@ class ForgetPasswordView(View):
     def post(self, request):
         form = ForgetPasswordForm(request.POST)
         if form.is_valid():
-            user = User.objects.filter(email__iexact=form.cleaned_data.get('email'))
+            user = User.objects.filter(email__iexact=form.cleaned_data.get('email')).first()
             if user is not None:
-                ...
+                if user.is_active:
+                    send_email('بازیابی رمز عبور', user.email, {'user': user}, 'emails/reset_password.html')
+                    return redirect('account:login')
+                else:
+                    form.add_error('email', 'حساب کاربری فعال نشده')
+            else:
+                form.add_error('email',
+                               'همچین کاربری یافت نشد... دوباره امتحان کنید یا در سایت لاگین کنید')
+        else:
+            form.add_error('email', 'خطایی در تکمیل فرم رخ داده')
 
         return render(request, "forget-password.html", context={
             'form': form

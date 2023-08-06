@@ -1,3 +1,9 @@
-<h2>فعالسازی حساب</h2>
-<p>جهت فعالسازی حساب روی لینک زیر کلیک کنید</p>
-<a href="http://localhost:8000/account/activate-account/{% url "account:activate_account" active_code=user.email_active_code %}">فعال کن</a>
+<div dir="rtl">
+    <h2>فعالسازی حساب کاربری</h2>
+    <hr>
+    <p>کاربر گرامی ، جهت فعالسازی حساب کاربری خود روی لینک زیر کلیک کنید</p>
+    <p>
+        <a href="http://localhost:8000{% url 'account:activate_account' email_active_code=user.email_active_code %}">فعالسازی
+            حساب کاربری</a>
+    </p>
+</div>
