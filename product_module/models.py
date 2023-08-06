@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 
 
 class ProductCategory(models.Model):
@@ -26,12 +27,16 @@ class Product(models.Model):
     
     price = models.IntegerField(verbose_name="قیمت", null=True)
     count = models.IntegerField(verbose_name="تعداد")
-    description = models.TextField(verbose_name="توضیحات")
     is_active = models.BooleanField(verbose_name="موجود / ناموجود")
+    slug = models.SlugField(verbose_name="اسلاگ", default="", null=False, blank=True, db_index=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
 
     def __str__(self) -> str:
-        return self.title
+        return self.name
     
     class Meta:
         ordering = ["price"]
