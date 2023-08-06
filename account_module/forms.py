@@ -64,15 +64,6 @@ class ForgetPasswordForm(forms.Form):
         }
     )
 
-    password = forms.CharField(
-        label="پسورد",
-        widget=forms.TextInput(),
-        error_messages={
-            'required': 'رمزعبور خود را وارد کنید'
-        }
-    )
-
-
 class ResetPasswordForm(forms.Form):
     password = forms.CharField(
         label="پسورد",
