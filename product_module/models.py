@@ -28,7 +28,7 @@ class Product(models.Model):
     price = models.IntegerField(verbose_name="قیمت", null=True)
     count = models.IntegerField(verbose_name="تعداد")
     is_active = models.BooleanField(verbose_name="موجود / ناموجود")
-    slug = models.SlugField(verbose_name="اسلاگ", default="", null=False, blank=True, db_index=True)
+    slug = models.SlugField(verbose_name="اسلاگ", default="", null=False, blank=True, db_index=True, unique=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
