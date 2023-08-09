@@ -20,4 +20,6 @@ class ProductDetailView(View):
     def get(self, request, product_slug):
         product = Product.objects.filter(is_active=True, slug=product_slug).first()
 
-        return render(request, 'product_detail.html', {'product': product})
+        return render(request, 'product_detail.html', context=
+        {'product': product}
+                      )
