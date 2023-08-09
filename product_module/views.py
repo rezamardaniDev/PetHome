@@ -1,16 +1,23 @@
-from django.shortcuts import render, get_object_or_404
-from django.views import View
-from django.views.generic import TemplateView
-from .models import *
+from django.shortcuts import render
+from django.views.generic import TemplateView, ListView, View
+from .models import Product, ProductCategory
 
 
-# Create your views here.
-class ProductView(TemplateView):
+class ProductView(ListView):
     template_name = "products.html"
+    model = Product
 
-class FindProduct(View):
-    def get(self, request, product):
-        pro = get_object_or_404(Product, slug=product)
-        return render(request, 'pro.html', context={
-            'pr': pro
-        })
+    paginate_by = 6
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = ProductCategory.objects.filter(is_active=True).all()
+        context['products'] = Product.objects.filter(is_active=True).all()
+        return context
+
+class ProductDetailView(View):
+    def get(self, request, product_slug):
+        product = Product.objects.filter(is_active=True, slug=product_slug).first()
+
+        return render(request, 'product_detail.html', {'product': product})
