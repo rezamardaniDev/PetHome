@@ -22,7 +22,7 @@
                 <a href="about-us.html">درباره ما</a>
             </li>
             <li class="current-menu-item">
-                <a href="contact-us.html">تماس با ما</a>
+                <a href="{% url "contact-us:contact-us" %}">تماس با ما</a>
             </li>
         </ul>
     </div>
@@ -50,7 +50,7 @@
                         <li><a href="" target="">وبلاگ</a></li>
 
                         <li><a href="" target="">درباره ما</a></li>
-                        <li><a href="" target="">تماس با ما</a></li>
+                        <li><a href="{% url "contact-us:contact-us" %}" target="">تماس با ما</a></li>
                     </ul>
                 </div>
 
