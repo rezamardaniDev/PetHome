@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home_module.apps.HomeModuleConfig',
     'product_module.apps.ProductModuleConfig',
-    'account_module.apps.AccountModuleConfig'
+    'account_module.apps.AccountModuleConfig',
+    'contactus_module.apps.ContactusModuleConfig'
 
 ]
 

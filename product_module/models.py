@@ -18,7 +18,7 @@ class ProductCategory(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=250, verbose_name="نام")
-    descrtiption = models.TextField(verbose_name="توضیحات")
+    description = models.TextField(verbose_name="توضیحات")
     productcategory = models.ForeignKey(
         ProductCategory,
         on_delete=models.CASCADE,
@@ -31,7 +31,7 @@ class Product(models.Model):
     slug = models.SlugField(verbose_name="اسلاگ", default="", null=False, blank=True, db_index=True, unique=True)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        self.slug = slugify(f"{self.productcategory.url_title}-{self.name}")
         super().save(*args, **kwargs)
 
 
