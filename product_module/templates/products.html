@@ -80,8 +80,8 @@
                             </a>
                             <div>
                                 <h5 class="my-2 YekanBakhFaNum-SemiBold"><a class="card-pro" href="{% url "products:products_detail" product.slug %}">{{ product.name }}</a></h5>
-                                <span class="color-orange YekanBakhFaNum-Bold fa18">{{ product.price }}</span>
-                                <span class="color-orange YekanBakhFaNum-Regular fa14">تومان</span>
+                                <span class="color-orange YekanBakhFaNum-Bold fa18">{% if product.count %}{{ product.price }}{% else %}ناموجود{% endif %}</span>
+                                <span class="color-orange YekanBakhFaNum-Regular fa14">{% if product.count %}تومان{% endif %}</span>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex">
                                         <div class="add-to-cart hoverable outlined">
