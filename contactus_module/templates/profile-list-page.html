@@ -1,0 +1,13 @@
+{% extends "shared/main.html" %}
+{% block title %}{% endblock %}
+
+
+{% block content %}
+
+    <ul>
+        {% for img in profiles %}
+            <li><img src="{{ img.image.url }}"></li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
