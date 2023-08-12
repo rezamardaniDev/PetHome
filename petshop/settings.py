@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'home_module.apps.HomeModuleConfig',
     'product_module.apps.ProductModuleConfig',
     'account_module.apps.AccountModuleConfig',
-    'contactus_module.apps.ContactusModuleConfig'
+    'contactus_module.apps.ContactusModuleConfig',
+    'site_module.apps.SiteModuleConfig'
 
 ]
 
