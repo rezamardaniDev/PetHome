@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'product_module.apps.ProductModuleConfig',
     'account_module.apps.AccountModuleConfig',
     'contactus_module.apps.ContactusModuleConfig',
-    'site_module.apps.SiteModuleConfig'
+    'site_module.apps.SiteModuleConfig',
+
+    'django_render_partial',
 
 ]
 
