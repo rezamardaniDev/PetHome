@@ -22,7 +22,7 @@
                 </div>
                 <div class="mb-2 text-right">
 
-                    <p>درباره شرکت : {{ setting.info }}</p>
+                    <p>درباره شرکت :  {{ site_setting.info }} </p>
 
                     <div class="d-flex align-items-center my-3">
                         <svg width="22" height="26" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -33,7 +33,7 @@
                                   d="M10.9993 25C9.40138 25 1 18.1978 1 11.0844C1 5.51552 5.47613 1 10.9993 1C16.5226 1 21 5.51552 21 11.0844C21 18.1978 12.5973 25 10.9993 25Z"
                                   stroke="#FFB500" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        <p class="mr-2">آدرس : {{ setting.address }}</p>
+                        <p class="mr-2">آدرس : {{ site_setting.address }}</p>
                     </div>
 
                     <div class="d-flex justify-content-between">
@@ -50,7 +50,9 @@
                                       stroke-linejoin="round"/>
                             </svg>
 
-                            <p class="mr-2">{{ setting.phone_number }}</p>
+                            <p class="mr-2">
+                                 تلفن : {{ site_setting.phone }}
+                            </p>
                         </div>
                         <div class="d-flex align-items-center my-3">
                             <svg width="22" height="20" viewBox="0 0 22 20" fill="none"
@@ -63,9 +65,7 @@
                                       stroke="#FFB500" stroke-width="1.5" stroke-linecap="round"
                                       stroke-linejoin="round"/>
                             </svg>
-
-
-                            <p class="mr-2">{{ setting.email }}</p>
+                            <p class="mr-2"> ایمیل : {{ site_setting.email }} </p>
                         </div>
                     </div>
 
@@ -183,7 +183,7 @@
             </div>
 
             <div class="">
-                <p class="text-center fa14">{{ setting.copy_right }}</p>
+                <p class="text-center fa14">{{ site_setting.copy_right }}</p>
             </div>
 
             <div class="text-left logo-footer">

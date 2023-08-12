@@ -1,3 +1,4 @@
+{% load render_partial %}
 <html dir="rtl" lang="fa-IR">
 <head>
     <title>{% block title %}{% endblock %}</title>
@@ -19,9 +20,12 @@
                 </svg>
             </a>
         </div>
-        {% include "shared/header.html" %}
+
+        {% render_partial 'home_module.views.site_header_component' %}
+{#        {% include "shared/header.html" %}#}
         {% block content %}{% endblock %}
-        {% include "shared/footer.html" %}
+{#        {% include "shared/footer.html" %}#}
+        {% render_partial 'home_module.views.site_footer_component' %}
         {% include "shared/footer_links.html" %}
     </div>
 </div>
