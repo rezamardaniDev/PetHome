@@ -9,7 +9,7 @@ class SiteSettings(models.Model):
     phone = models.CharField(max_length=250, verbose_name="تلفن تماس", null=True)
     email = models.CharField(max_length=250, verbose_name="ایمیل", null=True)
     copy_right = models.CharField(max_length=255, verbose_name="متن کپی رایت")
-    site_logo = models.ImageField(upload_to="site-settings", verbose_name="لوگو سایت")
+    site_logo = models.FileField(upload_to="site-settings", verbose_name="لوگو سایت")
     is_main_setting = models.BooleanField(verbose_name="تنظیمات اصلی")
 
     def __str__(self):
