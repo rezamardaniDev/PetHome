@@ -6,7 +6,6 @@ from .models import Product, ProductCategory
 class ProductView(ListView):
     template_name = "products.html"
     model = Product
-
     paginate_by = 6
 
 
