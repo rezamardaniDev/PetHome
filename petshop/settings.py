@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # external extensions
     'django_render_partial',
     'django_jalali',
+    'sorl.thumbnail',
 
 
 ]
