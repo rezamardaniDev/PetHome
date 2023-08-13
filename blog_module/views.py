@@ -19,10 +19,12 @@ class BlogListView(ListView):
 class BlogDetailView(View):
     def get(self,request, post_id):
         post: Blog = Blog.objects.filter(is_active=True, slug=post_id).first()
+        categories = BlogCategory.objects.all()[0:3]
         # post = get_object_or_404(Blog, slug=post_id, is_active=True)
         post.view += 1
         post.save()
 
         return render(request, 'blog_detail.html', context={
         'post': post,
+        'categories': categories
     })
