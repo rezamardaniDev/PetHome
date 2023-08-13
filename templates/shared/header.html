@@ -16,7 +16,7 @@
                 <a href="gallery.html">گالری</a>
             </li>
             <li class="current-menu-item">
-                <a href="blog.html">وبلاگ</a>
+                <a href="{% url "blog:blog_list" %}">وبلاگ</a>
             </li>
             <li class="current-menu-item">
                 <a href="about-us.html">درباره ما</a>
@@ -47,7 +47,7 @@
 
                         <li><a href="" target="">گالری</a></li>
 
-                        <li><a href="" target="">وبلاگ</a></li>
+                        <li><a href="{% url "blog:blog_list" %}" target="">وبلاگ</a></li>
 
                         <li><a href="" target="">درباره ما</a></li>
                         <li><a href="{% url "contact-us:contact-us" %}" target="">تماس با ما</a></li>
