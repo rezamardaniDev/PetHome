@@ -1,4 +1,5 @@
 {% extends "shared/main.html" %}
+{% load jformat %}
 {% block title %}{% endblock %}
 
 
@@ -95,7 +96,7 @@
                         <ul>
                             <li class="my-1">
                                 <div class="d-flex align-items-center justify-content-between">
-                                    <a href="#"><img src="Img/beautiful-pet-3.jpg" /></a>
+                                    <a href="#"><img src="/static/Img/beautiful-pet-3.jpg" /></a>
                                     <div class="mr-2">
                                         <p><a href="#">بازی با حیوانات خانگی</a></p>
                                         <p>5 خرداد 1402</p>
@@ -104,7 +105,7 @@
                             </li>
                             <li class="my-1">
                                 <div class="d-flex align-items-center justify-content-between">
-                                    <a href="#"><img src="Img/beautiful-pet-4.jpg" /></a>
+                                    <a href="#"><img src="/static/Img/beautiful-pet-4.jpg" /></a>
                                     <div class="mr-2">
                                         <p><a href="#">تربیت حیوانات خانگی</a></p>
                                         <p>5 خرداد 1402</p>
@@ -113,7 +114,7 @@
                             </li>
                             <li class="my-1">
                                 <div class="d-flex align-items-center justify-content-between">
-                                    <a href="#"><img src="Img/beautiful-pet-2.jpg" /></a>
+                                    <a href="#"><img src="/static/Img/beautiful-pet-2.jpg" /></a>
                                     <div class="mr-2">
                                         <p><a href="#">رفتار کودک با حیوانات</a></p>
                                         <p>5 خرداد 1402</p>   
@@ -174,7 +175,7 @@
                                                     <path d="M20.5 9.83997H3.5C3.09 9.83997 2.75 9.49997 2.75 9.08997C2.75 8.67997 3.09 8.33997 3.5 8.33997H20.5C20.91 8.33997 21.25 8.67997 21.25 9.08997C21.25 9.49997 20.91 9.83997 20.5 9.83997Z" fill="#FFAA00"/>
                                                     <path d="M16 22.75H8C4.35 22.75 2.25 20.65 2.25 17V8.5C2.25 4.85 4.35 2.75 8 2.75H16C19.65 2.75 21.75 4.85 21.75 8.5V17C21.75 20.65 19.65 22.75 16 22.75ZM8 4.25C5.14 4.25 3.75 5.64 3.75 8.5V17C3.75 19.86 5.14 21.25 8 21.25H16C18.86 21.25 20.25 19.86 20.25 17V8.5C20.25 5.64 18.86 4.25 16 4.25H8Z" fill="#FFAA00"/>
                                                     </svg>
-                                                    <p class="mr-2">6 خرداد 1402</p>
+                                                    <p class="mr-2">{{ post.created_date | jformat:"%Y/%m/%d" }}</p>
                                             </div>
 
                                               
