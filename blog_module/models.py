@@ -1,6 +1,7 @@
 from django.db import models
 from account_module.models import User
 from django.utils.text import slugify
+from django_jalali.db import models as jmodels
 
 # Create your models here.
 class BlogCategory(models.Model):
@@ -23,7 +24,7 @@ class Blog(models.Model):
     image = models.ImageField(upload_to="blog", verbose_name="عکس", null=True)
     short_description = models.CharField(max_length=250 ,verbose_name="توضیحات کوتاه")
     description = models.TextField(verbose_name='متن')
-    created_date = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ایجاد")
+    created_date = jmodels.jDateTimeField(auto_now_add=True, verbose_name="تاریخ ایجاد")
     view = models.IntegerField(verbose_name="تعداد بازدید", blank=True, default=0)
     auther = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, verbose_name='نویسنده', related_name='uesrs', editable=False)
     slug = models.SlugField(max_length=250, allow_unicode=True,  verbose_name="اسلاگ", db_index=True, null=True, blank=True)

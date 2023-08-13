@@ -42,9 +42,13 @@ INSTALLED_APPS = [
     'account_module.apps.AccountModuleConfig',
     'contactus_module.apps.ContactusModuleConfig',
     'site_module.apps.SiteModuleConfig',
+    'blog_module.apps.BlogModuleConfig',
 
+    # external extensions
     'django_render_partial',
-    'blog_module.apps.BlogModuleConfig'
+    'django_jalali',
+    'sorl.thumbnail',
+
 
 ]
 
