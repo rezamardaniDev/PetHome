@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'site_module.apps.SiteModuleConfig',
 
     'django_render_partial',
+    'blog_module.apps.BlogModuleConfig'
 
 ]
 
