@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.views import View
 from django.views.generic import ListView
+
 from .models import Blog, BlogCategory
 
 
@@ -20,7 +21,6 @@ class BlogDetailView(View):
     def get(self,request, post_id):
         post: Blog = Blog.objects.filter(is_active=True, slug=post_id).first()
         categories = BlogCategory.objects.all()[0:3]
-        # post = get_object_or_404(Blog, slug=post_id, is_active=True)
         post.view += 1
         post.save()
 
