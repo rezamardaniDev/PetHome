@@ -4,7 +4,7 @@ from .models import BlogCategory, Blog
 
 @admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
-    list_display = ['title', 'auther', 'created_date', 'is_active']
+    list_display = ['title','author', 'created_date', 'is_active']
     list_editable = ['is_active']
 
 admin.site.register(BlogCategory)
