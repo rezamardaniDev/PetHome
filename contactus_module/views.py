@@ -2,14 +2,17 @@ from django.shortcuts import render, redirect
 from django.views import View
 from .forms import ContactUsForm
 from .models import ContactUs
+from site_module.models import SiteSettings
 
 
 # Create your views here.
 class ContactUSView(View):
     def get(self, request):
         form = ContactUsForm()
+        setting: SiteSettings = SiteSettings.objects.filter(is_main_setting=True).first()
         return render(request, "contact-us.html", context={
-            'form':form
+            'form':form,
+            'settings': setting
         })
     def post(self, request):
         form = ContactUsForm(request.POST)
