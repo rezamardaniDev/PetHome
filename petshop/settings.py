@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'contactus_module.apps.ContactusModuleConfig',
     'site_module.apps.SiteModuleConfig',
     'blog_module.apps.BlogModuleConfig',
+    'polls.apps.PollsConfig',
 
     # external extensions
     'django_render_partial',
