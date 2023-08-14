@@ -160,10 +160,8 @@
                                         {% if post.author.is_superuser %}
                                         <img src="https://cdn3.emoji.gg/emojis/5922-verified-icon.png"
                                              style="width: 1.3rem; height: 1.3rem">
-                                        <p class="mr-2">مدیریت سایت</p>
-                                            {% else %}
+                                             {% endif %}
                                             <p class="mr-2">{{ post.author.first_name }} {{ post.author.last_name }}</p>
-                                        {% endif %}
                                     </div>
                                     <div class="d-flex align-items-center">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"

@@ -150,7 +150,7 @@
                                         </a>
                                     </div>
 
-                                    <p>{{ post.short_description | truncatewords:10 }}</p>
+                                    <p>{{ post.short_description | truncatewords:5}}</p>
                                     <div class="d-flex align-items-center justify-content-end mt-3 px-2">
                                         <a class="d-flex justify-content-center align-items-center"
                                            href="{% url "blog:blog_detail" post.id %}">
