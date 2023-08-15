@@ -7,10 +7,9 @@ class ProductView(ListView):
     template_name = "products.html"
     model = Product
     context_object_name = 'products'
-    paginate_by = 6
+    paginate_by = 1
 
     def get_queryset(self):
-        print(self.kwargs)
         query = super(ProductView, self).get_queryset()
         category_name = self.kwargs.get('category')
         if category_name is not None:

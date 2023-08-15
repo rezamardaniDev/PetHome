@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from .models import Blog, BlogCategory
 
@@ -9,11 +9,12 @@ from .models import Blog, BlogCategory
 class BlogListView(ListView):
     model = Blog
     template_name = "blog_list.html"
-    paginate_by = 6
+    paginate_by = 1
     context_object_name = "blog"
 
     def get_queryset(self):
         query = super(BlogListView, self).get_queryset()
+        query = query.filter(is_active=True)
         category_name = self.kwargs.get('category')
         if category_name is not None:
             query = query.filter(category__url_title__iexact=category_name).all()
