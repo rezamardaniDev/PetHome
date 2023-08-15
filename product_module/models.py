@@ -30,9 +30,6 @@ class Product(models.Model):
     slug = models.SlugField(verbose_name="اسلاگ", null=False, blank=True, db_index=True, unique=True)
     image = models.ImageField(upload_to="product_image", verbose_name="عکس محصول", null=True)
 
-    def save(self, **kwargs):
-        self.slug = slugify(self.id)
-        super().save(*kwargs)
 
     def delete(self, *args, **kwargs):
             storage, path = self.image.storage, self.image.path

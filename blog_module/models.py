@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.crypto import get_random_string
 from django.utils.text import slugify
 from django_jalali.db import models as jmodels
 
@@ -35,9 +36,6 @@ class Blog(models.Model):
     def __str__(self):
         return self.title
 
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.id)
-        return super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = "مقاله"

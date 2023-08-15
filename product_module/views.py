@@ -17,8 +17,8 @@ class ProductView(ListView):
         return query
 
 class ProductDetailView(View):
-    def get(self, request, product_slug):
-        product = Product.objects.filter(is_active=True, slug=product_slug).first()
+    def get(self, request, product_id):
+        product = Product.objects.filter(is_active=True, id=product_id).first()
 
         return render(request, 'product_detail.html', context=
         {'product': product}
