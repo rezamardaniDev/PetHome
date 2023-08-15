@@ -35,9 +35,9 @@ class Blog(models.Model):
     def __str__(self):
         return self.title
 
-    def save(self, **kwargs):
+    def save(self, *args, **kwargs):
         self.slug = slugify(self.id)
-        super().save(*kwargs)
+        return super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = "مقاله"
