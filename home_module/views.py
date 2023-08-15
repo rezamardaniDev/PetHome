@@ -1,13 +1,16 @@
 from django.shortcuts import render
 from django.views import View
-from django.views.generic import TemplateView
+from django.views.generic import ListView
 
+from product_module.models import Product
 from site_module.models import SiteSettings
 
 
-# Create your views here.
-class HomeView(TemplateView):
+class HomeView(ListView):
+    model = Product
+    context_object_name = "products"
     template_name = "index.html"
+    ordering = ['-price']
 
 def site_header_component(request):
     setting : SiteSettings = SiteSettings.objects.filter(is_main_setting=True).first()
