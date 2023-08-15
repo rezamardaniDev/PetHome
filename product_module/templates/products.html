@@ -100,14 +100,17 @@
                     <div class="col-12 text-center mx-auto">
                         <ul class="pagination justify-content-center">
                             {% if page_obj.has_previous %}
-                                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">قبلی</a></li>
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{ page_obj.previous_page_number }}">قبلی</a></li>
                             {% endif %}
                             {% for pageNumber in paginator.page_range %}
-                                <li class="page-item {% if page_obj.number == pageNumber %} active {% endif %}"><a class="page-link"
-                                                         href="?page={{ pageNumber }}">{{ pageNumber }}</a></li>
+                                <li class="page-item {% if page_obj.number == pageNumber %} active {% endif %}"><a
+                                        class="page-link"
+                                        href="?page={{ pageNumber }}">{{ pageNumber }}</a></li>
                             {% endfor %}
                             {% if page_obj.has_next %}
-                                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">بعدی</a></li>
+                                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">بعدی</a>
+                                </li>
                             {% endif %}
                         </ul>
                     </div>
