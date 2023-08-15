@@ -27,7 +27,7 @@ class Blog(models.Model):
     short_description = models.CharField(max_length=250 ,verbose_name="توضیحات کوتاه")
     description = models.TextField(verbose_name='متن')
     created_date = jmodels.jDateTimeField(auto_now_add=True, verbose_name="تاریخ ایجاد")
-    view = models.IntegerField(verbose_name="تعداد بازدید", blank=True, default=0)
+    view = models.IntegerField(verbose_name="تعداد بازدید", blank=True, default=1)
     slug = models.SlugField(max_length=250, allow_unicode=True,  verbose_name="اسلاگ", db_index=True, null=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, editable=False)
     is_active = models.BooleanField(verbose_name="فعال / غیرفعال")
@@ -35,9 +35,9 @@ class Blog(models.Model):
     def __str__(self):
         return self.title
 
-    def save(self, **kwargs):
+    def save(self, *args, **kwargs):
         self.slug = slugify(self.id)
-        super().save(*kwargs)
+        return super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = "مقاله"

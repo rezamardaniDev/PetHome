@@ -5,6 +5,7 @@ class SiteSettings(models.Model):
     site_name = models.CharField(max_length=250, verbose_name="عنوان سایت")
     site_url = models.CharField(max_length=250, verbose_name="دامنه سایت")
     about_us = models.TextField(verbose_name="متن درباره ما")
+    contact_us_text = models.CharField(max_length=250,verbose_name="متن تماس با ما")
     address = models.CharField(max_length=250, verbose_name="آدرس ما", null=True)
     phone = models.CharField(max_length=250, verbose_name="تلفن تماس", null=True)
     email = models.CharField(max_length=250, verbose_name="ایمیل", null=True)
