@@ -61,12 +61,12 @@
                     {% for product in products %}
                         <div class="col-lg-4 col-md-6 mb-4">
                             <div class="card-body mb-3 text-center">
-                                <a href="{% url "products:products_detail" product.slug %}">
+                                <a href="{% url "products:products_detail" product.id %}">
                                     <img class="img-fluid" src="{{ product.image.url }}">
                                 </a>
                                 <div>
                                     <h5 class="my-2 YekanBakhFaNum-SemiBold"><a class="card-pro"
-                                                                                href="{% url "products:products_detail" product.slug %}">{{ product.name }}</a>
+                                                                                href="{% url "products:products_detail" product.id %}">{{ product.name }}</a>
                                     </h5>
                                     <span class="color-orange YekanBakhFaNum-Bold fa18">{% if product.count %}
                                         {{ product.price }}{% else %}ناموجود{% endif %}</span>
@@ -100,14 +100,17 @@
                     <div class="col-12 text-center mx-auto">
                         <ul class="pagination justify-content-center">
                             {% if page_obj.has_previous %}
-                                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">قبلی</a></li>
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{ page_obj.previous_page_number }}">قبلی</a></li>
                             {% endif %}
                             {% for pageNumber in paginator.page_range %}
-                                <li class="page-item {% if page_obj.number == pageNumber %} active {% endif %}"><a class="page-link"
-                                                         href="?page={{ pageNumber }}">{{ pageNumber }}</a></li>
+                                <li class="page-item {% if page_obj.number == pageNumber %} active {% endif %}"><a
+                                        class="page-link"
+                                        href="?page={{ pageNumber }}">{{ pageNumber }}</a></li>
                             {% endfor %}
                             {% if page_obj.has_next %}
-                                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">بعدی</a></li>
+                                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">بعدی</a>
+                                </li>
                             {% endif %}
                         </ul>
                     </div>

@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils.text import slugify
 from django_jalali.db import models as jmodels
 
 from account_module.models import User
@@ -35,11 +34,19 @@ class Blog(models.Model):
     def __str__(self):
         return self.title
 
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.id)
-        return super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = "مقاله"
         verbose_name_plural = "مقالات"
 
+
+class BlogComment(models.Model):
+    post = models.ForeignKey(Blog, on_delete=models.CASCADE, verbose_name="پست")
+    parent = models.ForeignKey('BlogComment',null=True, blank=True, on_delete=models.CASCADE, verbose_name="والد")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="کاربر")
+    create_date = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ثبت")
+    message = models.TextField(verbose_name="متن نظر")
+
+    class Meta:
+        verbose_name = "نظر"
+        verbose_name_plural = "نظرات"
