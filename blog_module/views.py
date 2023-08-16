@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from django.views.generic import ListView, DetailView
 
-from .models import Blog, BlogCategory
+from .models import Blog, BlogCategory, BlogComment
 
 
 # Create your views here.
@@ -24,12 +24,14 @@ class BlogDetailView(View):
     def get(self,request, post_id):
         post: Blog = Blog.objects.filter(is_active=True, id=post_id).first()
         categories = BlogCategory.objects.all()[0:3]
+        comments = post.comments.all()
         post.view += 1
         post.save()
 
         return render(request, 'blog_detail.html', context={
         'post': post,
-        'categories': categories
+        'categories': categories,
+        'comments': comments
     })
 
 def blog_categories_component(request):

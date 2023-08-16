@@ -1,6 +1,7 @@
 {% extends "shared/main.html" %}
 {% load jformat %}
 {% load thumbnail %}
+{% load poll_extras %}
 {% block title %}{% endblock %}
 
 
@@ -249,8 +250,21 @@
                             </button>
 
                         </div>
-
                     </div>
+                    {% if comments %}
+                        <p class="mr-4"> تعداد دیدگاه ها : {{ comments.count }}</p>
+                    {% else %}
+                        <p class="mr-4">هیچ نظری برای این پست ثبت نشده است</p>
+                    {% endif %}
+                    {% if comments %}
+                        {% for comment in comments %}
+                            <div class="card m-3 p-sm-4 {% if comment.parent %}mr-4{% endif %}">
+                                {{ comment.user }} گفته : {{ comment.message }}
+                                <br>
+                                <p style="text-align: left">{{ comment.create_date | jalali }}</p>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
 
