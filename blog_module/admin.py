@@ -11,6 +11,9 @@ class BlogAdmin(admin.ModelAdmin):
         obj.author = request.user
         return super().save_model(request, obj, form, change)
 
+@admin.register(BlogComment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['user', 'parent']
+
 
 admin.site.register(BlogCategory)
-admin.site.register(BlogComment)

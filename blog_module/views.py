@@ -24,7 +24,7 @@ class BlogDetailView(View):
     def get(self,request, post_id):
         post: Blog = Blog.objects.filter(is_active=True, id=post_id).first()
         categories = BlogCategory.objects.all()[0:3]
-        comments = post.comments.all()
+        comments = post.comments.filter(parent=None).prefetch_related('blogcomment_set')
         post.view += 1
         post.save()
 
