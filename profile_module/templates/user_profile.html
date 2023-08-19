@@ -1,34 +1,97 @@
 {% extends "shared/main.html" %}
 {% block title %}{% endblock %}
 
-
 {% block content %}
-    <section class="container-fluid text-lg-right text-center mt-4 p-3 mb-5 mx-auto">
-        <div class="row align-items-center pt-lg-5 mx-auto">
-            <ul class="list-group d-block mx-auto">
-                <li class="list-group-item active">
-                    <a href="" class="">پنل کاربری | User Panel </a>
-                </li>
-                <li class="list-group-item">
-                    <a href="">تغییر اطلاعات کاربری | Change user information</a>
-                </li>
-                <li class="list-group-item">
-                    <a href="">لیست صورت حساب های اخیر | List of recent bills </a>
-                </li>
-                <li class="list-group-item">
-                    <a href="">تغییر کلمه عبور | Change password</a>
-                </li>
-            </ul>
-        </div>
-        <div class="card" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </section>
+    <div class="d-md-flex align-items-start justify-content-center">
+        <!--card-->
+        <section class="">
+            <div class="container py-3 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col  mb-4 mb-lg-0">
+                        <div class="card mb-3" style="border-radius: .5rem;">
+                            <div class="row g-0">
+                                <div class="col-md-4 gradient-custom text-center text-white mx-auto">
+                                    <img src="/static/Img/profile-1.jpg"
+                                         alt="Avatar" class="img-fluid my-5 rounded-circle" style="width: 80px;"/>
+                                    <div class="d-flex justify-content-center mb-5">
+                                        <a href="#!"><i class="fab fa-facebook-f fa-lg mx-3"></i></a>
+                                        <a href="#!"><i class="fab fa-twitter fa-lg mx-3"></i></a>
+                                        <a href="#!"><i class="fab fa-instagram fa-lg mx-3"></i></a>
+                                    </div>
+                                    <div>
+                                        <h6 class="text-success">
+                                            تعداد خرید های موفق
+                                        </h6>
+                                        <p class="text-dark">23</p>
+                                    </div>
 
+                                    <div>
+                                        <h6 class="text-warning mt-3">
+                                            مبلغ کل خرید تا به الان
+                                        </h6>
+                                        <p class="text-dark">210,000 تومان</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body p-4">
+                                        <h6>اطلاعات کاربری</h6>
+                                        <hr class="mt-0 mb-4">
+                                        <div class="row pt-1">
+                                            <div class="col-6 mb-3">
+                                                <h6>نام</h6>
+                                                <p class="text-muted">{{ request.user.first_name }}</p>
+                                            </div>
+                                            <div class="col-6 mb-3">
+                                                <h6>نام خانوادگی</h6>
+                                                <p class="text-muted">{{ request.user.last_name }}</p>
+                                            </div>
+                                        </div>
+                                        <h6>اطلاعات تماس</h6>
+                                        <hr class="mt-0 mb-4">
+                                        <div class="row pt-1">
+                                            <div class="col-6 mb-3">
+                                                <h6>شماره تلفن</h6>
+                                                <p class="text-muted">{{ request.user.phone_number }}</p>
+                                            </div>
+                                            <div class="col-8 mb-3">
+                                                <h6>ایمیل</h6>
+                                                <p class="text-muted">{{ request.user.email }}</p>
+                                            </div>
+                                            <div class="col-8 mb-3">
+                                                <h6>آدرس</h6>
+                                                <p class="text-muted">مرودشت</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <section class="text-center px-2 py-3 mb-5 mt-20 mt-md-0">
+            <div class="container d-block row align-items-center mx-auto">
+                <ul class="list-group d-block mx-auto">
+                    <li class="list-group-item text-dark bg-warning">
+                        <i class="fas fa-user"></i>
+                        <a href="" class="">پنل کاربری</a>
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-edit"></i>
+                        <a href="">تغییر اطلاعات کاربری</a>
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-shopping-cart"></i>
+                        <a href="">لیست خرید های اخیر</a>
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-lock-open"></i>
+                        <a href="">تغییر کلمه عبور</a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
 {% endblock %}
