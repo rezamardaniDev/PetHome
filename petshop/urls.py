@@ -11,6 +11,7 @@ urlpatterns = [
     path("account/", include("account_module.urls", namespace="account")),
     path("contact-us/", include("contactus_module.urls", namespace="contact-us")),
     path("blog/", include("blog_module.urls", namespace="blog")),
+    path("user/", include("profile_module.urls", namespace="user")),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

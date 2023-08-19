@@ -19,7 +19,7 @@
                 <a href="{% url "blog:blog_list" %}">وبلاگ</a>
             </li>
             <li class="current-menu-item">
-                <a href="about-us.html">درباره ما</a>
+                <a href="{% url 'home:about-us' %}">درباره ما</a>
             </li>
             <li class="current-menu-item">
                 <a href="{% url "contact-us:contact-us" %}">تماس با ما</a>
@@ -41,16 +41,17 @@
                                 <img src="/static/Img/logo.svg"/>
                             </a>
                         </li>
-                        <li><a href="{% url "home:main" %}" target="">صفحه اصلی</a></li>
+                        <li><a href="{% url "home:main" %}" target="" style={% if request.resolver_match.url_name == 'main' %}"color: #FEBF0F"{% endif %}>صفحه اصلی</a></li>
 
-                        <li><a href="{% url "products:products_list" %}" target="">محصولات</a></li>
+                        <li><a href="{% url "products:products_list" %}" target="" style={% if request.resolver_match.url_name == 'products_list' %}"color: #FEBF0F"{% endif %}>محصولات</a></li>
 
                         <li><a href="" target="">گالری</a></li>
 
-                        <li><a href="{% url "blog:blog_list" %}" target="">وبلاگ</a></li>
+                        <li><a href="{% url "blog:blog_list" %}" target="" style={% if request.resolver_match.url_name == 'blog_list' %}"color: #FEBF0F"{% endif %}>وبلاگ</a></li>
 
-                        <li><a href="" target="">درباره ما</a></li>
-                        <li><a href="{% url "contact-us:contact-us" %}" target="">تماس با ما</a></li>
+                        <li><a href="{% url 'home:about-us' %}" target="">درباره ما</a></li>
+
+                        <li><a href="{% url "contact-us:contact-us" %}" target="" style={% if request.resolver_match.url_name == 'contact-us' %}"color: #FEBF0F"{% endif %}>تماس با ما</a></li>
                     </ul>
                 </div>
 

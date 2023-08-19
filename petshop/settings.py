@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'site_module.apps.SiteModuleConfig',
     'blog_module.apps.BlogModuleConfig',
     'polls.apps.PollsConfig',
+    'profile_module.apps.ProfileModuleConfig',
 
     # external extensions
     'django_render_partial',
