@@ -39,11 +39,11 @@
                                         <div class="row pt-1">
                                             <div class="col-6 mb-3">
                                                 <h6>نام</h6>
-                                                <p class="text-muted">رضا</p>
+                                                <p class="text-muted">{{ request.user.first_name }}</p>
                                             </div>
                                             <div class="col-6 mb-3">
                                                 <h6>نام خانوادگی</h6>
-                                                <p class="text-muted">مردانی</p>
+                                                <p class="text-muted">{{ request.user.last_name }}</p>
                                             </div>
                                         </div>
                                         <h6>اطلاعات تماس</h6>
@@ -51,15 +51,15 @@
                                         <div class="row pt-1">
                                             <div class="col-6 mb-3">
                                                 <h6>شماره تلفن</h6>
-                                                <p class="text-muted">09035913296</p>
+                                                <p class="text-muted">{{ request.user.phone_number }}</p>
                                             </div>
                                             <div class="col-8 mb-3">
                                                 <h6>ایمیل</h6>
-                                                <p class="text-muted">mardanireza@gmail.com</p>
+                                                <p class="text-muted">{{ request.user.email }}</p>
                                             </div>
                                             <div class="col-8 mb-3">
                                                 <h6>آدرس</h6>
-                                                <p class="text-muted">مرودشت خیابان پیروزی</p>
+                                                <p class="text-muted">مرودشت</p>
                                             </div>
                                         </div>
                                     </div>

@@ -123,7 +123,7 @@
                                             stroke-linejoin="round"/>
                                 </svg>
                                 <a class="mr-2"
-                                   href="#">{{ request.user.first_name }} {{ request.user.last_name }}</a>
+                                   href="{% url 'user:dashboard' %}">{{ request.user.first_name }} {{ request.user.last_name }}</a>
                             </div>
                             &nbsp;
                         {% else %}
