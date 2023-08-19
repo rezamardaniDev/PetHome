@@ -12,6 +12,14 @@ class HomeView(ListView):
     template_name = "index.html"
     ordering = ['-price']
 
+class AboutUsView(View):
+    def get(self, request):
+        setting : SiteSettings = SiteSettings.objects.filter(is_main_setting=True).first()
+        return render(request, "about_us.html", context={
+            'setting': setting
+        })
+
+
 def site_header_component(request):
     setting : SiteSettings = SiteSettings.objects.filter(is_main_setting=True).first()
     return render(request, r"shared/header.html", context={
