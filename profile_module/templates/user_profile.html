@@ -1,4 +1,5 @@
 {% extends "shared/main.html" %}
+{% load render_partial %}
 {% block title %}{% endblock %}
 
 {% block content %}
@@ -12,8 +13,8 @@
                             <div class="row g-0">
                                 <div class="col-md-4 gradient-custom text-center text-white mx-auto">
                                     {% if request.user.profile_image %}
-                                    <img src="{{ request.user.profile_image.url }}"
-                                         alt="Avatar" class="img-fluid my-5 rounded-circle" style="width: 80px;"/>
+                                        <img src="{{ request.user.profile_image.url }}"
+                                             alt="Avatar" class="img-fluid my-5 rounded-circle" style="width: 80px;"/>
                                     {% endif %}
                                     <div class="d-flex justify-content-center mb-5">
                                         <a href="#!"><i class="fab fa-facebook-f fa-lg mx-3"></i></a>
@@ -72,28 +73,6 @@
                 </div>
             </div>
         </section>
-
-    <section class="text-center px-2 py-3 mb-5 mt-20 mt-md-0">
-            <div class="container d-block row align-items-center mx-auto">
-                <ul class="list-group d-block mx-auto">
-                    <li class="list-group-item text-dark bg-warning">
-                        <i class="fas fa-user"></i>
-                        <a href="" class="">پنل کاربری</a>
-                    </li>
-                    <li class="list-group-item">
-                        <i class="fas fa-edit"></i>
-                        <a href="">تغییر اطلاعات کاربری</a>
-                    </li>
-                    <li class="list-group-item">
-                        <i class="fas fa-shopping-cart"></i>
-                        <a href="">لیست خرید های اخیر</a>
-                    </li>
-                    <li class="list-group-item">
-                        <i class="fas fa-lock-open"></i>
-                        <a href="">تغییر کلمه عبور</a>
-                    </li>
-                </ul>
-            </div>
-        </section>
+        {% render_partial 'profile_module.views.profile_menu' %}
     </div>
 {% endblock %}
