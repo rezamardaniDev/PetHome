@@ -11,8 +11,10 @@
                         <div class="card mb-3" style="border-radius: .5rem;">
                             <div class="row g-0">
                                 <div class="col-md-4 gradient-custom text-center text-white mx-auto">
-                                    <img src="/static/Img/profile-1.jpg"
+                                    {% if request.user.profile_image %}
+                                    <img src="{{ request.user.profile_image.url }}"
                                          alt="Avatar" class="img-fluid my-5 rounded-circle" style="width: 80px;"/>
+                                    {% endif %}
                                     <div class="d-flex justify-content-center mb-5">
                                         <a href="#!"><i class="fab fa-facebook-f fa-lg mx-3"></i></a>
                                         <a href="#!"><i class="fab fa-twitter fa-lg mx-3"></i></a>
