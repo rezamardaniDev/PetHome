@@ -1,7 +1,7 @@
 {% extends "shared/main.html" %}
-{% load thumbnail %}
 {% load poll_extras %}
 {% load render_partial %}
+{% load jformat %}
 {% block title %}{% endblock %}
 
 {% block content %}
@@ -14,8 +14,8 @@
                 <div class="bg-package d-flex align-items-center justify-content-center">
                     <div class="breadcrumb radius15">
                         <ul class="">
-                            <li><a href="#">خانه / </a></li>
-                            <li><a href="#" class="current">بلاگ</a></li>
+                            <li><a href="{% url 'home:main' %}">خانه / </a></li>
+                            <li><a href="{% url 'blog:blog_list' %}" class="current">بلاگ</a></li>
                         </ul>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                                 <a href="#"><img src="{{ post.image.url }}"/></a>
                                 <div class="mr-2">
                                     <p><a href="{% url 'blog:blog_detail' post.id %}">{{ post.title | truncatewords:4 }}</a></p>
-                                    <p>{{ post.created_date | jalali }}</p>
+                                    <p>{{ post.created_date | jformat:"%Y/%m/%d" }}</p>
                                 </div>
                             </div>
                         </li>

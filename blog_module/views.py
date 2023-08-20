@@ -15,7 +15,7 @@ class BlogListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(BlogListView, self).get_context_data()
-        context['new_post']: Blog = Blog.objects.all().order_by('created_date')[0:3]
+        context['new_post']: Blog = Blog.objects.all().order_by('-created_date')[0:3]
         return context
 
     def get_queryset(self):
