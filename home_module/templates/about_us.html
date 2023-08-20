@@ -58,11 +58,9 @@
 
                     <div class="d-flex align-items-center justify-content-between mb-5 d-xs-block">
                         <div class="d-flex flex-row align-items-center">
-                            {#                            {% thumbnail admin.avatar "127x127" quality=95 crop='center' as img %}#}
-                            <img src="" class="img-fluid rounded-circle ml-3 pic55">
-                            {#                            {% endthumbnail %}#}
+                            <img src="{{ admin.profile_image.url }}" class="img-fluid rounded-circle ml-3 pic55">
                             <div class="py-2">
-                                <p class="text-dark bottom_p YekanBakhFaNum-Bold">رضا مردانیی</p>
+                                <p class="text-dark bottom_p YekanBakhFaNum-Bold">رضا مردانی</p>
                                 <span class="color-orange">مدیر سایت</span>
                             </div>
                         </div>

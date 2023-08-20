@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from django.views.generic import ListView
 
+from account_module.models import User
 from product_module.models import Product
 from site_module.models import SiteSettings
 
@@ -20,8 +21,10 @@ class HomeView(ListView):
 class AboutUsView(View):
     def get(self, request):
         setting : SiteSettings = SiteSettings.objects.filter(is_main_setting=True).first()
+        admin : User = User.objects.filter(is_superuser=True).first()
         return render(request, "about_us.html", context={
-            'setting': setting
+            'setting': setting,
+            'admin': admin
         })
 
 
