@@ -41,17 +41,25 @@
                                 <img src="/static/Img/logo.svg"/>
                             </a>
                         </li>
-                        <li><a href="{% url "home:main" %}" target="" style={% if request.resolver_match.url_name == 'main' %}"color: #FEBF0F"{% endif %}>صفحه اصلی</a></li>
+                        <li><a href="{% url "home:main" %}" target=""
+                               style={% if request.resolver_match.url_name == 'main' %}"color: #FEBF0F"{% endif %}>صفحه
+                            اصلی</a></li>
 
-                        <li><a href="{% url "products:products_list" %}" target="" style={% if request.resolver_match.url_name == 'products_list' %}"color: #FEBF0F"{% endif %}>محصولات</a></li>
+                        <li><a href="{% url "products:products_list" %}" target=""
+                               style={% if request.resolver_match.url_name == 'products_list' %}"color: #FEBF0F"{% endif %}>محصولات</a>
+                        </li>
 
                         <li><a href="" target="">گالری</a></li>
 
-                        <li><a href="{% url "blog:blog_list" %}" target="" style={% if request.resolver_match.url_name == 'blog_list' %}"color: #FEBF0F"{% endif %}>وبلاگ</a></li>
+                        <li><a href="{% url "blog:blog_list" %}" target=""
+                               style={% if request.resolver_match.url_name == 'blog_list' %}"color: #FEBF0F"{% endif %}>وبلاگ</a>
+                        </li>
 
                         <li><a href="{% url 'home:about-us' %}" target="">درباره ما</a></li>
 
-                        <li><a href="{% url "contact-us:contact-us" %}" target="" style={% if request.resolver_match.url_name == 'contact-us' %}"color: #FEBF0F"{% endif %}>تماس با ما</a></li>
+                        <li><a href="{% url "contact-us:contact-us" %}" target=""
+                               style={% if request.resolver_match.url_name == 'contact-us' %}"color: #FEBF0F"{% endif %}>تماس
+                            با ما</a></li>
                     </ul>
                 </div>
 
@@ -102,8 +110,8 @@
                     {% else %}
                         {% if request.user.is_authenticated %}
                             <div class="login px-3 py-2 radius55 d-flex align-items-center">
-                                <a class="mr-2"
-                                   href="{% url "account:log_out" %}">خروج</a>
+                                <a
+                                        href="{% url "account:log_out" %}">خروج</a>
                             </div>
                             &nbsp;
                             <div class="login px-3 py-2 radius55 d-flex align-items-center">
