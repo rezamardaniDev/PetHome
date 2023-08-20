@@ -10,8 +10,13 @@ from .models import Blog, BlogCategory, BlogComment
 class BlogListView(ListView):
     model = Blog
     template_name = "blog_list.html"
-    paginate_by = 1
+    paginate_by = 3
     context_object_name = "blog"
+
+    def get_context_data(self, **kwargs):
+        context = super(BlogListView, self).get_context_data()
+        context['new_post']: Blog = Blog.objects.all().order_by('created_date')[0:3]
+        return context
 
     def get_queryset(self):
         query = super(BlogListView, self).get_queryset()

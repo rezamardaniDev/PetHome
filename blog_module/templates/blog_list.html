@@ -69,35 +69,17 @@
                 <div class="card thumb-post p-4 mb-3">
 
                     <ul>
+                        {% for post in new_post %}
                         <li class="my-1">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <a href="#"><img src="/static/Img/beautiful-pet-3.jpg"/></a>
+                            <div class="d-flex align-items-center justify-content-evenly">
+                                <a href="#"><img src="{{ post.image.url }}"/></a>
                                 <div class="mr-2">
-                                    <p><a href="#">بازی با حیوانات خانگی</a></p>
-                                    <p>5 خرداد 1402</p>
+                                    <p><a href="{% url 'blog:blog_detail' post.id %}">{{ post.title | truncatewords:4 }}</a></p>
+                                    <p>{{ post.created_date | jalali }}</p>
                                 </div>
                             </div>
                         </li>
-
-                        <li class="my-1">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <a href="#"><img src="/static/Img/beautiful-pet-4.jpg"/></a>
-                                <div class="mr-2">
-                                    <p><a href="#">تربیت حیوانات خانگی</a></p>
-                                    <p>5 خرداد 1402</p>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="my-1">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <a href="#"><img src="/static/Img/beautiful-pet-2.jpg"/></a>
-                                <div class="mr-2">
-                                    <p><a href="#">رفتار کودک با حیوانات</a></p>
-                                    <p>5 خرداد 1402</p>
-                                </div>
-                            </div>
-                        </li>
+                        {% endfor %}
                     </ul>
 
                 </div>
@@ -114,7 +96,7 @@
                                     <img src="{{ post.image.url }}" alt="Card image">
                                 </a>
                                 <div class="p_relative">
-                                    <h5 class="mt-5 YekanBakhFaNum-Bold"><a href="page-blog.html">
+                                    <h5 class="mt-5 YekanBakhFaNum-Bold"><a href="{% url 'blog:blog_detail' post.id %}">
                                         {{ post.title }}
                                     </a></h5>
                                     <div class="d-flex justify-content-center">
@@ -138,7 +120,7 @@
                                         </a>
                                     </div>
 
-                                    <p>{{ post.short_description | truncatewords:5 }}</p>
+                                    <p>{{ post.description | truncatewords:4 }}</p>
                                     <div class="d-flex align-items-center justify-content-end mt-3 px-2">
                                         <a class="d-flex justify-content-center align-items-center"
                                            href="{% url "blog:blog_detail" post.id %}">
