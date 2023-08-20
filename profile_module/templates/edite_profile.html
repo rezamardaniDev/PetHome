@@ -1,0 +1,20 @@
+{% extends "shared/main.html" %}
+{% load render_partial %}
+{% block title %}ویرایش پروفایل{% endblock %}
+
+{% block content %}
+    <div class="container d-md-flex align-items-start justify-content-around">
+        <form method="post" action="{% url 'user:edit_profile' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group mt-3 d-flex flex-column list-group">
+                <input type="text" name="first_name" class="list-group-item" value="{{ request.user.first_name }}">
+                <input type="text" name="first_name" class="list-group-item" value="{{ request.user.last_name }}">
+                <input type="text" name="phone_number" class="list-group-item" value="{{ request.user.phone_number }}">
+                <textarea name="address" class="list-group-item">{{ request.user.address }}</textarea>
+                <input type="file" class="my-3" name="profile_image">
+
+            </div>
+        </form>
+        {% render_partial 'profile_module.views.profile_menu' %}
+    </div>
+{% endblock %}

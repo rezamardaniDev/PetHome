@@ -1,0 +1,22 @@
+<section class="text-center px-2 py-3 mb-5 mt-20 mt-md-0">
+            <div class="container d-block row align-items-center mx-auto">
+                <ul class="list-group d-block mx-auto">
+                    <li class="list-group-item text-dark {% if request.resolver_match.url_name == 'dashboard' %} bg-warning {% endif %}">
+                        <i class="fas fa-user"></i>
+                        <a href="{% url 'user:dashboard' %}" class="">پنل کاربری</a>
+                    </li>
+                    <li class="list-group-item text-dark {% if request.resolver_match.url_name == 'edit_profile' %} bg-warning {% endif %}">
+                        <i class="fas fa-edit"></i>
+                        <a href="{% url 'user:edit_profile' %}">تغییر اطلاعات کاربری</a>
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-shopping-cart"></i>
+                        <a href="">لیست خرید های اخیر</a>
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-lock-open"></i>
+                        <a href="">تغییر کلمه عبور</a>
+                    </li>
+                </ul>
+            </div>
+        </section>
