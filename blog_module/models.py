@@ -42,10 +42,11 @@ class Blog(models.Model):
 
 class BlogComment(models.Model):
     post = models.ForeignKey(Blog, on_delete=models.CASCADE, verbose_name="پست", related_name="comments")
-    parent = models.ForeignKey('BlogComment',null=True, blank=True, on_delete=models.CASCADE, verbose_name="والد")
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="کاربر")
     create_date = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ثبت")
     message = models.TextField(verbose_name="متن نظر")
+    response = models.TextField(verbose_name="پاسخ ادمین", null=True, blank=True)
+    is_read = models.BooleanField(verbose_name="خوانده شده", default=False)
 
     def __str__(self):
         return str(self.user)

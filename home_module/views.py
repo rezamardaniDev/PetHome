@@ -12,6 +12,11 @@ class HomeView(ListView):
     template_name = "index.html"
     ordering = ['-price']
 
+    def get_context_data(self,**kwargs):
+        context = super(HomeView, self).get_context_data(**kwargs)
+        context['setting'] : SiteSettings = SiteSettings.objects.filter(is_main_setting=True).first()
+        return context
+
 class AboutUsView(View):
     def get(self, request):
         setting : SiteSettings = SiteSettings.objects.filter(is_main_setting=True).first()
