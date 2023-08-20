@@ -13,7 +13,7 @@ class BlogAdmin(admin.ModelAdmin):
 
 @admin.register(BlogComment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ['user', 'parent']
+    list_display = ['user', 'post', 'is_read']
 
 
 admin.site.register(BlogCategory)

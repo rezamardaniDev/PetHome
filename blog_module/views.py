@@ -1,10 +1,8 @@
-from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
+from django.shortcuts import render, redirect
 from django.views import View
-from django.views.generic import ListView, DetailView
-from .forms import CommentForm
+from django.views.generic import ListView
 
+from .forms import CommentForm
 from .models import Blog, BlogCategory, BlogComment
 
 
