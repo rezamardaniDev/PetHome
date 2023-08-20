@@ -146,6 +146,7 @@
 
                 <div class="row mt-3">
                     <div class="col-12 text-center mx-auto">
+                    {% if blog %}
                         <ul class="pagination justify-content-center">
                             {% if page_obj.has_previous %}
                                 <li class="page-item"><a class="page-link"
@@ -161,6 +162,7 @@
                                 </li>
                             {% endif %}
                         </ul>
+                    {% endif %}
                     </div>
                 </div>
 
