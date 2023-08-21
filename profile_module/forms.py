@@ -30,3 +30,12 @@ class ChangePasswordForm(forms.Form):
             'required': 'رمزعبور خود را مجددا وارد کنید'
         }
     )
+
+    def clean_confirm_password(self):
+        password = self.cleaned_data.get('new_password')
+        confirm_password = self.cleaned_data.get('confirm_password')
+
+        if password == confirm_password:
+            return confirm_password
+        else:
+            raise forms.ValidationError("رمز عبور های وارد شده یکسان نیستند")
