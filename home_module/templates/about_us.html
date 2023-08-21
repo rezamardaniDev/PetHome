@@ -153,14 +153,14 @@
                         دلایلی که میتوانید با خیال راحت به ما اعتماد کنید.
                     </p>
                     {% for ask in question %}
-                    <div id="cstm_collapsible" class="custon_shadw">
-                        <button class="collapsible">{{ ask.question }}</button>
-                        <div class="content" style="">
-                            <p class="p-2">
-                                {{ ask.answer }}
-                            </p>
+                        <div id="cstm_collapsible" class="custon_shadw">
+                            <button class="collapsible">{{ ask.question }}</button>
+                            <div class="content" style="">
+                                <p class="p-2">
+                                    {{ ask.answer }}
+                                </p>
+                            </div>
                         </div>
-                    </div>
                     {% endfor %}
 
                 </div>
