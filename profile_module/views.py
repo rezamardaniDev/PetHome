@@ -42,7 +42,7 @@ class ChangePasswordView(View):
     def post(self, request):
         change_password: ChangePasswordForm = ChangePasswordForm(request.POST)
         if change_password.is_valid():
-            user = request.user
+            user = User.objects.filter(id=request.user.id).first()
             is_correct_password = user.check_password(change_password.cleaned_data.get('old_password'))
 
             if is_correct_password:
