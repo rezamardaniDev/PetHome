@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.text import slugify
 
+from account_module.models import User
+
 
 class ProductCategory(models.Model):
     title = models.CharField(max_length=250, verbose_name="عنوان")
@@ -43,3 +45,18 @@ class Product(models.Model):
         ordering = ["price"]
         verbose_name = "محصول"
         verbose_name_plural = "محصولات"
+
+class ProductComment(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name="محصول", related_name="comments")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="کاربر")
+    create_date = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ثبت")
+    message = models.TextField(verbose_name="متن نظر")
+    response = models.TextField(verbose_name="پاسخ ادمین", null=True, blank=True)
+    is_read = models.BooleanField(verbose_name="خوانده شده", default=False)
+
+    def __str__(self):
+        return str(self.user)
+
+    class Meta:
+        verbose_name = "نظر"
+        verbose_name_plural = "نظرات"

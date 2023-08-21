@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, ListView, View
+from django.views.generic import ListView, View
+
 from .models import Product, ProductCategory
 
 
@@ -7,7 +8,7 @@ class ProductView(ListView):
     template_name = "products.html"
     model = Product
     context_object_name = 'products'
-    paginate_by = 1
+    paginate_by = 6
 
     def get_queryset(self):
         query = super(ProductView, self).get_queryset()
@@ -23,6 +24,9 @@ class ProductDetailView(View):
         return render(request, 'product_detail.html', context=
         {'product': product}
                       )
+
+    def post(self, request):
+        ...
 
 def product_categories_component(request):
     product_categories: ProductCategory = ProductCategory.objects.filter(is_active=True)[0:3]
