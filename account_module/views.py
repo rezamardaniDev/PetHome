@@ -78,7 +78,7 @@ class LoginView(View):
                     is_password_correct = user.check_password(form.cleaned_data.get('password'))
                     if is_password_correct:
                         login(request, user)
-                        return redirect(reverse("home:main"))
+                        return redirect(reverse("user:dashboard"))
                     else:
                         form.add_error('email', 'ایمیل یا پسورد اشتباه است')
             else:

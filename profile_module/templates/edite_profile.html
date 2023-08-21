@@ -4,24 +4,24 @@
 
 {% block content %}
     <div class="container d-md-flex align-items-start justify-content-between">
-    <div class="mx-auto">
-        <img src="{{ user.profile_image.url }}" class="d-block my-3 rounded-circle mx-auto">
-        <form method="post" action="{% url 'user:edit_profile' %}" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="form-group mt-3 d-flex flex-column list-group">
-                <label>نام</label>
-                <input type="text" name="first_name" class="list-group-item" value="{{ user.first_name }}">
-                <label>نام خانوادگی</label>
-                <input type="text" name="last_name" class="list-group-item" value="{{ user.last_name }}">
-                <label>شماره تلفن</label>
-                <input type="text" name="phone_number" class="list-group-item" value="{{ user.phone_number }}">
-                <label>آدرس</label>
-                <textarea name="address" class="list-group-item">{{ user.address }}</textarea>
-                <label>تصویر پروفایل</label>
-                <input type="file" class="my-3" name="profile_image">
-                <button type="submit" class="btn bg-warning w-25 my-3">ویرایش</button>
-            </div>
-        </form>
+        <div class="mx-auto bg-white mt-1 mb-3 rounded-top px-5">
+            <img src="{{ user.profile_image.url }}" class="d-block my-3 rounded-circle mx-auto">
+            <form method="post" action="{% url 'user:edit_profile' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group mt-3 d-flex flex-column list-group">
+                    <label>نام</label>
+                    <input type="text" name="first_name" class="list-group-item" value="{{ user.first_name }}">
+                    <label>نام خانوادگی</label>
+                    <input type="text" name="last_name" class="list-group-item" value="{{ user.last_name }}">
+                    <label>شماره تلفن</label>
+                    <input type="text" name="phone_number" class="list-group-item" value="{{ user.phone_number }}">
+                    <label>آدرس</label>
+                    <textarea name="address" class="list-group-item">{{ user.address }}</textarea>
+                    <label>تصویر پروفایل</label>
+                    <input type="file" class="my-3" name="profile_image">
+                    <button type="submit" class="btn bg-warning w-25 my-3">ویرایش</button>
+                </div>
+            </form>
         </div>
         {% render_partial 'profile_module.views.profile_menu' %}
     </div>
