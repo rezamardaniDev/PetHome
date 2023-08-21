@@ -3,7 +3,7 @@ from django.views import View
 from django.views.generic import TemplateView
 
 from account_module.models import User
-from .forms import EditeProfileForm
+from .forms import EditeProfileForm,ChangePasswordForm
 
 
 # Create your views here.
@@ -31,6 +31,16 @@ class UserEditProfile(View):
             'edit_form': edit_form,
         })
 
+
+class ChangePasswordView(View):
+    def get(self, request):
+        change_password: ChangePasswordForm = ChangePasswordForm()
+        return render(request,"change_password.html", context={
+            'change_password': change_password
+        })
+
+    def post(self, request):
+        ...
 
 def profile_menu(request):
     return render(request, "components/profile_menu.html", context={
