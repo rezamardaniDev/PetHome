@@ -4,7 +4,7 @@
 
 {% block content %}
     <div class="container d-md-flex align-items-start justify-content-between">
-    <div class="mx-auto">
+    <div class="mx-auto bg-white mt-1 mb-3 rounded-top px-5">
         <img src="{{ user.profile_image.url }}" class="d-block my-3 rounded-circle mx-auto">
         <form method="post" action="{% url 'user:edit_profile' %}" enctype="multipart/form-data">
             {% csrf_token %}
