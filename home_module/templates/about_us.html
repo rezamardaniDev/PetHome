@@ -152,15 +152,16 @@
                     <p class="mb-3">
                         دلایلی که میتوانید با خیال راحت به ما اعتماد کنید.
                     </p>
-
+                    {% for ask in question %}
                     <div id="cstm_collapsible" class="custon_shadw">
-                        <button class="collapsible">میتونم اعتماد کنم؟</button>
+                        <button class="collapsible">{{ ask.question }}</button>
                         <div class="content" style="">
                             <p class="p-2">
-                                بله امن هستیم
+                                {{ ask.answer }}
                             </p>
                         </div>
                     </div>
+                    {% endfor %}
 
                 </div>
 
