@@ -43,9 +43,7 @@
         <div class="gg-container">  
             <div class="gg-box" id="heightWidth">
                 {% for img in imgae %}
-{#                    {% thumbnail img.image "350x300" quality=99 crop='center' as imag %}#}
-                        <img class="radius15" src="{{ imag.url }}" alt="{{ img.title }}">
-{#                    {% endthumbnail %}#}
+                        <img class="radius15 m-2" src="{{ img.image.url }}" alt="{{ img.title }}">
                 {% empty %}
                     <h3 class="text-center my-5"> عکسی وجود نداره یا در دسترس نیست :(</h3>
                 {% endfor %}

@@ -13,4 +13,4 @@ class Gallery(models.Model):
 
     class Meta:
         verbose_name = "تصویر"
-        verbose_name = "گالری تصاویر"
+        verbose_name_plural = "تصاویر"
