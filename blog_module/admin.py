@@ -19,7 +19,7 @@ class CommentAdmin(admin.ModelAdmin):
 
 @admin.register(BlogVisit)
 class BlogVisitAdmin(admin.ModelAdmin):
-    list_display = ['post']
+    list_display = ['post', 'user']
 
 
 
