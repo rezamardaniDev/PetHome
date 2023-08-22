@@ -6,6 +6,12 @@ class Gallery(models.Model):
     image = ResizedImageField(upload_to="gallery", verbose_name="عکس", quality=100, size=[350, 300], crop=['middle', 'center'])
     is_active = models.BooleanField(verbose_name="فعال / غیرفعال")
 
+
+    def delete(self, *args, **kwargs):
+            storage, path = self.image.storage, self.image.path
+            storage.delete(path)
+            super().delete(*args, **kwargs)
+
     def __str__(self):
         return self.title
 
