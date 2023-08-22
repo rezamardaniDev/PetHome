@@ -10,8 +10,8 @@
                 <div class="bg-package d-flex align-items-center justify-content-center">
                     <div class="breadcrumb radius15">
                         <ul class="">
-                            <li><a href="#">خانه / </a></li>
-                            <li><a href="#" class="current">صفحه محصول</a></li>
+                            <li><a href="{% url 'products:products_list' %}">محصولات / </a></li>
+                            <li><a href="{% url 'products:products_detail' product.id %}" class="current">{{ product.name }}</a></li>
                         </ul>
                     </div>
                 </div>

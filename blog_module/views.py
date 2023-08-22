@@ -1,9 +1,11 @@
+from django.db.models import Count
 from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import ListView
 
 from .forms import CommentForm
-from .models import Blog, BlogCategory, BlogComment
+from .models import Blog, BlogCategory, BlogComment, BlogVisit
+from utils.http_service import get_client_ip
 
 
 # Create your views here.
@@ -32,13 +34,23 @@ class BlogDetailView(View):
         post: Blog = Blog.objects.filter(is_active=True, id=post_id).first()
         categories = BlogCategory.objects.all()[0:3]
         comments = post.comments.all()
-        post.view += 1
-        post.save()
+        post_visit = BlogVisit.objects.filter(post_id=post_id).count()
+        # <------------- Visit Post ------------->
+        user_ip = get_client_ip(request)
+        user_id = None
+        if request.user.is_authenticated:
+            user_id = request.user.id
 
+        has_been_visited = BlogVisit.objects.filter(ip__iexact=user_ip, post_id=post_id).exists()
+        if not has_been_visited:
+            new_visit = BlogVisit(ip=user_ip, user_id=user_id, post_id=post.id)
+            new_visit.save()
+        # <-------------------------------------->
         return render(request, 'blog_detail.html', context={
             'post': post,
             'categories': categories,
-            'comments': comments
+            'comments': comments,
+            'view': post_visit
         })
 
     def post(self, request, post_id):
