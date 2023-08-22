@@ -1,8 +1,6 @@
 from django.db import models
 from django_resized import ResizedImageField
 
-# Create your models here.
-
 class Gallery(models.Model):
     title = models.CharField(max_length=250, verbose_name="نام عکس")
     image = ResizedImageField(upload_to="gallery", verbose_name="عکس", quality=100, size=[350, 300], crop=['middle', 'center'])

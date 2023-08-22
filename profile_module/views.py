@@ -6,7 +6,6 @@ from account_module.models import User
 from .forms import EditeProfileForm, ChangePasswordForm
 
 
-# Create your views here.
 class UserProfileView(TemplateView):
     template_name = "user_profile.html"
 

@@ -2,8 +2,6 @@ from django.contrib import admin
 from .models import BlogCategory, Blog, BlogComment, BlogVisit
 
 
-# Register your models here.
-
 @admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
     list_display = ['title','author', 'created_date', 'is_active']

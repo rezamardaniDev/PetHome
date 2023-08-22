@@ -4,7 +4,6 @@ from django_jalali.db import models as jmodels
 from account_module.models import User
 
 
-# Create your models here.
 class BlogCategory(models.Model):
     title = models.CharField(max_length=250, verbose_name="نام دسته بندی")
     url_title = models.CharField(max_length=250, verbose_name="عنوان در url", unique=True)

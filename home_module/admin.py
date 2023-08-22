@@ -3,7 +3,6 @@ from django.contrib import admin
 from home_module.models import AskQuestion
 
 
-# Register your models here.
 @admin.register(AskQuestion)
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ['user', 'question']
