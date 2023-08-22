@@ -13,7 +13,7 @@
                 <a href="{% url "products:products_list" %}">محصولات</a>
             </li>
             <li class="current-menu-item">
-                <a href="gallery.html">گالری</a>
+                <a href="{% url 'gallery:gallery' %}">گالری</a>
             </li>
             <li class="current-menu-item">
                 <a href="{% url "blog:blog_list" %}">وبلاگ</a>
@@ -49,13 +49,17 @@
                                style={% if request.resolver_match.url_name == 'products_list' %}"color: #FEBF0F"{% endif %}>محصولات</a>
                         </li>
 
-                        <li><a href="" target="">گالری</a></li>
+                        <li><a href="{% url 'gallery:gallery' %}" target=""
+                               style={% if request.resolver_match.url_name == 'gallery' %}"color: #FEBF0F"{% endif %}>گالری</a>
+                        </li>
 
                         <li><a href="{% url "blog:blog_list" %}" target=""
                                style={% if request.resolver_match.url_name == 'blog_list' %}"color: #FEBF0F"{% endif %}>وبلاگ</a>
                         </li>
 
-                        <li><a href="{% url 'home:about-us' %}" target="">درباره ما</a></li>
+                        <li><a href="{% url 'home:about-us' %}" target=""
+                               style={% if request.resolver_match.url_name == 'about-us' %}"color: #FEBF0F"{% endif %}>درباره
+                            ما</a></li>
 
                         <li><a href="{% url "contact-us:contact-us" %}" target=""
                                style={% if request.resolver_match.url_name == 'contact-us' %}"color: #FEBF0F"{% endif %}>تماس
