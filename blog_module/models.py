@@ -26,7 +26,6 @@ class Blog(models.Model):
     short_description = models.CharField(max_length=250 ,verbose_name="توضیحات کوتاه")
     description = models.TextField(verbose_name='متن')
     created_date = jmodels.jDateTimeField(auto_now_add=True, verbose_name="تاریخ ایجاد")
-    # view = models.IntegerField(verbose_name="تعداد بازدید", blank=True, default=1)
     slug = models.SlugField(max_length=250, allow_unicode=True,  verbose_name="اسلاگ", db_index=True, null=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, editable=False)
     is_active = models.BooleanField(verbose_name="فعال / غیرفعال")
@@ -57,7 +56,7 @@ class BlogComment(models.Model):
 
 
 class BlogVisit(models.Model):
-    post = models.ForeignKey(Blog, on_delete=models.CASCADE, verbose_name="پست", related_name="visit")
+    post = models.ForeignKey(Blog, on_delete=models.CASCADE, verbose_name="پست", related_name="post_visit")
     ip = models.CharField(max_length=30, verbose_name="آی پی کاربر")
     user = models.ForeignKey(User, null=True, blank=True, verbose_name="کاربر مشاهده کرده", on_delete=models.CASCADE)
 
