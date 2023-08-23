@@ -4,7 +4,6 @@ from django_jalali.db import models as jmodels
 from account_module.models import User
 
 
-# Create your models here.
 class BlogCategory(models.Model):
     title = models.CharField(max_length=250, verbose_name="نام دسته بندی")
     url_title = models.CharField(max_length=250, verbose_name="عنوان در url", unique=True)
@@ -29,6 +28,12 @@ class Blog(models.Model):
     slug = models.SlugField(max_length=250, allow_unicode=True,  verbose_name="اسلاگ", db_index=True, null=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, editable=False)
     is_active = models.BooleanField(verbose_name="فعال / غیرفعال")
+
+
+    def delete(self, *args, **kwargs):
+            storage, path = self.image.storage, self.image.path
+            storage.delete(path)
+            super().delete(*args, **kwargs)
 
     def __str__(self):
         return self.title

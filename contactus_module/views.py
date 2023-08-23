@@ -5,7 +5,6 @@ from .models import ContactUs
 from site_module.models import SiteSettings
 
 
-# Create your views here.
 class ContactUSView(View):
     def get(self, request):
         form = ContactUsForm()

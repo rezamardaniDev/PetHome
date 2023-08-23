@@ -1,13 +1,14 @@
+from django.contrib.auth import login, logout
 from django.http import HttpResponse, Http404
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.views import View
 from django.views.generic import TemplateView
+
+from utils.email_service import send_email
 from .forms import RegisterForm, LoginForm, ForgetPasswordForm, ResetPasswordForm
 from .models import User
-from django.contrib.auth import login, logout
-from utils.email_service import send_email
 
 
 class RegisterView(TemplateView):
@@ -53,7 +54,6 @@ class ActivateAccountView(View):
                 user.is_active = True
                 user.email_active_code = get_random_string(72)
                 user.save()
-                # todo: show success message to user
                 return redirect(reverse('home:main'))
             else:
                 HttpResponse("your account is activated")

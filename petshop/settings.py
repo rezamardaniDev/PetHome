@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'polls.apps.PollsConfig',
     'profile_module.apps.ProfileModuleConfig',
     'gallery_module.apps.GalleryModuleConfig',
+    'order_module.apps.OrderModuleConfig',
 
     # external extensions
     'django_render_partial',

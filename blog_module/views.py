@@ -1,14 +1,12 @@
-from django.db.models import Count
 from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import ListView
 
+from utils.http_service import get_client_ip
 from .forms import CommentForm
 from .models import Blog, BlogCategory, BlogComment, BlogVisit
-from utils.http_service import get_client_ip
 
 
-# Create your views here.
 class BlogListView(ListView):
     model = Blog
     template_name = "blog_list.html"

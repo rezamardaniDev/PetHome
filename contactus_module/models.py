@@ -1,6 +1,5 @@
 from django.db import models
 
-# Create your models here.
 class ContactUs(models.Model):
     email = models.EmailField(max_length=250, verbose_name="ایمیل")
     subject = models.CharField(max_length=250, verbose_name="موضوع")

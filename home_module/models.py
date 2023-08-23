@@ -2,8 +2,6 @@ from django.db import models
 
 from account_module.models import User
 
-
-# Create your models here.
 class AskQuestion(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="کاربر")
     question = models.CharField(max_length=250, verbose_name="سوال")
