@@ -54,7 +54,6 @@ class ActivateAccountView(View):
                 user.is_active = True
                 user.email_active_code = get_random_string(72)
                 user.save()
-                # todo: show success message to user
                 return redirect(reverse('home:main'))
             else:
                 HttpResponse("your account is activated")
