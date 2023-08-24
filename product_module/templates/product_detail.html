@@ -219,7 +219,7 @@
                                 <div class="d-flex align-items-center justify-content-between my-4">
 
                                     {% if product.count %}
-                                        <button class="btn btn-lightorng btn-rounded mr-1" data-toggle="tooltip"
+                                        <button class="btn btn-lightorng btn-rounded mr-1" onclick="addProductToOrder({{ product.id }})" data-toggle="tooltip"
                                                 title="" data-original-title="Add to cart">
                                             افزودن به سبد خرید
                                         </button>
