@@ -62,3 +62,8 @@ def profile_menu(request):
     return render(request, "components/profile_menu.html", context={
 
     })
+
+def user_basket(request):
+    return render(request, "user_basket.html", context={
+
+    })
