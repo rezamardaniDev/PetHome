@@ -3,6 +3,7 @@ from django.views import View
 from django.views.generic import TemplateView
 
 from account_module.models import User
+from order_module.models import Order
 from .forms import EditeProfileForm, ChangePasswordForm
 
 
@@ -64,6 +65,14 @@ def profile_menu(request):
     })
 
 def user_basket(request):
-    return render(request, "user_basket.html", context={
+    current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(user_id=request.user.id, is_paid=False)
+    total_amoutn = 0
 
+    for order_detail in current_order.orderdetail_set.all():
+        total_amoutn += order_detail.product.price * order_detail.count
+
+
+    return render(request, "user_basket.html", context={
+        'order': current_order,
+        'sum': total_amoutn
     })
