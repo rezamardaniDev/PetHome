@@ -6,7 +6,7 @@ from django.views import View
 from django.views.generic import TemplateView
 
 from account_module.models import User
-from order_module.models import Order
+from order_module.models import Order, OrderDetail
 from .forms import EditeProfileForm, ChangePasswordForm
 
 
@@ -97,3 +97,35 @@ def delete_order_datail(request, product_id):
         })
     detail.delete()
     return redirect(reverse('user:cart'))
+
+def change_order_datail_count(request):
+    detail_id = request.GET.get('detail_id')
+    state = request.GET.get('state')
+    if detail_id is None or state is None:
+        return JsonResponse({
+            'status': 'not_found_detail_id_or_state'
+        })
+
+    order_detail = OrderDetail.objects.filter(id=detail_id, order__user_id=request.user.id, order__is_paid=False).first()
+    if order_detail is None:
+        return JsonResponse({
+            'status': 'detail_not_found'
+        })
+
+    if state == 'increase':
+        order_detail.count += 1
+        order_detail.save()
+        return redirect(reverse('user:cart'))
+    elif state == 'decrease':
+        if order_detail.count == 1:
+            order_detail.delete()
+            return redirect(reverse('user:cart'))
+        else:
+            order_detail.count -= 1
+            order_detail.save()
+            return redirect(reverse('user:cart'))
+
+    else:
+        return JsonResponse({
+            'status': 'state invalid'
+        })
