@@ -1,5 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
+from django.urls import reverse
 from django.views import View
 from django.views.generic import TemplateView
 
@@ -95,16 +97,18 @@ def delete_order_detail(request):
         })
     detail.delete()
 
-
-
-
-
+    current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(user_id=request.user.id,is_paid=False)
     total_amoutn = 0
 
     for order_detail in current_order.orderdetail_set.all():
         total_amoutn += order_detail.product.price * order_detail.count
 
-    return render(request, "user_basket_content.html", context={
+    data = render_to_string("user_basket_content.html", context={
         'order': current_order,
         'sum': total_amoutn
+    })
+
+    return JsonResponse({
+        'status': 'success',
+        'body': data
     })
