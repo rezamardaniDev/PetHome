@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import TemplateView
@@ -79,9 +80,25 @@ def user_basket(request):
     })
 
 
-def user_basket_content(request):
-    current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(user_id=request.user.id,
-                                                                                             is_paid=False)
+def delete_order_detail(request):
+    current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(user_id=request.user.id, is_paid=False)
+    detail_id = request.GET.get('detail_id')
+    if detail_id is None:
+        return JsonResponse({
+            'status': 'not_found_detail_id'
+        })
+
+    detail = current_order.orderdetail_set.filter(id=detail_id).first()
+    if detail is None:
+        return JsonResponse({
+            'status': 'detail_not_found'
+        })
+    detail.delete()
+
+
+
+
+
     total_amoutn = 0
 
     for order_detail in current_order.orderdetail_set.all():
