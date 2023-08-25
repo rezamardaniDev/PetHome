@@ -64,15 +64,30 @@ def profile_menu(request):
 
     })
 
+
 def user_basket(request):
-    current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(user_id=request.user.id, is_paid=False)
+    current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(user_id=request.user.id,
+                                                                                             is_paid=False)
     total_amoutn = 0
 
     for order_detail in current_order.orderdetail_set.all():
         total_amoutn += order_detail.product.price * order_detail.count
 
-
     return render(request, "user_basket.html", context={
+        'order': current_order,
+        'sum': total_amoutn
+    })
+
+
+def user_basket_content(request):
+    current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(user_id=request.user.id,
+                                                                                             is_paid=False)
+    total_amoutn = 0
+
+    for order_detail in current_order.orderdetail_set.all():
+        total_amoutn += order_detail.product.price * order_detail.count
+
+    return render(request, "user_basket_content.html", context={
         'order': current_order,
         'sum': total_amoutn
     })

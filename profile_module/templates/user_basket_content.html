@@ -1,0 +1,97 @@
+{% load poll_extras %}
+
+<div class="clearfix"></div>
+
+<section class="container-fluid bkg p-0">
+    <div class="row">
+        <div class="col-lg-12 p-0 mb-3">
+            <div class="bg-package d-flex align-items-center justify-content-center">
+                <div class="breadcrumb radius15">
+                    <ul class="">
+                        <li><a href="#">خانه / </a></li>
+                        <li><a href="#" class="current">سبد خرید</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container mb-4">
+    <div class="row">
+
+        <div class="col-xl-4 order-xl-1 pt-3 order-1 mb-3">
+
+            <div class="card side-category p-4 mb-3">
+                <ul class="list-unstyled">
+
+                    <li class="p-3 bg-title-sidebar radius15">مجموع سبد خرید:
+
+                        <div class="d-flex align-items-center justify-content-center">
+                            {{ sum | three_digits }} تومان
+                        </div>
+
+                    </li>
+                </ul>
+                <li>
+                    هزینه این سفارش هنوز پرداخـت نشده و در صورت اتمــام موجــودی
+                    کالا ها از سبد خرید شما حدف می شوند.
+                </li>
+                <a class="a-button radius55 py-3 px-4 text-center mt-3" href="checkout.html">
+                    <span class="ml-2">ثبت سفارش و پرداخت</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-xl-8 order-xl-0 order-0 mb-3">
+
+            <div class="card m-3 p-4">
+                <div class="item">
+
+                    <div class="">
+                        {% for item in order.orderdetail_set.all %}
+                            <div class="d-flex align-items-center justify-content-between mb-cart cart-res">
+                                <div class="col-lg-3">
+                                    <img src="{{ item.product.image.url }}" alt="">
+                                </div>
+                                <div class="col-lg-3">{{ item.product.name }}</div>
+                                <div class="col-lg-3">{{ item.get_total_price | three_digits }} تومان</div>
+                                <div class="col-lg-3">
+                                    <div class="input-group d-flex align-items-center justify-content-center cart-increment radius20">
+
+                                                    <span class="input-group-btn">
+                                                        <button type="button" class="quantity-right-plus btn "
+                                                                data-type="plus" data-field="">
+                                                            <i class="fas fa-plus text-warning"></i>
+                                                        </button>
+                                                    </span>
+
+                                        <input type="text" id="quantity" name="quantity"
+                                               class="input-cart form-control input-number" value="{{ item.count }}"
+                                               min="1"
+                                               max="100">
+
+                                        <span class="input-group-btn">
+                                                        <button type="button" class="quantity-left-minus btn p-3"
+                                                                data-type="minus" data-field="">
+                                                            <i class="fas fa-minus text-warning"></i>
+                                                        </button>
+                                                    </span>
+
+                                    </div>
+                                    <button class="btn bg-danger text-white mx-auto d-block my-2 d-flex justify-content-center align-items-center rounded-left rounded-right">
+                                        <i class="fas fa-trash"></i></button>
+                                </div>
+
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
