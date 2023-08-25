@@ -51,6 +51,7 @@
             <div class="col-xl-8 order-xl-0 order-0 mb-3">
 
                 <div class="card m-3 p-4">
+                {% if order.orderdetail_set.all %}
                     <div class="item">
                             {% for item in order.orderdetail_set.all %}
                                 <div class="d-flex align-items-center justify-content-between mb-cart cart-res" id="items">
@@ -82,15 +83,18 @@
                                                     </span>
 
                                         </div>
-                                        <button class="btn bg-danger text-white mx-auto d-block my-2 d-flex justify-content-center align-items-center rounded-left rounded-right"
-                                        onclick="removeOrderDetail({{ item.id }})">
-                                            <i class="fas fa-trash"></i></button>
+                                        <a href="{% url 'user:delete_order_detail' item.id %}" class="btn bg-danger text-white mx-auto d-block my-2 d-flex justify-content-center align-items-center rounded-left rounded-right">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
                                     </div>
 
                                 </div>
                             {% endfor %}
 
                     </div>
+                    {% else %}
+                    <h4 class="text-center text-muted ">سبد خرید شما خالی میباشد</h4>
+                {% endif %}
                 </div>
 
             </div>

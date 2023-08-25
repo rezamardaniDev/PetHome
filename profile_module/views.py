@@ -81,10 +81,10 @@ def user_basket(request):
         'sum': total_amoutn
     })
 
+def delete_order_datail(request, product_id):
+    current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(user_id=request.user.id,is_paid=False)
+    detail_id = product_id
 
-def delete_order_detail(request):
-    current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(user_id=request.user.id, is_paid=False)
-    detail_id = request.GET.get('detail_id')
     if detail_id is None:
         return JsonResponse({
             'status': 'not_found_detail_id'
@@ -96,19 +96,4 @@ def delete_order_detail(request):
             'status': 'detail_not_found'
         })
     detail.delete()
-
-    current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(user_id=request.user.id,is_paid=False)
-    total_amoutn = 0
-
-    for order_detail in current_order.orderdetail_set.all():
-        total_amoutn += order_detail.product.price * order_detail.count
-
-    data = render_to_string("user_basket_content.html", context={
-        'order': current_order,
-        'sum': total_amoutn
-    })
-
-    return JsonResponse({
-        'status': 'success',
-        'body': data
-    })
+    return redirect(reverse('user:cart'))
