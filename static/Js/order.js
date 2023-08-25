@@ -12,3 +12,17 @@ function addProductToOrder(productId) {
     });
 }
 
+function removeOrderDetail(detailID){
+    $.get('/user/delete-order-detail?detail_id=' + detailID ).then(res =>{
+        if(res.status == 'success'){
+            $('.item').html(res.body);
+        }
+    });
+}
+
+
+function changeOrderDetialCount(detailId, state){
+    $.get('/user/change-order-detail?detail_id=' + detailId + '&state=' + state ).then(res =>{
+        console.log(detailId, state);
+    })
+}

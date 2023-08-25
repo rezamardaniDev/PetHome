@@ -225,7 +225,7 @@
                                         </button>
                                     {% endif %}
                                     <h3 class="color-orange YekanBakhFaNum-Bold fa18">
-                                        {% if product.count %}{{ product.price }}{% else %}ناموجود{% endif %}
+                                        {% if product.count %}{{ product.price | three_digits }}{% else %}ناموجود{% endif %}
                                         <span class="YekanBakhFaNum-Regular fa14">{% if product.count %}
                                             تومان{% endif %}</span>
                                     </h3>
