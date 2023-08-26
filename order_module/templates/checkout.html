@@ -53,16 +53,6 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="inputEmail4">نام شرکت (اختیاری) :</label>
-                                    <input type="text" class="form-control mb-1">
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label for="inputEmail4">کشور | منطقه :</label>
-                                    <input type="text" class="form-control mb-1">
-                                </div>
-
-                                <div class="form-group col-md-6">
                                     <label for="inputEmail4">استان:</label>
                                     <input type="text" class="form-control mb-1">
                                 </div>
@@ -92,11 +82,6 @@
                                     <input type="text" class="form-control mb-1">
                                 </div>
 
-                                <div class="form-group col-md-6">
-                                    <label for="inputEmail4">ایمیل:</label>
-                                    <input type="text" class="form-control mb-1">
-                                </div>
-
                             </div>
                         </div>
 
@@ -112,11 +97,11 @@
                                     </li>
 
                                     {% for item in order.orderdetail_set.all %}
-                                    <li>{{ item.product.name }}
-                                        <div class="d-flex align-items-center justify-content-center">
-                                            {{ item.product.price | three_digits }} تومان
-                                        </div>
-                                    </li>
+                                        <li>{{ item.product.name }}
+                                            <div class="d-flex align-items-center justify-content-center">
+                                                {{ item.product.price | three_digits }} تومان
+                                            </div>
+                                        </li>
                                     {% endfor %}
                                     <hr>
 
