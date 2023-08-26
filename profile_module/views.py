@@ -1,6 +1,5 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from django.template.loader import render_to_string
 from django.urls import reverse
 from django.views import View
 from django.views.generic import TemplateView

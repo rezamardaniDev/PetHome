@@ -107,6 +107,15 @@ def verify_payment(request):
 
 class CheckOutView(View):
     def get(self, request):
-        return render(request, 'checkout.html', context={
+        current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(
+            user_id=request.user.id,
+            is_paid=False)
+        total_amoutn = 0
 
+        for order_detail in current_order.orderdetail_set.all():
+            total_amoutn += order_detail.product.price * order_detail.count
+
+        return render(request, "checkout.html", context={
+            'order': current_order,
+            'sum': total_amoutn
         })

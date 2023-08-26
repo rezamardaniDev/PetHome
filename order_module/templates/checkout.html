@@ -1,4 +1,5 @@
 {% extends 'shared/main.html' %}
+{% load poll_extras %}
 {% block title %}{% endblock %}
 
 
@@ -104,33 +105,20 @@
                             <div class="bg-title-sidebar radius20 side-category p-4 mb-2">
 
                                 <ul class="list-unstyled">
-
                                     <li>محصول
                                         <div class="d-flex align-items-center justify-content-center">
                                             جمع جزء
                                         </div>
                                     </li>
-                                    <!-https://t.me/sabzrea ->
 
-                                    <li>غذای خشک تیدا
+                                    {% for item in order.orderdetail_set.all %}
+                                    <li>{{ item.product.name }}
                                         <div class="d-flex align-items-center justify-content-center">
-                                            800,000 تومان
+                                            {{ item.product.price | three_digits }} تومان
                                         </div>
                                     </li>
-
-                                    <li>کنسرو تیدا
-                                        <div class="d-flex align-items-center justify-content-center">
-                                            600,000 تومان
-                                        </div>
-                                    </li>
-
+                                    {% endfor %}
                                     <hr>
-
-                                    <li>جمع جزء:
-                                        <div class="d-flex align-items-center justify-content-center">
-                                            1,400,000 تومان
-                                        </div>
-                                    </li>
 
                                     <li>حمل و نقل:
                                         <div class="d-flex align-items-center justify-content-center">
@@ -140,10 +128,10 @@
 
                                     <li>مجموع:
                                         <div class="d-flex align-items-center justify-content-center">
-                                            1,400,000 تومان
+                                            {{ sum | three_digits }} تومان
                                         </div>
                                     </li>
-                                    <!-https://t.me/sabzrea ->
+
 
                                 </ul>
 
