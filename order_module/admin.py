@@ -1,5 +1,16 @@
 from django.contrib import admin
 from . import models
 
-admin.site.register(models.Order)
-admin.site.register(models.OrderDetail)
+@admin.register(models.Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['id','user', 'is_paid']
+
+
+@admin.register(models.OrderDetail)
+class OrderDetailAdmin(admin.ModelAdmin):
+    list_display = ['order']
+
+
+@admin.register(models.OrderCheckout)
+class OrderCheckoutAdmin(admin.ModelAdmin):
+    list_display = ['user', 'sended']

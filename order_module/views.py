@@ -1,11 +1,15 @@
+import json
+
+import requests
 from django.http import JsonResponse
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.views import View
+from .forms import CheckOutForm
+from .models import OrderCheckout
 
 from order_module.models import Order, OrderDetail
 from product_module.models import Product
-from django.conf import settings
-import requests
-import json
-
 
 ZP_API_REQUEST = f"https://zarinpal.com/pg/rest/WebGate/PaymentRequest.json"
 ZP_API_VERIFY = f"https://zarinpal.com/pg/rest/WebGate/PaymentVerification.json"
@@ -101,3 +105,47 @@ def verify_payment(request):
         else:
             return {'status': False, 'code': str(response['Status'])}
     return response
+
+
+class CheckOutView(View):
+    def get(self, request):
+        checkout_form = CheckOutForm()
+        current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(
+            user_id=request.user.id,
+            is_paid=False)
+        total_amoutn = 0
+
+        for order_detail in current_order.orderdetail_set.all():
+            total_amoutn += order_detail.product.price * order_detail.count
+
+        return render(request, "checkout.html", context={
+            'order': current_order,
+            'sum': total_amoutn,
+            ' checkout_form':  checkout_form
+        })
+
+    def post(self, request):
+        checkout_form = CheckOutForm(request.POST)
+        if checkout_form.is_valid():
+            new_checkout: OrderCheckout = OrderCheckout()
+
+            new_checkout.user = request.user
+            new_checkout.order = OrderDetail.objects.filter(order__user_id=request.user.id).first()
+            new_checkout.first_name = checkout_form.cleaned_data.get('first_name')
+            new_checkout.last_name = checkout_form.cleaned_data.get('last_name')
+            new_checkout.state = checkout_form.cleaned_data.get('state')
+            new_checkout.city = checkout_form.cleaned_data.get('city')
+            new_checkout.street = checkout_form.cleaned_data.get('street')
+            new_checkout.zipcode = checkout_form.cleaned_data.get('zipcode')
+            new_checkout.phone = checkout_form.cleaned_data.get('phone')
+            new_checkout.sended = False
+
+            new_checkout.save()
+            return redirect(reverse('user:dashboard'))
+        else:
+            checkout_form.add_error('phone', 'مشکلی در پرداخت پیش اومده')
+
+        return render(request, "checkout.html", context={
+            'checkout_form': checkout_form,
+            'sum': 0
+        })
