@@ -1,4 +1,6 @@
 from django.http import JsonResponse
+from django.shortcuts import render
+from django.views import View
 
 from order_module.models import Order, OrderDetail
 from product_module.models import Product
@@ -101,3 +103,10 @@ def verify_payment(request):
         else:
             return {'status': False, 'code': str(response['Status'])}
     return response
+
+
+class CheckOutView(View):
+    def get(self, request):
+        return render(request, 'checkout.html', context={
+
+        })
