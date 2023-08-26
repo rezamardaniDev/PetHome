@@ -160,7 +160,7 @@ class CheckOutView(View):
             new_checkout.sended = False
 
             new_checkout.save()
-            return redirect(reverse('user:dashboard'))
+            return redirect(reverse('order:request_payment'))
         else:
             checkout_form.add_error('phone', 'مشکلی در پرداخت پیش اومده')
 
