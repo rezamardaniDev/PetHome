@@ -9,7 +9,7 @@ class Order(models.Model):
     payment_date = models.DateField(null=True, blank=True, verbose_name="تاریخ پرداخت")
 
     def __str__(self):
-        return str(self.user)
+        return str(self.id)
 
     class Meta:
         verbose_name = "سبد خرید"
@@ -34,3 +34,25 @@ class OrderDetail(models.Model):
     class Meta:
         verbose_name = "جزئیات سبد خرید"
         verbose_name_plural = "لیست جزئیات سبدهای خرید"
+
+
+class OrderCheckout(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='کاربر')
+    order = models.ForeignKey(OrderDetail, on_delete=models.CASCADE, verbose_name='رسید')
+    first_name = models.CharField(max_length=250, verbose_name='نام')
+    last_name = models.CharField(max_length=250, verbose_name='نام خانوادگی')
+    state = models.CharField(max_length=250, verbose_name='استان')
+    city = models.CharField(max_length=250, verbose_name='شهر')
+    street = models.CharField(max_length=250, verbose_name='خیابان')
+    apartment = models.CharField(max_length=250, verbose_name='آپارتمان')
+    zipcode = models.CharField(max_length=250, verbose_name='کد پستی')
+    phone = models.CharField(max_length=250, verbose_name='شماره تماس')
+    sended = models.BooleanField(verbose_name='ارسال شده / نشده')
+
+    def __str__(self):
+        return str(self.order)
+
+
+    class Meta:
+        verbose_name = 'سفارش'
+        verbose_name_plural = 'سفارشات'
