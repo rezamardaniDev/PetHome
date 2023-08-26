@@ -99,9 +99,7 @@ DATABASES = {
 
 AUTH_USER_MODEL = "account_module.User"
 
-MERCHANT = "41af5198-62bc-4c31-af3a-424f4e73ec70"
 
-SANDBOX = False
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -153,3 +151,8 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'mardanireza30@gmail.com'
 EMAIL_HOST_PASSWORD = 'dtliitrswfqdhjcd'
 EMAIL_PORT = 587
+
+
+MERCHANT = "41af5198-62bc-4c31-af3a-424f4e73ec70"
+
+SANDBOX = True

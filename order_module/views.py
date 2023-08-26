@@ -5,13 +5,15 @@ from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import View
+from jdatetime import datetime
+
 from .forms import CheckOutForm
 from .models import OrderCheckout
 
 from order_module.models import Order, OrderDetail
 from product_module.models import Product
 
-#? sandbox merchant
+
 if settings.SANDBOX:
     sandbox = 'sandbox'
 else:
@@ -23,16 +25,21 @@ ZP_API_VERIFY = f"https://{sandbox}.zarinpal.com/pg/rest/WebGate/PaymentVerifica
 ZP_API_STARTPAY = f"https://{sandbox}.zarinpal.com/pg/StartPay/"
 
 MERCHANT = '41af5198-62bc-4c31-af3a-424f4e73ec70'
-amount = 1000  # Rial / Required
-description = "توضیحات مربوط به تراکنش را در این قسمت وارد کنید"  # Required
-phone = '09035913296'  # Optional
-# Important: need to edit for realy server.
+# amount = 20000
+description = "توضیحات مربوط به تراکنش را در این قسمت وارد کنید"
+phone = '09035913296'
+#
 CallbackURL = 'http://127.0.0.1:8000/order/verify'
 
 def request_payment(request):
+    current_order, created = Order.objects.get_or_create(is_paid=False, user_id=request.user.id)
+    total_price = current_order.calculate_total_price()
+
+    if total_price == 0:
+        return redirect(reverse('user:cart'))
     data = {
         "MerchantID": settings.MERCHANT,
-        "Amount": amount,
+        "Amount": total_price,
         "Description": description,
         "Phone": phone,
         "CallbackURL": CallbackURL,
@@ -58,16 +65,14 @@ def request_payment(request):
         return {'status': False, 'code': 'connection error'}
 
 
-class HttpsResponse:
-    pass
-
-
 def verify_payment(request):
     authority = request.GET['Authority']
+    current_order, created = Order.objects.get_or_create(is_paid=False, user_id=request.user.id)
+    total_price = current_order.calculate_total_price()
 
     data = {
         "MerchantID": settings.MERCHANT,
-        "Amount": amount,
+        "Amount": total_price,
         'Authority': authority,
 
     }
@@ -79,7 +84,9 @@ def verify_payment(request):
         response = res.json()
 
         if response['Status'] == 100:
-            return HttpResponse('موفق بود')
+            current_order.is_paid = True
+            current_order.save()
+            return redirect(reverse('user:dashboard'))
 
     return HttpResponse('موفق نبود')
 
