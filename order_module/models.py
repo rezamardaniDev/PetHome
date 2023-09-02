@@ -51,7 +51,7 @@ class OrderDetail(models.Model):
 
 class OrderCheckout(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='کاربر')
-    order = models.ForeignKey(OrderDetail, on_delete=models.CASCADE, verbose_name='رسید')
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name='رسید')
     first_name = models.CharField(max_length=250, verbose_name='نام')
     last_name = models.CharField(max_length=250, verbose_name='نام خانوادگی')
     state = models.CharField(max_length=250, verbose_name='استان')

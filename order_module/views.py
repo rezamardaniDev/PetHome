@@ -149,7 +149,7 @@ class CheckOutView(View):
             new_checkout: OrderCheckout = OrderCheckout()
 
             new_checkout.user = request.user
-            new_checkout.order = OrderDetail.objects.filter(order__user_id=request.user.id).first()
+            new_checkout.order = Order.objects.filter(user=request.user).first()
             new_checkout.first_name = checkout_form.cleaned_data.get('first_name')
             new_checkout.last_name = checkout_form.cleaned_data.get('last_name')
             new_checkout.state = checkout_form.cleaned_data.get('state')
