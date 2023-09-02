@@ -17,10 +17,12 @@ class AdminCheckoutView(View):
     def get(self, request, order_id):
         current_order, created = Order.objects.get_or_create(id=order_id, is_paid=True)
         detail = current_order.orderdetail_set.all()
-        print(detail)
+
+        checkout_detiail: OrderCheckout = OrderCheckout.objects.filter(order_id=order_id).first()
 
         return render(request, 'checkout-admin.html', context={
-            'detail': detail
+            'detail': detail,
+            'check': checkout_detiail
         })
 
 
