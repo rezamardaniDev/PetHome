@@ -3,7 +3,7 @@
 
 
 {% block content %}
-    {% if request.user.is_authenticated %}
+    {% if request.user.is_supseruser %}
         <div class="m-5">
             <table class="table table-bordered">
                 <thead>
