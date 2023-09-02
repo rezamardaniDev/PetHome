@@ -1,0 +1,9 @@
+{% extends 'shared/main.html' %}
+{% block title %}{% endblock %}
+
+
+{% block content %}
+    {% for item in detail %}
+        {{ item.product.name }}
+    {% endfor %}
+{% endblock %}

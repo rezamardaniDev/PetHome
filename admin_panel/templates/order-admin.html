@@ -3,39 +3,41 @@
 
 
 {% block content %}
-{% if request.user.is_authenticated %}
-    <div class="m-5">
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th scope="col">ردیف</th>
-                <th scope="col">نام</th>
-                <th scope="col">نام خانوادگی</th>
-                <th scope="col">شماره تماس</th>
-                <th scope="col">آدرس</th>
-                <th scope="col">وضعیت پرداخت</th>
-            </tr>
-            </thead>
-            {% for item in order %}
-                <tbody>
+    {% if request.user.is_authenticated %}
+        <div class="m-5">
+            <table class="table table-bordered">
+                <thead>
                 <tr>
-                    <th scope="row">{{ item.id }}</th>
-                    <td>{{ item.user.first_name }}</td>
-                    <td>{{ item.user.last_name }}</td>
-                    <td>{{ item.user.phone_number }}</td>
-                    <td>{{ item.state }}, {{ item.city }}, {{ item.street }}, {{ item.apartment }}, {{ item.zipcode }}</td>
-                    <td class="text-white {% if item.order.is_paid == True %} bg-success {% else %} bg-danger {% endif %}">
-                        {% if item.order.is_paid == True %}
-                            پرداخت شده
-                        {% else %}
-                            پرداخت نشده
-                        {% endif %}
-                    </td>
+                    <th scope="col">ردیف</th>
+                    <th scope="col">نام</th>
+                    <th scope="col">نام خانوادگی</th>
+                    <th scope="col">شماره تماس</th>
+                    <th scope="col">آدرس</th>
+                    <th scope="col">وضعیت پرداخت</th>
+                    <th>مشاهده جزئیات</th>
                 </tr>
-                </tbody>
-            {% endfor %}
-        </table>
-    </div>
+                </thead>
+                {% for item in order %}
+                    <tbody>
+                    <tr>
+                        <th scope="row">{{ item.id }}</th>
+                        <td>{{ item.user.first_name }}</td>
+                        <td>{{ item.user.last_name }}</td>
+                        <td>{{ item.user.phone_number }}</td>
+                        <td>{{ item.state }}, {{ item.city }}, {{ item.street }}, {{ item.apartment }}, {{ item.zipcode }}</td>
+                        <td class="text-white {% if item.order.is_paid == True %} bg-success {% else %} bg-danger {% endif %}">
+                            {% if item.order.is_paid == True %}
+                                پرداخت شده
+                            {% else %}
+                                پرداخت نشده
+                            {% endif %}
+                        </td>
+                        <td class="text-center"><a href="{% url 'panel:checkout-admin' item.order.id %}" class="text-dark"><i class="fas fa-eye"></i></a></td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+        </div>
     {% else %}
         <h1 class="text-center m-5 ">ظاهرا شما گم شده اید :)</h1>
     {% endif %}

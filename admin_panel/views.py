@@ -13,3 +13,14 @@ class AdminOrderView(View):
             'order': order,
         })
 
+class AdminCheckoutView(View):
+    def get(self, request, order_id):
+        current_order, created = Order.objects.get_or_create(id=order_id, is_paid=True)
+        detail = current_order.orderdetail_set.all()
+        print(detail)
+
+        return render(request, 'checkout-admin.html', context={
+            'detail': detail
+        })
+
+
