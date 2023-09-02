@@ -155,6 +155,7 @@ class CheckOutView(View):
             new_checkout.state = checkout_form.cleaned_data.get('state')
             new_checkout.city = checkout_form.cleaned_data.get('city')
             new_checkout.street = checkout_form.cleaned_data.get('street')
+            new_checkout.apartment = checkout_form.cleaned_data.get('apartment')
             new_checkout.zipcode = checkout_form.cleaned_data.get('zipcode')
             new_checkout.phone = checkout_form.cleaned_data.get('phone')
             new_checkout.sended = False
