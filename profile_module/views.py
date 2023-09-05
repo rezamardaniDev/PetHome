@@ -127,3 +127,10 @@ def change_order_datail_count(request):
         return JsonResponse({
             'status': 'state invalid'
         })
+
+def last_order_detail(request):
+    last_order : Order = Order.objects.filter(user_id=request.user.id, is_paid=True).all()
+
+    return render(request, 'last_order.html', context={
+        'last_order': last_order
+    })
