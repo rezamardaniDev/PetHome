@@ -12,7 +12,6 @@ from .forms import EditeProfileForm, ChangePasswordForm
 class UserProfileView(TemplateView):
     template_name = "user_profile.html"
 
-
 class UserEditProfile(View):
     def get(self, request):
         current_user = User.objects.filter(id=request.user.id).first()

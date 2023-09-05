@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.views import View
 from jdatetime import datetime
 
+from account_module.models import User
 from .forms import CheckOutForm
 from .models import OrderCheckout
 
@@ -69,6 +70,7 @@ def verify_payment(request):
     authority = request.GET['Authority']
     current_order, created = Order.objects.get_or_create(is_paid=False, user_id=request.user.id)
     total_price = current_order.calculate_total_price()
+    user = User.objects.filter(id=request.user.id).first()
 
     data = {
         "MerchantID": settings.MERCHANT,
@@ -85,6 +87,10 @@ def verify_payment(request):
 
         if response['Status'] == 100:
             current_order.is_paid = True
+            user.order_count += 1
+            user.total_buy += total_price
+
+            user.save()
             current_order.save()
             return redirect(reverse('user:dashboard'))
 
