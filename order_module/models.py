@@ -11,6 +11,19 @@ class Order(models.Model):
     def __str__(self):
         return str(self.id)
 
+
+    def calculate_total_price(self):
+        total_amount = 0
+        if self.is_paid:
+            for order_detail in self.orderdetail_set.all():
+                total_amount += order_detail.final_price * order_detail.count
+        else:
+            for order_detail in self.orderdetail_set.all():
+                total_amount += order_detail.product.price * order_detail.count
+
+        return total_amount
+
+
     class Meta:
         verbose_name = "سبد خرید"
         verbose_name_plural = "سبدهای خرید کابران"
@@ -38,7 +51,7 @@ class OrderDetail(models.Model):
 
 class OrderCheckout(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='کاربر')
-    order = models.ForeignKey(OrderDetail, on_delete=models.CASCADE, verbose_name='رسید')
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name='رسید')
     first_name = models.CharField(max_length=250, verbose_name='نام')
     last_name = models.CharField(max_length=250, verbose_name='نام خانوادگی')
     state = models.CharField(max_length=250, verbose_name='استان')

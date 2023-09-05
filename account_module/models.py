@@ -8,7 +8,8 @@ class User(AbstractUser):
     email_active_code = models.CharField(max_length=100, verbose_name="کد فعالسازی")
     address = models.CharField(max_length=250, verbose_name="آدرس", default="ثبت نشده", blank=True)
     profile_image = ResizedImageField(upload_to="user_profile", size=[80 , 80], crop=['middle', 'center'],quality=100, blank=True)
-
+    order_count =  models.IntegerField(null=True, default=0 ,verbose_name='تعداد خرید')
+    total_buy = models.IntegerField(null=True, default=0, verbose_name='مجموع خرید')
 
     def delete(self, *args, **kwargs):
             storage, path = self.image.storage, self.image.path

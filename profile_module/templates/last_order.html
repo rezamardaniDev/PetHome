@@ -1,0 +1,36 @@
+{% extends 'shared/main.html' %}
+{% load render_partial %}
+{% block title %}{% endblock %}
+
+{% block content %}
+         <div class="m-3">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">شماره سفارش</th>
+                    <th scope="col">وضعیت پرداخت</th>
+                </tr>
+                </thead>
+                {% for item in last_order %}
+                    <tbody>
+                    <tr>
+                        <th scope="row">{{ item.id }}</th>
+                        <td class="text-white {% if item.is_paid == True %} bg-success {% else %} bg-danger {% endif %}">
+                            {% if item.is_paid == True %}
+                                پرداخت شده
+                            {% else %}
+                                پرداخت نشده
+                            {% endif %}
+                        </td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+        </div>
+        </div>
+    <div class="d-flex justify-content-center">
+    <a class="btn bg-danger text-white text-center my-3 " href="{% url 'user:dashboard' %}">بازگشت</a>
+    </div>
+
+
+{% endblock %}
