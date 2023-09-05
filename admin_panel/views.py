@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.views import View
 
-from order_module.models import OrderDetail, Order, OrderCheckout
+from order_module.models import Order, OrderCheckout
+
 
 class AdminOrderView(View):
     def get(self, request):

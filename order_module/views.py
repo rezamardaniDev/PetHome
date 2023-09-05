@@ -137,6 +137,7 @@ class CheckOutView(View):
         for order_detail in current_order.orderdetail_set.all():
             total_amoutn += order_detail.product.price * order_detail.count
 
+
         return render(request, "checkout.html", context={
             'order': current_order,
             'sum': total_amoutn,

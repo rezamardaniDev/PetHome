@@ -3,6 +3,7 @@ from django.views import View
 from django.views.generic import ListView
 
 from account_module.models import User
+from blog_module.models import Blog
 from home_module.models import AskQuestion
 from product_module.models import Product
 from site_module.models import SiteSettings
@@ -17,7 +18,9 @@ class HomeView(ListView):
     def get_context_data(self,**kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
         context['setting'] : SiteSettings = SiteSettings.objects.filter(is_main_setting=True).first()
+        context['article'] : Blog = Blog.objects.filter(is_active=True).order_by('created_date')[0:4]
         return context
+
 
 class AboutUsView(View):
     def get(self, request):
