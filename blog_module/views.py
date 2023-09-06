@@ -27,11 +27,19 @@ class BlogListView(ListView):
         return query
 
 
+def blog_categories_component(request):
+    blog_categories = BlogCategory.objects.filter(is_active=True)[0:3]
+
+    return render(request, 'components/blog_categories_component.html', context={
+        'categories': blog_categories
+    })
+
+
 class BlogDetailView(View):
     def get(self, request, post_id):
         post: Blog = Blog.objects.filter(is_active=True, id=post_id).first()
         categories = BlogCategory.objects.all()[0:3]
-        comments = post.comments.all()
+        comments = post.comments.all().order_by('-create_date')
         post_visit = BlogVisit.objects.filter(post_id=post_id).count()
         # <------------- Visit Post ------------->
         user_ip = get_client_ip(request)
@@ -43,35 +51,26 @@ class BlogDetailView(View):
         if not has_been_visited:
             new_visit = BlogVisit(ip=user_ip, user_id=user_id, post_id=post.id)
             new_visit.save()
-        # <-------------------------------------->
+        # <------------------Comment-------------------->
+        comment_message = request.GET.get('message')
+        if request.GET:
+            new_comment = BlogComment()
+            new_comment.message = comment_message
+            new_comment.user = request.user
+            new_comment.post = post
+            new_comment.save()
+
+            return render(request, 'comment_ajax.html', context={
+                'post': post,
+                'categories': categories,
+                'comments': comments,
+                'view': post_visit
+            })
+
+
         return render(request, 'blog_detail.html', context={
             'post': post,
             'categories': categories,
             'comments': comments,
             'view': post_visit
         })
-
-    def post(self, request, post_id):
-        comment_form: CommentForm = CommentForm(request.POST)
-        post: Blog = Blog.objects.filter(is_active=True, id=post_id).first()
-        user = request.user
-        if comment_form.is_valid():
-            new_comment = BlogComment()
-            new_comment.message = comment_form.cleaned_data.get('message')
-            new_comment.user = user
-            new_comment.post = post
-            new_comment.save()
-            return redirect('blog:blog_detail', post.id)
-        else:
-            comment_form.add_error('message', "مشکلی در ثبت کامنت شما پیش آمده است")
-        return render(request, 'blog_detail.html', context={
-            'post': post,
-        })
-
-
-def blog_categories_component(request):
-    blog_categories = BlogCategory.objects.filter(is_active=True)[0:3]
-
-    return render(request, 'components/blog_categories_component.html', context={
-        'categories': blog_categories
-    })
