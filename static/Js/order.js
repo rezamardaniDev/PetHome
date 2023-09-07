@@ -24,6 +24,8 @@ function removeOrderDetail(detailID){
 
 function changeOrderDetialCount(detailId, state){
     $.get('/user/change-order-detail?detail_id=' + detailId + '&state=' + state ).then(res =>{
-        console.log(detailId, state);
+        if (res.status == 'success'){
+            $('#order-detail-content').html(res.body);
+        }
     })
 }
