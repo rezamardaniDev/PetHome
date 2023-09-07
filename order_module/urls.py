@@ -8,4 +8,6 @@ urlpatterns = [
     path('checkout', views.CheckOutView.as_view(), name='checkout'),
     path('request', views.request_payment, name='request_payment'),
     path('verify', views.verify_payment, name='verify_payment'),
+    path('seccess', views.secces_payment_redirect, name='secces_payment_redirect'),
+    path('unseccess', views.unsecces_payment_redirect, name='unsecces_payment_redirect')
 ]

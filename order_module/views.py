@@ -92,9 +92,9 @@ def verify_payment(request):
 
             user.save()
             current_order.save()
-            return redirect(reverse('user:dashboard'))
+            return redirect(reverse('order:secces_payment_redirect'))
 
-    return HttpResponse('موفق نبود')
+    return redirect(reverse('order:unsecces_payment_redirect'))
 
 
 def add_product_to_order(request):
@@ -176,3 +176,9 @@ class CheckOutView(View):
             'checkout_form': checkout_form,
             'sum': 0
         })
+
+def secces_payment_redirect(request):
+    return render(request, "seccess_payment.html", context={})
+
+def unsecces_payment_redirect(request):
+    return render(request, "unseccess_payment.html", context={})

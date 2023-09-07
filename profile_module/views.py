@@ -119,8 +119,10 @@ def delete_order_datail_func(request):
 
 
 def change_order_datail_count(request):
+
     detail_id = request.GET.get('detail_id')
     state = request.GET.get('state')
+
     if detail_id is None or state is None:
         return JsonResponse({
             'status': 'not_found_detail_id_or_state'
@@ -136,20 +138,36 @@ def change_order_datail_count(request):
     if state == 'increase':
         order_detail.count += 1
         order_detail.save()
-        return redirect(reverse('user:cart'))
+
+
     elif state == 'decrease':
         if order_detail.count == 1:
             order_detail.delete()
-            return redirect(reverse('user:cart'))
+
+
         else:
             order_detail.count -= 1
             order_detail.save()
-            return redirect(reverse('user:cart'))
+
 
     else:
         return JsonResponse({
             'status': 'state invalid'
         })
+
+    current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(
+        user_id=request.user.id, is_paid=False)
+    total_amoutn = current_order.calculate_total_price()
+
+    context = {
+        'order': current_order,
+        'sum': total_amoutn
+    }
+
+    return JsonResponse({
+        'status': 'success',
+        'body': render_to_string('basket_content.html', context)
+    })
 
 
 def last_order_detail(request):
