@@ -1,11 +1,11 @@
-function commentSend(post_id){
+function commentSend(post_id) {
     var text = $('#commentText').val();
 
     $.get(`/blog/${post_id}`, {
-        message : text
+        message: text
 
-        }).then(function(res){
+    }).then(function (res) {
         $('#comment_block').html(res)
-        $('#message').val('')
+        $('#commentText').val('')
     });
 }
