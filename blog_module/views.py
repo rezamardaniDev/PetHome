@@ -58,7 +58,8 @@ class BlogDetailView(View):
             new_comment.message = comment_message
             new_comment.user = request.user
             new_comment.post = post
-            new_comment.save()
+            if comment_message:
+                new_comment.save()
 
             return render(request, 'comment_ajax.html', context={
                 'post': post,

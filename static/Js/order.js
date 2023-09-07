@@ -13,11 +13,12 @@ function addProductToOrder(productId) {
 }
 
 function removeOrderDetail(detailID){
-    $.get('/user/delete-order-detail?detail_id=' + detailID ).then(res =>{
-        if(res.status == 'success'){
-            $('.item').html(res.body);
+    $.get('/user/delete-order-detail?detail_id=' + detailID).then(res => {
+        if (res.status == 'success'){
+            $('#order-detail-content').html(res.body);
         }
-    });
+    })
+
 }
 
 
