@@ -1,5 +1,6 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
 from django.urls import reverse
 from django.views import View
 from django.views.generic import TemplateView
@@ -11,6 +12,7 @@ from .forms import EditeProfileForm, ChangePasswordForm
 
 class UserProfileView(TemplateView):
     template_name = "user_profile.html"
+
 
 class UserEditProfile(View):
     def get(self, request):
@@ -79,22 +81,42 @@ def user_basket(request):
         'sum': total_amoutn
     })
 
-def delete_order_datail(request, product_id):
-    current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(user_id=request.user.id,is_paid=False)
-    detail_id = product_id
+
+def delete_order_datail_func(request):
+    detail_id = request.GET.get('detail_id')
 
     if detail_id is None:
         return JsonResponse({
-            'status': 'not_found_detail_id'
+            'status': 'not found detail id'
         })
 
+    current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(
+        user_id=request.user.id, is_paid=False)
     detail = current_order.orderdetail_set.filter(id=detail_id).first()
+
     if detail is None:
         return JsonResponse({
-            'status': 'detail_not_found'
+            'status': 'detail not found'
         })
     detail.delete()
-    return redirect(reverse('user:cart'))
+
+    current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(
+        user_id=request.user.id, is_paid=False)
+    total_amoutn = 0
+    for order_detail in current_order.orderdetail_set.all():
+        total_amoutn += order_detail.product.price * order_detail.count
+
+    context = {
+        'order': current_order,
+        'sum': total_amoutn
+    }
+    data = render_to_string('basket_content.html', context)
+    return JsonResponse({
+        'status': 'success',
+        'body': data
+    })
+
+
 
 def change_order_datail_count(request):
     detail_id = request.GET.get('detail_id')
@@ -104,7 +126,8 @@ def change_order_datail_count(request):
             'status': 'not_found_detail_id_or_state'
         })
 
-    order_detail = OrderDetail.objects.filter(id=detail_id, order__user_id=request.user.id, order__is_paid=False).first()
+    order_detail = OrderDetail.objects.filter(id=detail_id, order__user_id=request.user.id,
+                                              order__is_paid=False).first()
     if order_detail is None:
         return JsonResponse({
             'status': 'detail_not_found'
@@ -128,8 +151,9 @@ def change_order_datail_count(request):
             'status': 'state invalid'
         })
 
+
 def last_order_detail(request):
-    last_order : Order = Order.objects.filter(user_id=request.user.id, is_paid=True).all()
+    last_order: Order = Order.objects.filter(user_id=request.user.id, is_paid=True).all()
 
     return render(request, 'last_order.html', context={
         'last_order': last_order

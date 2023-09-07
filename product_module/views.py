@@ -57,7 +57,7 @@ def product_categories_component(request):
 class ProductDetailView(View):
     def get(self, request, product_id):
         product = Product.objects.filter(is_active=True, id=product_id).first()
-        comments = product.comments.all()
+        comments = product.comments.all().order_by('-create_date')
 
         comment_message = request.GET.get('message')
 
