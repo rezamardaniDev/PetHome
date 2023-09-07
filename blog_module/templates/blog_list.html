@@ -70,15 +70,17 @@
 
                     <ul>
                         {% for post in new_post %}
-                        <li class="my-1">
-                            <div class="d-flex align-items-center justify-content-evenly">
-                                <a href="#"><img src="{{ post.image.url }}"/></a>
-                                <div class="mr-2">
-                                    <p><a href="{% url 'blog:blog_detail' post.id %}">{{ post.title | truncatewords:4 }}</a></p>
-                                    <p>{{ post.created_date | jformat:"%Y/%m/%d" }}</p>
+                            <li class="my-1">
+                                <div class="d-flex align-items-center justify-content-evenly">
+                                    <a href="#"><img src="{{ post.image.url }}"/></a>
+                                    <div class="mr-2">
+                                        <p>
+                                            <a href="{% url 'blog:blog_detail' post.id %}">{{ post.title | truncatewords:4 }}</a>
+                                        </p>
+                                        <p>{{ post.created_date | jformat:"%Y/%m/%d" }}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
                         {% endfor %}
                     </ul>
 
@@ -146,23 +148,25 @@
 
                 <div class="row mt-3">
                     <div class="col-12 text-center mx-auto">
-                    {% if blog %}
-                        <ul class="pagination justify-content-center">
-                            {% if page_obj.has_previous %}
-                                <li class="page-item"><a class="page-link"
-                                                         href="?page={{ page_obj.previous_page_number }}">قبلی</a></li>
-                            {% endif %}
-                            {% for pageNumber in paginator.page_range %}
-                                <li class="page-item {% if page_obj.number == pageNumber %} active {% endif %}"><a
-                                        class="page-link"
-                                        href="?page={{ pageNumber }}">{{ pageNumber }}</a></li>
-                            {% endfor %}
-                            {% if page_obj.has_next %}
-                                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">بعدی</a>
-                                </li>
-                            {% endif %}
-                        </ul>
-                    {% endif %}
+                        {% if blog %}
+                            <ul class="pagination justify-content-center">
+                                {% if page_obj.has_previous %}
+                                    <li class="page-item"><a class="page-link"
+                                                             href="?page={{ page_obj.previous_page_number }}">قبلی</a>
+                                    </li>
+                                {% endif %}
+                                {% for pageNumber in paginator.page_range %}
+                                    <li class="page-item {% if page_obj.number == pageNumber %} active {% endif %}"><a
+                                            class="page-link"
+                                            href="?page={{ pageNumber }}">{{ pageNumber }}</a></li>
+                                {% endfor %}
+                                {% if page_obj.has_next %}
+                                    <li class="page-item"><a class="page-link"
+                                                             href="?page={{ page_obj.next_page_number }}">بعدی</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        {% endif %}
                     </div>
                 </div>
 
