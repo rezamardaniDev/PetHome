@@ -11,6 +11,9 @@ class SiteSettings(models.Model):
     info = models.TextField(verbose_name="درباره شرکت", null=True)
     copy_right = models.CharField(max_length=255, verbose_name="متن کپی رایت")
     is_main_setting = models.BooleanField(verbose_name="تنظیمات اصلی")
+    social_instagram = models.CharField(max_length=250, verbose_name="اینستاگرام", null=True, blank=True)
+    social_telegram = models.CharField(max_length=250, verbose_name="تلگرام", null=True, blank=True)
+    social_whatsapp = models.CharField(max_length=250, verbose_name="واتس آپ", null=True, blank=True)
 
     def __str__(self):
         return self.site_name
