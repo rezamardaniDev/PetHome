@@ -19,6 +19,7 @@ class HomeView(ListView):
         context = super(HomeView, self).get_context_data(**kwargs)
         context['setting'] : SiteSettings = SiteSettings.objects.filter(is_main_setting=True).first()
         context['article'] : Blog = Blog.objects.filter(is_active=True).order_by('created_date')[0:4]
+        context['admin'] : User = User.objects.filter(is_superuser=True).first()
         return context
 
 

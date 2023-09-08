@@ -3,7 +3,7 @@
 
 
 {% block content %}
-    {% if request.user.is_supseruser %}
+    {% if request.user.is_superuser %}
         <div class="m-5">
             <table class="table table-bordered">
                 <thead>
@@ -25,20 +25,21 @@
                         <td>{{ item.user.last_name }}</td>
                         <td>{{ item.user.phone_number }}</td>
                         <td>{{ item.state }}, {{ item.city }}, {{ item.street }}, {{ item.apartment }}, {{ item.zipcode }}</td>
-                        <td class="text-white {% if item.order.is_paid == True %} bg-success {% else %} bg-danger {% endif %}">
-                            {% if item.order.is_paid == True %}
+                        <td class="text-white {% if item.is_paid == True %} bg-success {% else %} bg-danger {% endif %}">
+                            {% if item.is_paid == True %}
                                 پرداخت شده
                             {% else %}
                                 پرداخت نشده
                             {% endif %}
                         </td>
-                        <td class="text-center"><a href="{% url 'panel:checkout-admin' item.order.id %}" class="text-dark"><i class="fas fa-eye"></i></a></td>
+                        <td class="text-center"><a href="{% url 'panel:checkout-admin' item.id %}" class="text-dark"><i
+                                class="fas fa-eye"></i></a></td>
                     </tr>
                     </tbody>
                 {% endfor %}
             </table>
         </div>
     {% else %}
-        <h1 class="text-center m-5 ">ظاهرا شما گم شده اید :)</h1>
+        <h1 class="text-center my-5">ظاهرا شما گم شدید :)</h1>
     {% endif %}
 {% endblock %}
