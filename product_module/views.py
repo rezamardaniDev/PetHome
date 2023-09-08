@@ -57,6 +57,7 @@ def product_categories_component(request):
 class ProductDetailView(View):
     def get(self, request, product_id):
         product = Product.objects.filter(is_active=True, id=product_id).first()
+        new_product: Product = Product.objects.filter(is_active=True).order_by('price')[0:4]
         comments = product.comments.all().order_by('-create_date')
 
         comment_message = request.GET.get('message')
@@ -71,10 +72,12 @@ class ProductDetailView(View):
 
             return render(request, 'comment_product.html', context={
                 'product': product,
-                'comments': comments
+                'comments': comments,
+                'product_new': new_product
             })
 
         return render(request, 'product_detail.html', context={
             'product': product,
-            'comments': comments
+            'comments': comments,
+            'product_new': new_product
         })
