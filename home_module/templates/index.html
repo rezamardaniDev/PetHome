@@ -121,7 +121,7 @@
                                 <span class="color-orange YekanBakhFaNum-Regular fa14">تومان</span>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex">
-                                        <div class="add-to-cart hoverable outlined">
+                                        <div class="add-to-cart hoverable outlined" onclick="addProductToOrder({{ product.id }})">
                                             <svg width="21" height="22" viewBox="0 0 21 22" fill="none"
                                                  xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M15 21.25C15.9665 21.25 16.75 20.4665 16.75 19.5C16.75 18.5335 15.9665 17.75 15 17.75C14.0335 17.75 13.25 18.5335 13.25 19.5C13.25 20.4665 14.0335 21.25 15 21.25Z"
@@ -165,13 +165,13 @@
                     </p>
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="d-flex flex-row align-items-center">
-                            <img src="/static/Img/profile.jpg" class="img-fluid rounded-circle ml-3 pic55">
+                            <img src="{{ admin.profile_image.url }}" class="img-fluid rounded-circle ml-3 pic55">
                             <div class="py-2">
-                                <p class="text-dark bottom_p YekanBakhFaNum-Bold"> امین محمدی</p>
+                                <p class="text-dark bottom_p YekanBakhFaNum-Bold">{{ admin.first_name }} {{ admin.last_name }}</p>
                                 <span class="color-orange">مدیریت Pet Home</span>
                             </div>
                         </div>
-                        <a class="d-flex align-items-center a-button radius55 py-2 px-4" href="about-us.html">
+                        <a class="d-flex align-items-center a-button radius55 py-2 px-4" href="{% url 'home:about-us' %}">
                             <span class="ml-2">بیشتر بخوانید</span>
                             <svg width="12" height="11" viewBox="0 0 12 11" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
