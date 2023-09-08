@@ -94,16 +94,16 @@
                 </div>
                 <ul class="footer-category text-center">
                     <li>
-                        <a href="">صفحه اصلی</a>
+                        <a href="{% url 'home:main' %}">صفحه اصلی</a>
                     </li>
                     <li>
-                        <a href="">درباره ما</a>
+                        <a href="{% url 'home:about-us' %}">درباره ما</a>
                     </li>
                     <li>
-                        <a href="">محصولات</a>
+                        <a href="{% url 'products:products_list' %}">محصولات</a>
                     </li>
                     <li>
-                        <a href="">تماس با ما</a>
+                        <a href="{% url 'contact-us:contact-us' %}">تماس با ما</a>
                     </li>
 
 
