@@ -11,7 +11,5 @@
         <i class="fas fa-close"></i>
     {% endif %}
     <br>
-    {% for item in detail %}
-        {{ item.product.name }} - {{ item.product.price }} - {{ item.count }} --> {{ item.get_total_price }} <br>
-    {% endfor %}
+    {{ detail }}
 {% endblock %}
