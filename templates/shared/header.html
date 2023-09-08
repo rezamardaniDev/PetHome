@@ -1,7 +1,7 @@
 <div class="off-canvas-inner">
     <div id="of-mobile-nav" class="mobile-menu-wrap">
         <div class="d-block text-center my-3">
-            <a href="" class="current py-2">
+            <a href="{% url 'home:main' %}" class="current py-2">
                 <img src="/static/Img/logo.svg"/>
             </a>
         </div>
@@ -93,11 +93,6 @@
                         </a>
                     </div>
                     {% if request.user.is_authenticated %}
-                        <div class="login px-3 py-2 radius55 d-flex align-items-center">
-                            <a
-                                    href="{% url "account:log_out" %}">خروج</a>
-                        </div>
-                        &nbsp;
                         <div class="login px-3 py-2 radius55 d-flex align-items-center">
 
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
