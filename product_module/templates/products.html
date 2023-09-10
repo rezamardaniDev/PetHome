@@ -1,7 +1,7 @@
 {% extends "shared/main.html" %}
 {% load render_partial %}
 {% load poll_extras %}
-{% block title %}{% endblock %}
+{% block title %}محصولات{% endblock %}
 
 
 {% block content %}
@@ -12,7 +12,7 @@
                     <div class="breadcrumb radius15">
                         <ul class="">
                             <li><a href="{% url "home:main" %}">خانه / </a></li>
-                            <li><a href="{% url "products:products_list" %}" class="current">فروشگاه</a></li>
+                            <li><a href="{% url "products:products_list" %}" class="current">محصولات</a></li>
                         </ul>
                     </div>
                 </div>

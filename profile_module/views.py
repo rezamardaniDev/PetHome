@@ -117,9 +117,7 @@ def delete_order_datail_func(request):
     })
 
 
-
 def change_order_datail_count(request):
-
     detail_id = request.GET.get('detail_id')
     state = request.GET.get('state')
 

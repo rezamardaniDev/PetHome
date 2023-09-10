@@ -1,45 +1,49 @@
 {% load poll_extras %}
 
 <section class="container mb-4" id="carts">
-        <div class="row">
-            <div class="col-xl-4 order-xl-1 pt-3 order-1 mb-3">
+    <div class="row">
+        <div class="col-xl-4 order-xl-1 pt-3 order-1 mb-3">
 
-                <div class="card side-category p-4 mb-3">
-                    <ul class="list-unstyled">
+            <div class="card side-category p-4 mb-3">
+                <ul class="list-unstyled">
 
-                        <li class="p-3 bg-title-sidebar radius15">مجموع سبد خرید:
+                    <li class="p-3 bg-title-sidebar radius15">مجموع سبد خرید:
 
-                            <div class="d-flex align-items-center justify-content-center">
-                                {{ sum | three_digits }} تومان
-                            </div>
+                        <div class="d-flex align-items-center justify-content-center">
+                            {{ sum | three_digits }} تومان
+                        </div>
 
-                        </li>
-                    </ul>
-                    <li>
-                        هزینه این سفارش هنوز پرداخـت نشده و در صورت اتمــام موجــودی
-                        کالا ها از سبد خرید شما حدف می شوند.
                     </li>
+                </ul>
+                <li>
+                    هزینه این سفارش هنوز پرداخـت نشده و در صورت اتمــام موجــودی
+                    کالا ها از سبد خرید شما حدف می شوند.
+                </li>
+                {% if order.orderdetail_set.all %}
                     <a class="a-button radius55 py-3 px-4 text-center mt-3" href="{% url 'order:checkout' %}">
                         <span class="ml-2">ثبت سفارش و پرداخت</span>
                     </a>
-                </div>
+                {% else %}
+
+                {% endif %}
             </div>
+        </div>
 
-            <div class="col-xl-8 order-xl-0 order-0 mb-3">
+        <div class="col-xl-8 order-xl-0 order-0 mb-3">
 
-                <div class="card m-3 p-4">
-                    {% if order.orderdetail_set.all %}
-                        <div class="item">
-                            {% for item in order.orderdetail_set.all %}
-                                <div class="d-flex align-items-center justify-content-between mb-cart cart-res"
-                                     id="items">
-                                    <div class="col-lg-3">
-                                        <img src="{{ item.product.image.url }}" alt="">
-                                    </div>
-                                    <div class="col-lg-3">{{ item.product.name }}</div>
-                                    <div class="col-lg-3">{{ item.get_total_price | three_digits }} تومان</div>
-                                    <div class="col-lg-3">
-                                        <div class="input-group d-flex align-items-center justify-content-center cart-increment radius20">
+            <div class="card m-3 p-4">
+                {% if order.orderdetail_set.all %}
+                    <div class="item">
+                        {% for item in order.orderdetail_set.all %}
+                            <div class="d-flex align-items-center justify-content-between mb-cart cart-res"
+                                 id="items">
+                                <div class="col-lg-3">
+                                    <img src="{{ item.product.image.url }}" alt="">
+                                </div>
+                                <div class="col-lg-3">{{ item.product.name }}</div>
+                                <div class="col-lg-3">{{ item.get_total_price | three_digits }} تومان</div>
+                                <div class="col-lg-3">
+                                    <div class="input-group d-flex align-items-center justify-content-center cart-increment radius20">
 
                                                     <span class="input-group-btn">
                                                         <button type="button"
@@ -50,12 +54,12 @@
                                                         </button>
                                                     </span>
 
-                                            <input type="text" id="quantity" name="quantity"
-                                                   class="input-cart form-control input-number" value="{{ item.count }}"
-                                                   min="1"
-                                                   max="100">
+                                        <input type="text" id="quantity" name="quantity"
+                                               class="input-cart form-control input-number" value="{{ item.count }}"
+                                               min="1"
+                                               max="100">
 
-                                            <span class="input-group-btn">
+                                        <span class="input-group-btn">
                                                         <button type="button"
                                                                 onclick="changeOrderDetialCount({{ item.id }}, 'decrease')"
                                                                 class="quantity-left-minus btn p-3"
@@ -64,24 +68,24 @@
                                                         </button>
                                                     </span>
 
-                                        </div>
-                                        <button onclick="removeOrderDetail({{ item.id }})"
-                                           class="btn bg-danger text-white mx-auto d-block my-2 d-flex justify-content-center align-items-center rounded-left rounded-right">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
                                     </div>
-
+                                    <button onclick="removeOrderDetail({{ item.id }})"
+                                            class="btn bg-danger text-white mx-auto d-block my-2 d-flex justify-content-center align-items-center rounded-left rounded-right">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
                                 </div>
-                            {% endfor %}
 
-                        </div>
-                    {% else %}
-                        <h4 class="text-center text-muted ">سبد خرید شما خالی میباشد</h4>
-                    {% endif %}
-                </div>
+                            </div>
+                        {% endfor %}
 
+                    </div>
+                {% else %}
+                    <h4 class="text-center text-muted ">سبد خرید شما خالی میباشد</h4>
+                {% endif %}
             </div>
 
         </div>
 
-    </section>
+    </div>
+
+</section>

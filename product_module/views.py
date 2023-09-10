@@ -58,9 +58,10 @@ class ProductDetailView(View):
             'comments': comments,
             'product_new': new_product
         })
+
+
 @api_view(['GET'])
 def product_all(request):
     products = Product.objects.filter(is_active=True).all()
     products_serialized = ProductSerializer(products, many=True)
     return Response(products_serialized.data, status.HTTP_200_OK)
-
