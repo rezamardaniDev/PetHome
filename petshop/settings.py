@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django_render_partial',
     'django_jalali',
     'sorl.thumbnail',
+    'rest_framework',
 
 
 ]
