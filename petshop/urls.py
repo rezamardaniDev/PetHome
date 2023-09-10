@@ -1,4 +1,3 @@
-
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -6,6 +5,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api-auth/', include('rest_framework.urls')),
     path("", include("home_module.urls", namespace="home")),
     path("products/", include("product_module.urls", namespace="products")),
     path("account/", include("account_module.urls", namespace="account")),

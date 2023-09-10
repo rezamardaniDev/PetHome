@@ -1,8 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.views.generic import ListView, View
+from rest_framework.request import Request
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.decorators import api_view
 
-from .forms import CommentForm
 from .models import Product, ProductCategory, ProductComment
+from .serializers import ProductSerializer
 
 
 class ProductView(ListView):
@@ -18,33 +22,6 @@ class ProductView(ListView):
             query = query.filter(category__url_title__iexact=category_name)
         return query
 
-
-# class ProductDetailView(View):
-#     def get(self, request, product_id):
-#         product = Product.objects.filter(is_active=True, id=product_id).first()
-#         comments = product.comments.all()
-#         return render(request, 'product_detail.html', context={
-#             'product': product,
-#             'comments': comments
-#         })
-#
-#     def post(self, request, product_id):
-#         comment_form: CommentForm = CommentForm(request.POST)
-#         product: Product = Product.objects.filter(is_active=True, id=product_id).first()
-#         user = request.user
-#         if comment_form.is_valid():
-#             new_comment = ProductComment()
-#             new_comment.message = comment_form.cleaned_data.get('message')
-#             new_comment.user = user
-#             new_comment.product = product
-#             new_comment.save()
-#             return redirect('products:products_detail', product.id)
-#         else:
-#             comment_form.add_error('message', 'مشکلی در ثبت کامنت شما پیش آمده است')
-#         return render(request, 'product_detail.html', context={
-#             'product': product
-#         })
-#
 
 def product_categories_component(request):
     product_categories: ProductCategory = ProductCategory.objects.filter(is_active=True)[0:3]
@@ -81,3 +58,9 @@ class ProductDetailView(View):
             'comments': comments,
             'product_new': new_product
         })
+@api_view(['GET'])
+def product_all(request):
+    products = Product.objects.filter(is_active=True).all()
+    products_serialized = ProductSerializer(products, many=True)
+    return Response(products_serialized.data, status.HTTP_200_OK)
+
