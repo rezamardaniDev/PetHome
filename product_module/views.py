@@ -60,8 +60,16 @@ class ProductDetailView(View):
         })
 
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def product_all(request):
-    products = Product.objects.filter(is_active=True).all()
-    products_serialized = ProductSerializer(products, many=True)
-    return Response(products_serialized.data, status.HTTP_200_OK)
+    if request.method == 'GET':
+        products = Product.objects.filter(is_active=True).all()
+        products_serialized = ProductSerializer(products, many=True)
+        return Response(products_serialized.data, status.HTTP_200_OK)
+    elif request.method == 'POST':
+        serializer = ProductSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status.HTTP_201_CREATED)
+    else:
+        return Response(status.HTTP_400_BAD_REQUEST)
