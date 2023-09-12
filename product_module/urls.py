@@ -9,6 +9,8 @@ urlpatterns = [
     path('api/<product_id>', views.product_detail_api),
     path('cbv', views.ProductApiListView.as_view()),
     path('cbv/<product_id>', views.ProductApiDetailView.as_view()),
+    path('generics', views.ProductListGenericView.as_view()),
+    path('generics/<pk>', views.ProductDetailGenericView.as_view()),
     path('mixin', views.ProductListMixinApiView.as_view()),
     path('mixin/<pk>', views.ProductDetailMixinApiView.as_view()),
     path('<slug:product_id>', views.ProductDetailView.as_view(), name="products_detail"),
