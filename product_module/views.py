@@ -164,3 +164,8 @@ class ProductDetailMixinApiView(mixins.RetrieveModelMixin, mixins.UpdateModelMix
 
     def delete(self, request: Request, pk):
         return self.destroy(request, pk)
+
+class ProductListGenericView(generics.ListCreateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
