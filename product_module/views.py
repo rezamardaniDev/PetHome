@@ -114,3 +114,28 @@ class ProductApiListView(APIView):
         return Response(None, status.HTTP_400_BAD_REQUEST)
 
 
+class ProductApiDetailView(APIView):
+    def get_object(self, product_id):
+        try:
+            product = Product.objects.get(id=product_id)
+            return product
+        except Product.DoesNotExist:
+            return Response(None, status.HTTP_404_NOT_FOUND)
+
+    def get(self, request:Request, product_id):
+        product = self.get_object(product_id)
+        serializer = ProductSerializer(product)
+        return Response(serializer.data, status.HTTP_200_OK)
+
+    def put(self, request:Request, product_id):
+        product = self.get_object(product_id)
+        serializer = ProductSerializer(product, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status.HTTP_202_ACCEPTED)
+        return Response(None, status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request:Request, product_id):
+        product = self.get_object(product_id)
+        product.delete()
+        return Response(None, status.HTTP_204_NO_CONTENT)
