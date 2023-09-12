@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
+from rest_framework import generics, mixins
 
 from .models import Product, ProductCategory, ProductComment
 from .serializers import ProductSerializer
@@ -139,3 +140,14 @@ class ProductApiDetailView(APIView):
         product = self.get_object(product_id)
         product.delete()
         return Response(None, status.HTTP_204_NO_CONTENT)
+
+class ProductListMixinApiView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+    def get(self, request: Request):
+        return self.list(request)
+
+    def post(self, request: Request):
+        return self.create(request)
+
