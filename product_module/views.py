@@ -151,3 +151,16 @@ class ProductListMixinApiView(mixins.ListModelMixin, mixins.CreateModelMixin, ge
     def post(self, request: Request):
         return self.create(request)
 
+
+class ProductDetailMixinApiView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+    def get(self, request: Request, pk):
+        return self.retrieve(request, pk)
+
+    def put(self, request: Request, pk):
+        return self.update(request, pk)
+
+    def delete(self, request: Request, pk):
+        return self.destroy(request, pk)
