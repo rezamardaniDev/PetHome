@@ -4,6 +4,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
+from rest_framework.views import APIView
 
 from .models import Product, ProductCategory, ProductComment
 from .serializers import ProductSerializer
@@ -99,4 +100,12 @@ def product_detail_api(request: Request, product_id):
         product.delete()
         return Response(None, status.HTTP_204_NO_CONTENT)
 
+class ProductApiListView(APIView):
+    def get(self, request: Request):
+        product = Product.objects.all()
+        serializer = ProductSerializer(product, many=True)
+        return Response(serializer.data, status.HTTP_200_OK)
+
+    def post(self, request: Request):
+        ...
 
