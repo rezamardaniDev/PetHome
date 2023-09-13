@@ -6,6 +6,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework import generics, mixins
+from rest_framework import viewsets
 
 from .models import Product, ProductCategory, ProductComment
 from .serializers import ProductSerializer
@@ -170,5 +171,9 @@ class ProductListGenericView(generics.ListCreateAPIView):
     serializer_class = ProductSerializer
 
 class ProductDetailGenericView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+class ProductListViewSetApiView(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
