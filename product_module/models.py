@@ -47,7 +47,7 @@ class Product(models.Model):
 
 class ProductComment(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name="محصول", related_name="comments")
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="کاربر")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="کاربر", related_name='users')
     create_date = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ثبت")
     message = models.TextField(verbose_name="متن نظر")
     response = models.TextField(verbose_name="پاسخ ادمین", null=True, blank=True)

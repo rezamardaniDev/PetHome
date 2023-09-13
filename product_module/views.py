@@ -9,7 +9,8 @@ from rest_framework import generics, mixins
 from rest_framework import viewsets
 
 from .models import Product, ProductCategory, ProductComment
-from .serializers import ProductSerializer
+from .serializers import ProductSerializer, UserSerializer, CommentSerializer
+from account_module.models import User
 
 
 class ProductView(ListView):
@@ -177,3 +178,11 @@ class ProductDetailGenericView(generics.RetrieveUpdateDestroyAPIView):
 class ProductListViewSetApiView(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+class UserListViewSetApiView(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+class CommentListViewSetApiView(generics.ListCreateAPIView):
+    queryset = ProductComment.objects.all()
+    serializer_class = CommentSerializer
