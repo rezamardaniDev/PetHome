@@ -19,7 +19,7 @@ class UsersDetailGenericView(RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
 
 
-class ProductLisetGenericView(ListCreateAPIView):
+class ProductListGenericView(ListCreateAPIView):
     queryset = Product.objects.filter(is_active=True).all()
     serializer_class = ProductSerializer
 
@@ -27,3 +27,13 @@ class ProductLisetGenericView(ListCreateAPIView):
 class ProductDetailGenericView(RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.filter(is_active=True).all()
     serializer_class = ProductSerializer
+
+
+class BlogListGenericView(ListCreateAPIView):
+    queryset = Blog.objects.filter(is_active=True).all()
+    serializer_class = BlogSerializer
+
+
+class BlogDetailGenericView(RetrieveUpdateDestroyAPIView):
+    queryset = Blog.objects.filter(is_active=True).all()
+    serializer_class = BlogSerializer
