@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'gallery_module.apps.GalleryModuleConfig',
     'order_module.apps.OrderModuleConfig',
     'admin_panel.apps.AdminPanelConfig',
-    'API',
+    'API.apps.ApiConfig',
 
     # external extensions
     'django_render_partial',
