@@ -7,11 +7,23 @@ from .serializer import *
 
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
+
 # Create your views here.
 class UsersListGenericView(ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+
 class UsersDetailGenericView(RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+
+class ProductLisetGenericView(ListCreateAPIView):
+    queryset = Product.objects.filter(is_active=True).all()
+    serializer_class = ProductSerializer
+
+
+class ProductDetailGenericView(RetrieveUpdateDestroyAPIView):
+    queryset = Product.objects.filter(is_active=True).all()
+    serializer_class = ProductSerializer
