@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from account_module.models import User
 from blog_module.models import Blog
+from order_module.models import Order
 from product_module.models import Product
 
 
@@ -19,4 +20,10 @@ class ProductSerializer(serializers.ModelSerializer):
 class BlogSerializer(serializers.ModelSerializer):
     class Meta:
         model = Blog
+        fields = '__all__'
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
         fields = '__all__'

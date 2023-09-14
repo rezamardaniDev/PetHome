@@ -37,3 +37,13 @@ class BlogListGenericView(ListCreateAPIView):
 class BlogDetailGenericView(RetrieveUpdateDestroyAPIView):
     queryset = Blog.objects.filter(is_active=True).all()
     serializer_class = BlogSerializer
+
+
+class OrderListGenericView(ListCreateAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+
+class OrderDetailGenericView(RetrieveUpdateDestroyAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
