@@ -18,12 +18,16 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class BlogSerializer(serializers.ModelSerializer):
+    author = UserSerializer(read_only=True)
+
     class Meta:
         model = Blog
         fields = '__all__'
 
 
 class OrderSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+
     class Meta:
         model = Order
         fields = '__all__'
