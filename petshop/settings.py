@@ -48,12 +48,15 @@ INSTALLED_APPS = [
     'gallery_module.apps.GalleryModuleConfig',
     'order_module.apps.OrderModuleConfig',
     'admin_panel.apps.AdminPanelConfig',
+    'API.apps.AppConfig',
 
     # external extensions
     'django_render_partial',
     'django_jalali',
     'sorl.thumbnail',
     'rest_framework',
+    'rest_framework.authtoken'
+
 
 
 ]
