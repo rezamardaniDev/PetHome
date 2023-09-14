@@ -9,7 +9,6 @@ from rest_framework import generics, mixins
 from rest_framework import viewsets
 
 from .models import Product, ProductCategory, ProductComment
-from .serializers import ProductSerializer, UserSerializer, CommentSerializer
 from account_module.models import User
 
 

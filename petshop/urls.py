@@ -15,6 +15,7 @@ urlpatterns = [
     path("gallery/", include("gallery_module.urls", namespace="gallery")),
     path('order/', include("order_module.urls", namespace="order")),
     path('panel/', include("admin_panel.urls", namespace="panel")),
+    path('', include("API.urls", namespace="api"))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
