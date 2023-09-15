@@ -1,20 +1,25 @@
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.views import View
 from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from account_module.models import User
 from order_module.models import Order, OrderDetail
 from .forms import EditeProfileForm, ChangePasswordForm
 
 
-class UserProfileView(TemplateView):
+class UserProfileView(LoginRequiredMixin, TemplateView):
+    login_url = "/account/login"
     template_name = "user_profile.html"
 
 
-class UserEditProfile(View):
+class UserEditProfile(LoginRequiredMixin, View):
+    login_url = "/account/login"
+
     def get(self, request):
         current_user = User.objects.filter(id=request.user.id).first()
         edit_form: EditeProfileForm = EditeProfileForm(instance=current_user)
@@ -35,7 +40,9 @@ class UserEditProfile(View):
         })
 
 
-class ChangePasswordView(View):
+class ChangePasswordView(LoginRequiredMixin, View):
+    login_url = "/account/login"
+
     def get(self, request):
         change_password: ChangePasswordForm = ChangePasswordForm()
         return render(request, "change_password.html", context={
@@ -68,6 +75,7 @@ def profile_menu(request):
     })
 
 
+@login_required(login_url="/account/login")
 def user_basket(request):
     current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(user_id=request.user.id,
                                                                                              is_paid=False)
@@ -168,6 +176,7 @@ def change_order_datail_count(request):
     })
 
 
+@login_required(login_url="/account/login")
 def last_order_detail(request):
     last_order: Order = Order.objects.filter(user_id=request.user.id, is_paid=True).all()
 
