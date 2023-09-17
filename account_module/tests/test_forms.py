@@ -19,3 +19,15 @@ class TestRegister(TestCase):
         form = RegisterForm(data={})
         self.assertFalse(form.is_valid())
         self.assertEqual(len(form.errors), 6)
+
+    def test_on_match(self):
+        form = RegisterForm(data={
+            'first_name': 'reza',
+            'last_name': 'mardani',
+            'phone_number': 24554,
+            'email': 'mardani@gmail.com',
+            'password': '1234',
+            'confirm_password': '123'
+        })
+        self.assertEqual(len(form.errors), 1)
+        self.assertTrue(form.has_error)
