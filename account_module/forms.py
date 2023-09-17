@@ -1,5 +1,7 @@
 from django import forms
 
+from account_module.models import User
+
 
 class RegisterForm(forms.Form):
     first_name = forms.CharField(
@@ -35,6 +37,13 @@ class RegisterForm(forms.Form):
             return confirm_password
         else:
             raise forms.ValidationError("رمز عبور های وارد شده یکسان نیستند")
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        check = User.objects.filter(email=email).exists()
+        if check:
+            raise forms.ValidationError("email is already in use")
+        return email
 
 
 class LoginForm(forms.Form):

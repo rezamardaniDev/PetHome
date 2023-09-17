@@ -1,6 +1,7 @@
 from django.test import TestCase
 from account_module.forms import RegisterForm
 from account_module.models import User
+from model_bakery import baker
 
 
 class TestRegister(TestCase):
@@ -31,3 +32,22 @@ class TestRegister(TestCase):
         })
         self.assertEqual(len(form.errors), 1)
         self.assertTrue(form.has_error)
+
+    def test_email_exist(self):
+        user = User.objects.create(
+            username='ali',
+            last_name='zare',
+            phone_number=4455,
+            email='test@exampl.com',
+            password='1234',
+        )
+        form = RegisterForm(data={
+            'first_name': 'reza',
+            'last_name': 'mardani',
+            'phone_number': 24554,
+            'email': 'test@exampl.com',
+            'password': '1234',
+            'confirm_password': '1234'
+        })
+        self.assertEqual(len(form.errors), 1)
+        self.assertTrue(form.has_error('email'))
