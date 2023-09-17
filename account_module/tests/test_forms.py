@@ -1,7 +1,6 @@
 from django.test import TestCase
 from account_module.forms import RegisterForm
 from account_module.models import User
-from model_bakery import baker
 
 
 class TestRegister(TestCase):
