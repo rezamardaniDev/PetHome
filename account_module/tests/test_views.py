@@ -22,8 +22,21 @@ class TestUserRegister(TestCase):
             'phone_number': 121,
             'password': 'ffff',
             'confirm_password': 'ffff',
-            'email_active_code': 'fdsfsdvewew',
         })
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse('home:main'))
         self.assertEqual(User.objects.count(), 1)
+
+    def test_user_register_POST_invalid(self):
+        response = self.client.post(reverse('account:signup'), data={
+            'first_name': 'raza',
+            'last_name': 'mardani',
+            'email': 'testexample.com',
+            'phone_number': 121,
+            'password': 'ffff',
+            'confirm_password': 'ffff',
+        })
+        self.assertEqual(response.status_code, 200)
+        self.failIf(response.context['form'].is_valid())
+        self.assertFormError(form=response.context['form'], field='email', errors=['پست الکترونیکی صحبح وارد کنید.', 'خطایی در ثبت نام رخ داده است'])
+
