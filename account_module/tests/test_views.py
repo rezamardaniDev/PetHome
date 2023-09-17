@@ -39,4 +39,3 @@ class TestUserRegister(TestCase):
         self.assertEqual(response.status_code, 200)
         self.failIf(response.context['form'].is_valid())
         self.assertFormError(form=response.context['form'], field='email', errors=['پست الکترونیکی صحبح وارد کنید.', 'خطایی در ثبت نام رخ داده است'])
-
