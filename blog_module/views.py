@@ -41,7 +41,7 @@ class BlogDetailView(View):
         categories = BlogCategory.objects.all()[0:3]
         comments = post.comments.all().order_by('-create_date')
         post_visit = BlogVisit.objects.filter(post_id=post_id).count()
-        # <------------- Visit Post ------------->
+
         user_ip = get_client_ip(request)
         user_id = None
         if request.user.is_authenticated:
@@ -51,7 +51,7 @@ class BlogDetailView(View):
         if not has_been_visited:
             new_visit = BlogVisit(ip=user_ip, user_id=user_id, post_id=post.id)
             new_visit.save()
-        # <------------------Comment-------------------->
+
         comment_message = request.GET.get('message')
         if request.GET:
             new_comment = BlogComment()
@@ -67,7 +67,6 @@ class BlogDetailView(View):
                 'comments': comments,
                 'view': post_visit
             })
-
 
         return render(request, 'blog_detail.html', context={
             'post': post,
