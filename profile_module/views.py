@@ -12,13 +12,14 @@ from order_module.models import Order, OrderDetail
 from .forms import EditeProfileForm, ChangePasswordForm
 
 
-class UserProfileView(LoginRequiredMixin, TemplateView):
-    login_url = "/account/login"
-    template_name = "user_profile.html"
+class UserProfileView(View):
+    def get(self, request):
+        return render(request, 'user_profile.html', context={
+
+        })
 
 
-class UserEditProfile(LoginRequiredMixin, View):
-    login_url = "/account/login"
+class UserEditProfile(View):
 
     def get(self, request):
         current_user = User.objects.filter(id=request.user.id).first()
