@@ -31,11 +31,10 @@ class Product(models.Model):
     slug = models.SlugField(verbose_name="اسلاگ", null=False, blank=True, db_index=True)
     image = models.ImageField(upload_to="product_image", verbose_name="عکس محصول", null=True)
 
-
     def delete(self, *args, **kwargs):
-            storage, path = self.image.storage, self.image.path
-            storage.delete(path)
-            super().delete(*args, **kwargs)
+        storage, path = self.image.storage, self.image.path
+        storage.delete(path)
+        super().delete(*args, **kwargs)
 
     def __str__(self) -> str:
         return self.name
@@ -44,6 +43,7 @@ class Product(models.Model):
         ordering = ["price"]
         verbose_name = "محصول"
         verbose_name_plural = "محصولات"
+
 
 class ProductComment(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name="محصول", related_name="comments")
