@@ -14,12 +14,10 @@ from .models import OrderCheckout
 from order_module.models import Order, OrderDetail
 from product_module.models import Product
 
-
 if settings.SANDBOX:
     sandbox = 'sandbox'
 else:
     sandbox = 'www'
-
 
 ZP_API_REQUEST = f"https://{sandbox}.zarinpal.com/pg/rest/WebGate/PaymentRequest.json"
 ZP_API_VERIFY = f"https://{sandbox}.zarinpal.com/pg/rest/WebGate/PaymentVerification.json"
@@ -31,6 +29,7 @@ description = "توضیحات مربوط به تراکنش را در این قس
 phone = '09035913296'
 #
 CallbackURL = 'http://127.0.0.1:8000/order/verify'
+
 
 def request_payment(request):
     current_order, created = Order.objects.get_or_create(is_paid=False, user_id=request.user.id)
@@ -108,6 +107,8 @@ def add_product_to_order(request):
 
     if request.user.is_authenticated:
         product = Product.objects.filter(id=product_id, is_active=True).first()
+        product.count -= 1
+        product.save()
         if product is not None:
             current_order, created = Order.objects.get_or_create(user_id=request.user.id, is_paid=False)
             current_order_detail = current_order.orderdetail_set.filter(product_id=product_id).first()
@@ -143,11 +144,10 @@ class CheckOutView(View):
         for order_detail in current_order.orderdetail_set.all():
             total_amoutn += order_detail.product.price * order_detail.count
 
-
         return render(request, "checkout.html", context={
             'order': current_order,
             'sum': total_amoutn,
-            ' checkout_form':  checkout_form
+            ' checkout_form': checkout_form
         })
 
     def post(self, request):
@@ -177,8 +177,10 @@ class CheckOutView(View):
             'sum': 0
         })
 
+
 def secces_payment_redirect(request):
     return render(request, "seccess_payment.html", context={})
+
 
 def unsecces_payment_redirect(request):
     return render(request, "unseccess_payment.html", context={})
