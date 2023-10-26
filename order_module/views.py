@@ -23,10 +23,9 @@ ZP_API_REQUEST = f"https://{sandbox}.zarinpal.com/pg/rest/WebGate/PaymentRequest
 ZP_API_VERIFY = f"https://{sandbox}.zarinpal.com/pg/rest/WebGate/PaymentVerification.json"
 ZP_API_STARTPAY = f"https://{sandbox}.zarinpal.com/pg/StartPay/"
 
-MERCHANT = '41af5198-62bc-4c31-af3a-424f4e73ec70'
 # amount = 20000
 description = "توضیحات مربوط به تراکنش را در این قسمت وارد کنید"
-phone = '09035913296'
+phone = ''
 #
 CallbackURL = 'http://127.0.0.1:8000/order/verify'
 
