@@ -1,14 +1,13 @@
 {% extends 'shared/main.html' %}
 {% block title %}{% endblock %}
 
-
 {% block content %}
     {% if request.user.is_superuser %}
         <div class="m-5">
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th scope="col">ردیف</th>
+                    <th scope="col">شماره سفارش</th>
                     <th scope="col">نام</th>
                     <th scope="col">نام خانوادگی</th>
                     <th scope="col">شماره تماس</th>
@@ -17,22 +16,22 @@
                     <th>مشاهده جزئیات</th>
                 </tr>
                 </thead>
-                {% for item in order %}
+                {% for item in orders %}
                     <tbody>
                     <tr>
-                        <th scope="row">{{ item.id }}</th>
+                        <th scope="row">{{ item.order.id }}</th>
                         <td>{{ item.user.first_name }}</td>
                         <td>{{ item.user.last_name }}</td>
                         <td>{{ item.user.phone_number }}</td>
                         <td>{{ item.state }}, {{ item.city }}, {{ item.street }}, {{ item.apartment }}, {{ item.zipcode }}</td>
-                        <td class="text-white {% if item.is_paid == True %} bg-success {% else %} bg-danger {% endif %}">
-                            {% if item.is_paid == True %}
+                        <td class="text-white {% if item.order.is_paid == True %} bg-success {% else %} bg-danger {% endif %}">
+                            {% if item.order.is_paid == True %}
                                 پرداخت شده
                             {% else %}
                                 پرداخت نشده
                             {% endif %}
                         </td>
-                        <td class="text-center"><a href="{% url 'panel:checkout-admin' item.id %}" class="text-dark"><i
+                        <td class="text-center"><a href="" class="text-dark"><i
                                 class="fas fa-eye"></i></a></td>
                     </tr>
                     </tbody>
