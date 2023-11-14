@@ -10,3 +10,11 @@ class AdminOrderView(View):
         return render(request, 'order-admin.html', context={
             'orders': orders,
         })
+
+
+class AdminOrderDetailView(View):
+    def get(self, request, pk):
+        products = OrderDetail.objects.filter(order_id=pk).all()
+        return render(request, 'checkout-admin.html', context={
+            'products': products
+        })

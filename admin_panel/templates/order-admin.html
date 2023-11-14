@@ -13,6 +13,7 @@
                     <th scope="col">شماره تماس</th>
                     <th scope="col">آدرس</th>
                     <th scope="col">وضعیت پرداخت</th>
+                    <th scope="col">وضعیت ارسال</th>
                     <th>مشاهده جزئیات</th>
                 </tr>
                 </thead>
@@ -31,7 +32,15 @@
                                 پرداخت نشده
                             {% endif %}
                         </td>
-                        <td class="text-center"><a href="" class="text-dark"><i
+                        <td class="text-white {% if item.sended == True %} bg-success {% else %} bg-danger {% endif %}">
+                            {% if item.sended == True %}
+                                ارسال شده
+                            {% else %}
+                                ارسال نشده
+                            {% endif %}
+                        </td>
+                        <td class="text-center"><a href="{% url "panel:order-admin-detail" item.order.id %}"
+                                                   class="text-dark"><i
                                 class="fas fa-eye"></i></a></td>
                     </tr>
                     </tbody>
