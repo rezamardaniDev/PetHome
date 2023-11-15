@@ -3,30 +3,35 @@
 
 
 {% block content %}
-    <div class="m-5">
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th scope="col">نام محصول</th>
-                <th scope="col">قیمت واحد</th>
-                <th scope="col">تعداد</th>
-                <th scope="col">جمع کل</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for item in products %}
+    {% if request.user.is_superuser %}
+        <div class="m-5">
+            <table class="table table-bordered">
+                <thead>
                 <tr>
-                    <th scope="row">{{ item.product.name }}</th>
-                    <td>{{ item.product.price }}</td>
-                    <td>{{ item.count }}</td>
-                    <td>{{ item.get_total_price }}</td>
+                    <th scope="col">نام محصول</th>
+                    <th scope="col">قیمت واحد</th>
+                    <th scope="col">تعداد</th>
+                    <th scope="col">جمع کل</th>
                 </tr>
-                </tbody>
-            {% endfor %}
-        </table>
-    </div>
-    <a href="{% url 'panel:sended' products.first.order %}"
-       class="btn bg-success w-25 text-white rounded-left rounded-right mx-auto mx-4 my-2 d-block">تایید ارسال</a>
-    <a href="{% url 'panel:cancel' products.first.order %}"
-       class="btn bg-danger w-25 text-white rounded-left rounded-right mx-auto mx-4 my-2 d-block">کنسل کردن ارسال</a>
+                </thead>
+                <tbody>
+                {% for item in products %}
+                    <tr>
+                        <th scope="row">{{ item.product.name }}</th>
+                        <td>{{ item.product.price }}</td>
+                        <td>{{ item.count }}</td>
+                        <td>{{ item.get_total_price }}</td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+        </div>
+        <a href="{% url 'panel:sended' products.first.order %}"
+           class="btn bg-success w-25 text-white rounded-left rounded-right mx-auto mx-4 my-2 d-block">تایید ارسال</a>
+        <a href="{% url 'panel:cancel' products.first.order %}"
+           class="btn bg-danger w-25 text-white rounded-left rounded-right mx-auto mx-4 my-2 d-block">کنسل کردن
+            ارسال</a>
+    {% else %}
+        <h1 class="text-center my-5">ظاهرا شما گم شدید :)</h1>
+    {% endif %}
 {% endblock %}
