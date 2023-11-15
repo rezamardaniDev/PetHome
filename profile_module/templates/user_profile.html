@@ -17,6 +17,10 @@
                                         <img src="{{ request.user.profile_image.url }}"
                                              alt="Avatar" class="img-fluid mt-4 rounded-circle"
                                              style="width: 80px;"/>
+                                    {% else %}
+                                        <img src="/static/Img/profile-1.jpg"
+                                             alt="Avatar" class="img-fluid mt-4 rounded-circle"
+                                             style="width: 80px; display: inline-block; margin-bottom: 2rem"/>
                                     {% endif %}
                                     {% if request.user.is_superuser %}
                                         <div class="d-flex text-center justify-content-center align-items-center mt-3 mb-2">
