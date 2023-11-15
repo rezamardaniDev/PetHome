@@ -19,11 +19,18 @@ class AdminOrderDetailView(View):
             'products': products
         })
 
+
 def sended(request, pk):
-    obj:OrderCheckout = OrderCheckout.objects.get(order_id=pk)
+    obj: OrderCheckout = OrderCheckout.objects.get(order_id=pk)
     obj.sended = True
     obj.save()
+
     return redirect('panel:order-admin')
 
-def cancel(request):
-    ...
+
+def cancel(request, pk):
+    obj: OrderCheckout = OrderCheckout.objects.get(order_id=pk)
+    obj.sended = False
+    obj.save()
+
+    return redirect('panel:order-admin')
