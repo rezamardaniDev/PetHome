@@ -3,13 +3,27 @@
 
 
 {% block content %}
-    {{ check.first_name }} - {{ check.last_name }} <br>
-    وضعیت ارسال:
-    {% if check.sended %}
-        <i class="fas fa-check"></i>
-        {% else %}
-        <i class="fas fa-close"></i>
-    {% endif %}
-    <br>
-    {{ detail }}
+    <div class="m-5">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">نام محصول</th>
+                <th scope="col">قیمت واحد</th>
+                <th scope="col">تعداد</th>
+                <th scope="col">جمع کل</th>
+            </tr>
+            </thead>
+                <tbody>
+                 {% for item in products %}
+                <tr>
+                    <th scope="row">{{ item.product.name }}</th>
+                    <td>{{ item.product.price }}</td>
+                    <td>{{ item.count }}</td>
+                    <td>{{ item.get_total_price }}</td>
+                </tr>
+                </tbody>
+            {% endfor %}
+        </table>
+    </div>
+
 {% endblock %}
