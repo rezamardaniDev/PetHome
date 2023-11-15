@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 
 from order_module.models import Order, OrderCheckout, OrderDetail
@@ -18,3 +18,19 @@ class AdminOrderDetailView(View):
         return render(request, 'checkout-admin.html', context={
             'products': products
         })
+
+
+def sended(request, pk):
+    obj: OrderCheckout = OrderCheckout.objects.get(order_id=pk)
+    obj.sended = True
+    obj.save()
+
+    return redirect('panel:order-admin')
+
+
+def cancel(request, pk):
+    obj: OrderCheckout = OrderCheckout.objects.get(order_id=pk)
+    obj.sended = False
+    obj.save()
+
+    return redirect('panel:order-admin')
