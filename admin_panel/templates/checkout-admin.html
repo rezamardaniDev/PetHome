@@ -13,8 +13,8 @@
                 <th scope="col">جمع کل</th>
             </tr>
             </thead>
-                <tbody>
-                 {% for item in products %}
+            <tbody>
+            {% for item in products %}
                 <tr>
                     <th scope="row">{{ item.product.name }}</th>
                     <td>{{ item.product.price }}</td>
@@ -25,6 +25,8 @@
             {% endfor %}
         </table>
     </div>
-    <a href="{% url 'panel:sended' products.first.order %}" class="btn mx-4 my-2 d-block">تایید ارسال</a>
-    <a href="{% url 'panel:cancel' products.first.order %}" class="btn mx-4 my-2 d-block">کنسل کردن ارسال</a>
+    <a href="{% url 'panel:sended' products.first.order %}"
+       class="btn bg-success w-25 text-white rounded-left rounded-right mx-auto mx-4 my-2 d-block">تایید ارسال</a>
+    <a href="{% url 'panel:cancel' products.first.order %}"
+       class="btn bg-danger w-25 text-white rounded-left rounded-right mx-auto mx-4 my-2 d-block">کنسل کردن ارسال</a>
 {% endblock %}
