@@ -44,7 +44,7 @@
                                         <h6 class="text-warning mt-3">
                                             مجموع کل خرید تا به الان
                                         </h6>
-                                        <p class="text-dark">{{ request.user.total_buy }} تومان</p>
+                                        <p class="text-dark">{{ request.user.total_buy | three_digits }} تومان</p>
                                     </div>
                                 </div>
                                 <div class="col-md-8">
