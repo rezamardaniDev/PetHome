@@ -25,5 +25,6 @@
             {% endfor %}
         </table>
     </div>
-
+    <a href="{% url 'panel:sended' products.first.order %}" class="btn mx-4 my-2 d-block">تایید ارسال</a>
+    <a href="{% url 'panel:cancel' products.first.order %}" class="btn mx-4 my-2 d-block">کنسل کردن ارسال</a>
 {% endblock %}
