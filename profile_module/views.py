@@ -8,7 +8,7 @@ from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from account_module.models import User
-from order_module.models import Order, OrderDetail
+from order_module.models import Order, OrderDetail, OrderCheckout
 from .forms import EditeProfileForm, ChangePasswordForm
 
 
@@ -179,8 +179,7 @@ def change_order_datail_count(request):
 
 @login_required(login_url="/account/login")
 def last_order_detail(request):
-    last_order: Order = Order.objects.filter(user_id=request.user.id, is_paid=True).all()
-
+    last_order: OrderCheckout = OrderCheckout.objects.select_related('order').select_related('user').filter(order__user_id=request.user.id, order__is_paid=True)
     return render(request, 'last_order.html', context={
-        'last_order': last_order
+        'last_order': last_order,
     })

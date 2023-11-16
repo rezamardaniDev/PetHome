@@ -3,34 +3,59 @@
 {% block title %}آخرین سفارشات{% endblock %}
 
 {% block content %}
-         <div class="m-3">
-            <table class="table table-bordered">
-                <thead>
+    {#         <div class="m-3">#}
+    {#            <table class="table table-bordered">#}
+    {#                <thead>#}
+    {#                <tr>#}
+    {#                    <th scope="col">شماره سفارش</th>#}
+    {#                    <th scope="col">وضعیت پرداخت</th>#}
+    {#                </tr>#}
+    {#                </thead>#}
+    {#                {% for item in last_order.order %}#}
+    {#                    <tbody>#}
+    {#                    <tr>#}
+    {#                        <th scope="row">{{ item.id }}</th>#}
+    {#                    </tr>#}
+    {#                    </tbody>#}
+    {#                {% endfor %}#}
+    {#            </table>#}
+    {#        </div>#}
+    {#        </div>#}
+    {#    <div class="d-flex justify-content-center">#}
+    {#    <a class="btn bg-danger text-white text-center my-3 " href="{% url 'user:dashboard' %}">بازگشت</a>#}
+    {#    </div>#}
+    <div class="m-5">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">شماره سفارش</th>
+                <th scope="col">نام</th>
+                <th scope="col">نام خانوادگی</th>
+                <th scope="col">شماره تماس</th>
+                <th scope="col">آدرس</th>
+                <th scope="col">وضعیت ارسال</th>
+            </tr>
+            </thead>
+            {% for item in last_order %}
+                <tbody>
                 <tr>
-                    <th scope="col">شماره سفارش</th>
-                    <th scope="col">وضعیت پرداخت</th>
+                    <th scope="row">{{ item.order.id }}</th>
+                    <td>{{ item.user.first_name }}</td>
+                    <td>{{ item.user.last_name }}</td>
+                    <td>{{ item.user.phone_number }}</td>
+                    <td>{{ item.state }}, {{ item.city }}, {{ item.street }}, {{ item.apartment }}, {{ item.zipcode }}</td>
+
+                    <td class="text-white {% if item.sended == True %} bg-success {% else %} bg-danger {% endif %}">
+                        {% if item.sended == True %}
+                            ارسال شده
+                        {% else %}
+                            ارسال نشده
+                        {% endif %}
+                    </td>
+
                 </tr>
-                </thead>
-                {% for item in last_order %}
-                    <tbody>
-                    <tr>
-                        <th scope="row">{{ item.id }}</th>
-                        <td class="text-white {% if item.is_paid == True %} bg-success {% else %} bg-danger {% endif %}">
-                            {% if item.is_paid == True %}
-                                پرداخت شده
-                            {% else %}
-                                پرداخت نشده
-                            {% endif %}
-                        </td>
-                    </tr>
-                    </tbody>
-                {% endfor %}
-            </table>
-        </div>
-        </div>
-    <div class="d-flex justify-content-center">
-    <a class="btn bg-danger text-white text-center my-3 " href="{% url 'user:dashboard' %}">بازگشت</a>
+                </tbody>
+            {% endfor %}
+        </table>
     </div>
-
-
 {% endblock %}
