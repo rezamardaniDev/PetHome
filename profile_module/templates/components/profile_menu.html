@@ -19,7 +19,7 @@
             </li>
             {% if request.user.is_superuser %}
                 <li class="list-group-item">
-                    <i class="fas fa-shopping-cart text-dark"></i>
+                    <i class="fas fa-cart-arrow-down text-dark"></i>
                     <a href="{% url 'panel:order-admin' %}" class="text-dark">مدیریت سفارشات کاربران</a>
                 </li>
             {% endif %}
