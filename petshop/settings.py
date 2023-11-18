@@ -153,7 +153,7 @@ EMAIL_HOST_USER = '' #empty
 EMAIL_HOST_PASSWORD = '' #empty
 EMAIL_PORT = 587
 
-MERCHANT = "7684ad37-37d5-44b2-a662-a70ae5b60a39" #empty
+MERCHANT = "" #empty
 
 SANDBOX = True
 
