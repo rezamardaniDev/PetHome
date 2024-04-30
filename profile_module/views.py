@@ -92,55 +92,14 @@ def user_basket(request):
             current_order.total_amount = percent_maker(current_order.total_amount, exists_code.percent)
             current_order.save()
 
-
     return render(request, "user_basket.html", context={
         'order': current_order,
         'sum': current_order.total_amount
     })
 
-
-def delete_order_datail_func(request):
-    detail_id = request.GET.get('detail_id')
-
-    if detail_id is None:
-        return JsonResponse({
-            'status': 'not found detail id'
-        })
-
-    current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(
-        user_id=request.user.id, is_paid=False)
-
-    detail = current_order.orderdetail_set.filter(id=detail_id).first()
-
-    if detail is None:
-        return JsonResponse({
-            'status': 'detail not found'
-        })
-    detail.delete()
-    current_order.total_amount -= (detail.count * detail.product.price)
-    current_order.save()
-    # current_order.total_amount = 0
-    # current_order.save()
-
-    current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(
-        user_id=request.user.id, is_paid=False)
-
-    context = {
-        'order': current_order,
-        'sum': current_order.total_amount
-    }
-    data = render_to_string('basket_content.html', context)
-    return JsonResponse({
-        'status': 'success',
-        'body': data
-    })
-
-
 def change_order_datail_count(request):
     detail_id = request.GET.get('detail_id')
     state = request.GET.get('state')
-    current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(
-        user_id=request.user.id, is_paid=False)
 
     if detail_id is None or state is None:
         return JsonResponse({
@@ -149,6 +108,9 @@ def change_order_datail_count(request):
 
     order_detail = OrderDetail.objects.filter(id=detail_id, order__user_id=request.user.id,
                                               order__is_paid=False).first()
+    current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(
+        user_id=request.user.id, is_paid=False)
+
     if order_detail is None:
         return JsonResponse({
             'status': 'detail_not_found'
@@ -161,18 +123,21 @@ def change_order_datail_count(request):
         current_order.save()
 
 
+
+
     elif state == 'decrease':
         if order_detail.count == 1:
-            if current_order.total_amount > 0:
-                current_order.delete()
+            current_order.total_amount -= (order_detail.product.price * order_detail.count)
+            current_order.save()
+            order_detail.delete()
 
 
         else:
-            if current_order.total_amount > 0:
-                order_detail.count -= 1
-                order_detail.save()
-                current_order.total_amount -= order_detail.product.price
-                current_order.save()
+            order_detail.count -= 1
+            order_detail.save()
+            current_order.total_amount -= order_detail.product.price
+            current_order.save()
+
 
 
     else:
@@ -180,21 +145,25 @@ def change_order_datail_count(request):
             'status': 'state invalid'
         })
 
+    current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(
+        user_id=request.user.id, is_paid=False)
+    total_amount = current_order.total_amount
 
     context = {
         'order': current_order,
-        'sum': current_order.total_amount
+        'sum': total_amount
     }
 
     return JsonResponse({
-        'status': 'success',
-        'body': render_to_string('basket_content.html', context)
-    })
+            'status': 'success',
+            'body': render_to_string('basket_content.html', context)
+        })
 
 
 @login_required(login_url="/account/login")
 def last_order_detail(request):
-    last_order: OrderCheckout = OrderCheckout.objects.select_related('order').select_related('user').filter(order__user_id=request.user.id, order__is_paid=True)
+    last_order: OrderCheckout = OrderCheckout.objects.select_related('order').select_related('user').filter(
+        order__user_id=request.user.id, order__is_paid=True)
     return render(request, 'last_order.html', context={
         'last_order': last_order,
     })
