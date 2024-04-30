@@ -46,16 +46,11 @@ INSTALLED_APPS = [
     'gallery_module.apps.GalleryModuleConfig',
     'order_module.apps.OrderModuleConfig',
     'admin_panel.apps.AdminPanelConfig',
-    'API.apps.ApiConfig',
 
     # external extensions
     'django_render_partial',
     'django_jalali',
-    'sorl.thumbnail',
-    'rest_framework',
-    'rest_framework.authtoken',
-    'rest_framework_simplejwt',
-    'drf_spectacular',
+    'sorl.thumbnail'
 
 ]
 
@@ -154,21 +149,4 @@ EMAIL_HOST_PASSWORD = '' #empty
 EMAIL_PORT = 587
 
 MERCHANT = "" #empty
-
 SANDBOX = True
-
-REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 2,
-    'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework_simplejwt.authentication.JWTAuthentication'],
-    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated'],
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-}
-
-SPECTACULAR_SETTINGS = {
-    'TITLE': 'Your Project API',
-    'DESCRIPTION': 'Your project description',
-    'VERSION': '1.0.0',
-    'SERVE_INCLUDE_SCHEMA': False,
-    # OTHER SETTINGS
-}
