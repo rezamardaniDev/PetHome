@@ -1,0 +1,11 @@
+Django==4.2.3
+django-jalali==6.0.1
+django-jalali-date==1.0.2
+django-render-partial==0.4
+django-resized==1.0.2
+jdatetime==4.1.1
+Pillow==10.0.0
+pytz==2023.3
+requests==2.31.0
+sorl-thumbnail==12.9.0
+sqlparse==0.4.4
