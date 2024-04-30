@@ -82,12 +82,12 @@
         </div>
 
     </div>
+{% for message in messages %}
+                    <p class="text-center">{{ message }}</p>
+                {% endfor %}
 <form method="post" class="block mx-auto">
                 {% csrf_token %}
                 <input type="text" name="discount" placeholder="کد تخفیف" class="d-block mx-auto input-cart form-control input-number w-auto rounded">
                     <button type="submit" class="a-button radius55 px-4 text-center mt-3 d-block mx-auto ">اعمال</button>
-                {% for message in messages %}
-                    <span class="">{{ message }}</span>
-                {% endfor %}
 </form>
 </section>

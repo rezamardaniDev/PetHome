@@ -77,3 +77,15 @@ class Discount(models.Model):
     class Meta:
         verbose_name = "کد تخفیف"
         verbose_name_plural = "کدهای تخفیف"
+
+
+class UserDescount(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="کاربر")
+    code = models.CharField(max_length=250, verbose_name="کد")
+
+    def __str__(self):
+        return self.code
+
+    class Meta:
+        verbose_name = 'کد استفاده شده'
+        verbose_name_plural = "کدهای استفاده شده"

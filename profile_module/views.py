@@ -9,9 +9,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from order_module.models import Discount
 from product_module.models import Product
 from utils.offer import percent_maker
-
+from django.contrib import messages
 from account_module.models import User
-from order_module.models import Order, OrderDetail, OrderCheckout
+from order_module.models import Order, OrderDetail, OrderCheckout, UserDescount
 from .forms import EditeProfileForm, ChangePasswordForm
 
 
@@ -88,9 +88,17 @@ def user_basket(request):
     if request.method == 'POST':
         code = request.POST.get('discount')
         exists_code: Discount = Discount.objects.filter(code=code).first()
+        useable = UserDescount.objects.filter(user=request.user, code=code).exists()
         if exists_code:
-            current_order.total_amount = percent_maker(current_order.total_amount, exists_code.percent)
-            current_order.save()
+            if not useable:
+                current_order.total_amount = percent_maker(current_order.total_amount, exists_code.percent)
+                current_order.save()
+                UserDescount.objects.get_or_create(user=request.user, code=code)
+                messages.success(request, "کد تخفیف اعمال شد")
+            else:
+                messages.error(request, "این کد را قبلا استفاده کرده اید")
+        else:
+            messages.error(request, "کد تخفیف وجود ندارد یا ظرفیت آن به پایان رسیده")
 
     return render(request, "user_basket.html", context={
         'order': current_order,
