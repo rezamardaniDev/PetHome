@@ -14,3 +14,5 @@ class OrderDetailAdmin(admin.ModelAdmin):
 @admin.register(models.OrderCheckout)
 class OrderCheckoutAdmin(admin.ModelAdmin):
     list_display = ['user', 'sended']
+
+admin.site.register(models.Discount)

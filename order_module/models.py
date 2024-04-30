@@ -7,6 +7,8 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="کاربر")
     is_paid = models.BooleanField(verbose_name="پرداخت شده / پرداخت نشده")
     payment_date = models.DateField(null=True, blank=True, verbose_name="تاریخ پرداخت")
+    total_amount = models.IntegerField(default=0, blank=True, verbose_name = "مجموع")
+
 
     def __str__(self):
         return str(self.id)
@@ -69,3 +71,16 @@ class OrderCheckout(models.Model):
     class Meta:
         verbose_name = 'سفارش'
         verbose_name_plural = 'سفارشات'
+
+
+class Discount(models.Model):
+    code = models.CharField(max_length=250, null=True, unique=True, verbose_name="کد تخفیف")
+    percent = models.IntegerField(null=True, verbose_name="درصد تخفیف")
+    status = models.BooleanField(default=True, verbose_name="وضعیت")
+
+    def __str__(self):
+        return self.code
+
+    class Meta:
+        verbose_name = "کد تخفیف"
+        verbose_name_plural = "کدهای تخفیف"

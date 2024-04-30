@@ -6,6 +6,9 @@ from django.urls import reverse
 from django.views import View
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from order_module.models import Discount
+from product_module.models import Product
+from utils.offer import percent_maker
 
 from account_module.models import User
 from order_module.models import Order, OrderDetail, OrderCheckout
@@ -80,14 +83,19 @@ def profile_menu(request):
 def user_basket(request):
     current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(user_id=request.user.id,
                                                                                              is_paid=False)
-    total_amoutn = 0
+    total = current_order.total_amount
 
-    for order_detail in current_order.orderdetail_set.all():
-        total_amoutn += order_detail.product.price * order_detail.count
+    if request.method == 'POST':
+        code = request.POST.get('discount')
+        exists_code: Discount = Discount.objects.filter(code=code).first()
+        if exists_code:
+            current_order.total_amount = percent_maker(current_order.total_amount, exists_code.percent)
+            current_order.save()
+
 
     return render(request, "user_basket.html", context={
         'order': current_order,
-        'sum': total_amoutn
+        'sum': current_order.total_amount
     })
 
 
@@ -101,6 +109,7 @@ def delete_order_datail_func(request):
 
     current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(
         user_id=request.user.id, is_paid=False)
+
     detail = current_order.orderdetail_set.filter(id=detail_id).first()
 
     if detail is None:
@@ -108,16 +117,17 @@ def delete_order_datail_func(request):
             'status': 'detail not found'
         })
     detail.delete()
+    current_order.total_amount -= (detail.count * detail.product.price)
+    current_order.save()
+    # current_order.total_amount = 0
+    # current_order.save()
 
     current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(
         user_id=request.user.id, is_paid=False)
-    total_amoutn = 0
-    for order_detail in current_order.orderdetail_set.all():
-        total_amoutn += order_detail.product.price * order_detail.count
 
     context = {
         'order': current_order,
-        'sum': total_amoutn
+        'sum': current_order.total_amount
     }
     data = render_to_string('basket_content.html', context)
     return JsonResponse({
@@ -129,6 +139,8 @@ def delete_order_datail_func(request):
 def change_order_datail_count(request):
     detail_id = request.GET.get('detail_id')
     state = request.GET.get('state')
+    current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(
+        user_id=request.user.id, is_paid=False)
 
     if detail_id is None or state is None:
         return JsonResponse({
@@ -145,16 +157,22 @@ def change_order_datail_count(request):
     if state == 'increase':
         order_detail.count += 1
         order_detail.save()
+        current_order.total_amount += order_detail.product.price
+        current_order.save()
 
 
     elif state == 'decrease':
         if order_detail.count == 1:
-            order_detail.delete()
+            if current_order.total_amount > 0:
+                current_order.delete()
 
 
         else:
-            order_detail.count -= 1
-            order_detail.save()
+            if current_order.total_amount > 0:
+                order_detail.count -= 1
+                order_detail.save()
+                current_order.total_amount -= order_detail.product.price
+                current_order.save()
 
 
     else:
@@ -162,13 +180,10 @@ def change_order_datail_count(request):
             'status': 'state invalid'
         })
 
-    current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(
-        user_id=request.user.id, is_paid=False)
-    total_amoutn = current_order.calculate_total_price()
 
     context = {
         'order': current_order,
-        'sum': total_amoutn
+        'sum': current_order.total_amount
     }
 
     return JsonResponse({

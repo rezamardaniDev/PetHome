@@ -32,7 +32,7 @@ CallbackURL = 'http://127.0.0.1:8000/order/verify'
 
 def request_payment(request):
     current_order, created = Order.objects.get_or_create(is_paid=False, user_id=request.user.id)
-    total_price = current_order.calculate_total_price()
+    total_price = current_order.total_amount
 
     if total_price == 0:
         return redirect(reverse('user:cart'))
@@ -110,6 +110,8 @@ def add_product_to_order(request):
         product.save()
         if product is not None:
             current_order, created = Order.objects.get_or_create(user_id=request.user.id, is_paid=False)
+            current_order.total_amount += product.price
+            current_order.save()
             current_order_detail = current_order.orderdetail_set.filter(product_id=product_id).first()
             if current_order_detail is not None:
                 current_order_detail.count += count
@@ -138,15 +140,12 @@ class CheckOutView(View):
         current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(
             user_id=request.user.id,
             is_paid=False)
-        total_amoutn = 0
 
-        for order_detail in current_order.orderdetail_set.all():
-            total_amoutn += order_detail.product.price * order_detail.count
-
+        total = current_order.total_amount
         return render(request, "checkout.html", context={
             'order': current_order,
-            'sum': total_amoutn,
-            ' checkout_form': checkout_form
+            'sum': total,
+            'checkout_form': checkout_form
         })
 
     def post(self, request):

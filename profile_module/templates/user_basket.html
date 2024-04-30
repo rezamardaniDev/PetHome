@@ -4,7 +4,6 @@
 
 
 {% block content %}
-
     <div class="clearfix"></div>
 
     <section class="container-fluid bkg p-0">
@@ -43,7 +42,7 @@
                             کالا ها از سبد خرید شما حدف می شوند.
                         </li>
                         {% if order.orderdetail_set.all %}
-                            <a class="a-button radius55 py-3 px-4 text-center mt-3" href="{% url 'order:checkout' %}">
+                            <a class="a-button radius55 py-2 px-4 text-center mt-3" href="{% url 'order:checkout' %}">
                                 <span class="ml-2">ثبت سفارش و پرداخت</span>
                             </a>
                         {% else %}
@@ -111,7 +110,14 @@
                 </div>
 
             </div>
-
+<form method="post" class="block mx-auto">
+                {% csrf_token %}
+                <input type="text" name="discount" placeholder="کد تخفیف" class="d-block mx-auto input-cart form-control input-number w-auto rounded">
+                    <button type="submit" class="a-button radius55 px-4 text-center mt-3 d-block mx-auto ">اعمال</button>
+                {% for message in messages %}
+                    <span class="">{{ message }}</span>
+                {% endfor %}
+</form>
         </section>
     </div>
 

@@ -13,7 +13,7 @@ function addProductToOrder(productId) {
 }
 
 function removeOrderDetail(detailID){
-    $.get('/user/delete-order-detail?detail_id=' + detailID).then(res => {
+    $.get('/user/delete-order-detail?detail_id=' + productId).then(res => {
         if (res.status == 'success'){
             $('#order-detail-content').html(res.body);
         }

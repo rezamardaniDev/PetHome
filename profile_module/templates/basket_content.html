@@ -1,5 +1,4 @@
 {% load poll_extras %}
-
 <section class="container mb-4" id="carts">
     <div class="row">
         <div class="col-xl-4 order-xl-1 pt-3 order-1 mb-3">
@@ -9,7 +8,7 @@
 
                     <li class="p-3 bg-title-sidebar radius15">مجموع سبد خرید:
 
-                        <div class="d-flex align-items-center justify-content-center">
+                        <div class="d-f lex align-items-center justify-content-center">
                             {{ sum | three_digits }} تومان
                         </div>
 
@@ -20,7 +19,7 @@
                     کالا ها از سبد خرید شما حدف می شوند.
                 </li>
                 {% if order.orderdetail_set.all %}
-                    <a class="a-button radius55 py-3 px-4 text-center mt-3" href="{% url 'order:checkout' %}">
+                    <a class="a-button radius55 py-2 px-4 text-center mt-3" href="{% url 'order:checkout' %}">
                         <span class="ml-2">ثبت سفارش و پرداخت</span>
                     </a>
                 {% else %}
@@ -87,5 +86,12 @@
         </div>
 
     </div>
-
+<form method="post" class="block mx-auto">
+                {% csrf_token %}
+                <input type="text" name="discount" placeholder="کد تخفیف" class="d-block mx-auto input-cart form-control input-number w-auto rounded">
+                    <button type="submit" class="a-button radius55 px-4 text-center mt-3 d-block mx-auto ">اعمال</button>
+                {% for message in messages %}
+                    <span class="">{{ message }}</span>
+                {% endfor %}
+</form>
 </section>
