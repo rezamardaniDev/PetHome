@@ -7,12 +7,10 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="کاربر")
     is_paid = models.BooleanField(verbose_name="پرداخت شده / پرداخت نشده")
     payment_date = models.DateField(null=True, blank=True, verbose_name="تاریخ پرداخت")
-    total_amount = models.IntegerField(default=0, blank=True, verbose_name = "مجموع")
-
+    total_amount = models.IntegerField(default=0, blank=True, verbose_name="مجموع")
 
     def __str__(self):
         return str(self.id)
-
 
     def calculate_total_price(self):
         total_amount = 0
@@ -25,11 +23,9 @@ class Order(models.Model):
 
         return total_amount
 
-
     class Meta:
         verbose_name = "سبد خرید"
         verbose_name_plural = "سبدهای خرید کابران"
-
 
 
 class OrderDetail(models.Model):
@@ -38,10 +34,8 @@ class OrderDetail(models.Model):
     final_price = models.IntegerField(null=True, blank=True, verbose_name="قیمت نهایی تکی محصول")
     count = models.IntegerField(verbose_name="تعداد")
 
-
     def get_total_price(self):
         return self.count * self.product.price
-
 
     def __str__(self):
         return str(self.order)
@@ -66,7 +60,6 @@ class OrderCheckout(models.Model):
 
     def __str__(self):
         return str(self.order)
-
 
     class Meta:
         verbose_name = 'سفارش'

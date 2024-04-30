@@ -97,7 +97,8 @@ def user_basket(request):
         'sum': current_order.total_amount
     })
 
-def change_order_datail_count(request):
+
+def change_order_detail_count(request):
     detail_id = request.GET.get('detail_id')
     state = request.GET.get('state')
 
@@ -123,12 +124,13 @@ def change_order_datail_count(request):
         current_order.save()
 
 
-
-
     elif state == 'decrease':
         if order_detail.count == 1:
             current_order.total_amount -= (order_detail.product.price * order_detail.count)
             current_order.save()
+            if current_order.total_amount <= 0:
+                current_order.total_amount = 0
+                current_order.save()
             order_detail.delete()
 
 
@@ -137,6 +139,9 @@ def change_order_datail_count(request):
             order_detail.save()
             current_order.total_amount -= order_detail.product.price
             current_order.save()
+            if current_order.total_amount <= 0:
+                current_order.total_amount = 0
+                current_order.save()
 
 
 
@@ -155,9 +160,9 @@ def change_order_datail_count(request):
     }
 
     return JsonResponse({
-            'status': 'success',
-            'body': render_to_string('basket_content.html', context)
-        })
+        'status': 'success',
+        'body': render_to_string('basket_content.html', context)
+    })
 
 
 @login_required(login_url="/account/login")
